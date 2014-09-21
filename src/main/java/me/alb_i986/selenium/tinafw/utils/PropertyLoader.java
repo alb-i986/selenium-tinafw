@@ -3,6 +3,7 @@ package me.alb_i986.selenium.tinafw.utils;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -30,7 +31,13 @@ public class PropertyLoader {
 			logger.error("Cannot load properties from " + DEFAULT_PROPS_RESOURCE, e);
 		}
 		try {
-			customProps.load(PropertyLoader.class.getResourceAsStream(CUSTOM_PROPS_RESOURCE));
+			InputStream customPropsResource = PropertyLoader.class.getResourceAsStream(CUSTOM_PROPS_RESOURCE);
+			// if the custom file does not exist, never mind, go on!
+			if(customPropsResource == null) {
+				logger.warn("Skip loading custom props: " + CUSTOM_PROPS_RESOURCE + " cannot be found.");
+			} else {
+				customProps.load(customPropsResource);
+			}
 		} catch (IOException e) {
 			logger.warn("Cannot load properties from " + CUSTOM_PROPS_RESOURCE, e);
 		}
