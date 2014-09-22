@@ -21,11 +21,15 @@ public class Browser {
 	/**
 	 * Create an instance of WebDriver.
 	 * 
+	 * @throws IllegalStateException if this browser
+	 *         has already been opened
+	 * 
 	 * @see WebDriverFactory#getWebDriver()
 	 */
 	public void open() {
-		if(driver != null)
+		if(isOpen()) {
 			throw new IllegalStateException("Browser already open: close it first");
+		}
 		driver = WebDriverFactory.getWebDriver();
 	}
 	
@@ -33,7 +37,7 @@ public class Browser {
 	 * @see WebDriver#quit()
 	 */
 	public void close() {
-		if(driver != null) {
+		if(isOpen()) {
 			driver.quit();
 			driver = null;
 		}
@@ -47,6 +51,13 @@ public class Browser {
 		return HomePage.get(driver);
 	}
 
+	/**
+	 * @return true if driver is not null.
+	 */
+	public boolean isOpen() {
+		return driver != null;
+	}
+	
 	public WebDriver getWebDriver() {
 		return driver;
 	}
