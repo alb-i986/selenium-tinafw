@@ -7,6 +7,7 @@ import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public abstract class Page {
 	
@@ -43,11 +44,10 @@ public abstract class Page {
 	}
 
 	/**
-	 * Uses {@link WebDriver#get(String)} to go to the {@link #BASE_URL}.
+	 * @see HomePage#get(WebDriver)
 	 */
 	public HomePage gotoHome() {
-		driver.get(BASE_URL);
-		return new HomePage(driver, this);
+		return HomePage.get(driver);
 	}
 	
 	/**
@@ -91,6 +91,17 @@ public abstract class Page {
 		return driver.findElements(locator);
 	}
 
-	protected abstract void waitUntilIsLoaded();
+	/**
+	 * Dumb wait until the HTML body element is visible.
+	 * Actually this method should be abstract,
+	 * but it isn't just for convenience.
+	 * It is highly recommended to override it.
+	 */
+	protected void waitUntilIsLoaded() {
+		PageHelper.waitUntil(
+			ExpectedConditions.presenceOfElementLocated(By.cssSelector("body")),
+			driver
+		);
+	}
 	
 }
