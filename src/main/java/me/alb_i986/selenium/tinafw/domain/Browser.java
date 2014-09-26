@@ -17,12 +17,12 @@ public class Browser {
 	private WebDriver driver;
 
 	/**
-	 * By default inject a LocalWebDriverFactory decorated with
-	 * WebDriverFactoryDecoratorImplicitWait.
+	 * By default inject a {@link WebDriverFactoryLocal} decorated by
+	 * {@link WebDriverFactoryDecoratorImplicitWait}.
 	 */
 	public Browser() {
 		this.driverFactory = new WebDriverFactoryDecoratorImplicitWait(
-				new WebDriverFactoryRemote());
+				new WebDriverFactoryLocal());
 	}
 	
 	public Browser(WebDriverFactory driverFactory) {
