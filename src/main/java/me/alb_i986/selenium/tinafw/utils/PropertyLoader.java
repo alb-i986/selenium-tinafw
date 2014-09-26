@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Loads config properties from the known sources, which are:
+ * Read config properties from the known sources, which are:
  * <ul>
  * <li>command line arguments</li>
  * <li>properties files ({@value #DEFAULT_PROPS_RESOURCE} and {@value #CUSTOM_PROPS_RESOURCE})</li>
@@ -20,28 +20,13 @@ public class PropertyLoader {
 	
 	private static final Logger logger = Logger.getLogger(PropertyLoader.class);
 
-	private static Properties customProps = new Properties();
-	private static Properties defaultProps = new Properties();
+	private static Properties customProps = loadPropsFromResource(CUSTOM_PROPS_RESOURCE, false);
+	private static Properties defaultProps = loadPropsFromResource(DEFAULT_PROPS_RESOURCE, true);
 
-	static {
-		// first thing first, let's read the files and load the Properties objects
-		try {
-			defaultProps.load(PropertyLoader.class.getResourceAsStream(DEFAULT_PROPS_RESOURCE));
-		} catch (IOException e) {
-			logger.error("Cannot load properties from " + DEFAULT_PROPS_RESOURCE, e);
-		}
-		try {
-			InputStream customPropsResource = PropertyLoader.class.getResourceAsStream(CUSTOM_PROPS_RESOURCE);
-			// if the custom file does not exist, never mind, go on!
-			if(customPropsResource == null) {
-				logger.warn("Skip loading custom props: " + CUSTOM_PROPS_RESOURCE + " cannot be found.");
-			} else {
-				customProps.load(customPropsResource);
-			}
-		} catch (IOException e) {
-			logger.warn("Cannot load properties from " + CUSTOM_PROPS_RESOURCE, e);
-		}
-	}
+	/**
+	 * This is a static class: as such, it cannot be instantiated.
+	 */
+	private PropertyLoader() {}
 	
 	/**
 	 * Convenience method for getting a config in the namespace "tinafw".
@@ -65,7 +50,7 @@ public class PropertyLoader {
 	 * 
 	 * @param name the name of the wanted config (aka the key)
 	 * @return the value of the wanted config
-	 * @throws ConfigNotFoundException if the config cannot be found
+	 * @throws ConfigException if the config cannot be found
 	 */
 	public static String getConfig(String name) {
 		String propFromCmdLine = System.getProperty(name);
@@ -77,7 +62,35 @@ public class PropertyLoader {
 		String defaultPropFromFile = defaultProps.getProperty(name);
 		if(defaultPropFromFile != null)
 			return defaultPropFromFile;
-		throw new ConfigNotFoundException();
+		throw new ConfigException("The property " + name +
+				" is not defined in any known sources.");
+	}
+	
+	/**
+	 * Load properties from a resource.
+	 * @param resourceName
+	 * @param failOnResourceNotFound when true,
+	 *        a ConfigException is raised if the resource cannot be found
+	 * @return a new Properties object
+	 * @throws ConfigException if the resource cannot be found, and failOnResourceNotFound is true
+	 */
+	private static Properties loadPropsFromResource(String resourceName, boolean failOnResourceNotFound) {
+		Properties props = new Properties();
+		InputStream resource = PropertyLoader.class.getResourceAsStream(resourceName);
+		if(resource == null) {
+			if(failOnResourceNotFound) {
+				throw new ConfigException("Config file " + resourceName + " not found");
+			} else { // if the file does not exist, return an empty Properties
+				logger.warn("Skipping resource " + resourceName + ": file not found.");
+				return props;
+			}
+		}
+		try {
+			props.load(resource);
+		} catch (IOException e) {
+			throw new ConfigException("Cannot read properties from " + resourceName, e);
+		}
+		return props;
 	}
 
 }
