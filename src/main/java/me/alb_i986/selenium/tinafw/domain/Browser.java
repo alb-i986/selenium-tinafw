@@ -12,10 +12,21 @@ import org.openqa.selenium.WebDriver;
  * 
  */
 public class Browser {
-	
+
+	private WebDriverFactory driverFactory;
 	private WebDriver driver;
 
+	/**
+	 * By default inject a LocalWebDriverFactory decorated with
+	 * WebDriverFactoryDecoratorImplicitWait.
+	 */
 	public Browser() {
+		this.driverFactory = new WebDriverFactoryDecoratorImplicitWait(
+				new WebDriverFactoryRemote());
+	}
+	
+	public Browser(WebDriverFactory driverFactory) {
+		this.driverFactory = driverFactory;
 	}
 
 	/**
@@ -30,7 +41,7 @@ public class Browser {
 		if(isOpen()) {
 			throw new IllegalStateException("Browser already open: close it first");
 		}
-		driver = WebDriverFactory.getWebDriver();
+		driver = driverFactory.getWebDriver();
 	}
 	
 	/**
