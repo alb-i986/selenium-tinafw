@@ -2,7 +2,6 @@ package me.alb_i986.selenium.tinafw.pages;
 
 import java.util.concurrent.TimeUnit;
 
-import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
 
 import org.openqa.selenium.WebDriver;
@@ -18,11 +17,6 @@ public class WebDriverFactoryDecoratorImplicitWait extends WebDriverFactoryDecor
 
 	public WebDriverFactoryDecoratorImplicitWait(WebDriverFactory decoratingFactory) {
 		super(decoratingFactory);
-	}
-
-	@Override
-	public WebDriver getWebDriver(SupportedBrowser browserType) {
-		return setImplicitWait(super.getWebDriver(browserType));
 	}
 
 	@Override

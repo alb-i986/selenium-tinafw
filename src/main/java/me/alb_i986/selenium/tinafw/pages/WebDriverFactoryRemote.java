@@ -27,17 +27,12 @@ public class WebDriverFactoryRemote extends WebDriverFactory {
 					PropertyLoader.PROP_NAME_PREFIX + "grid.hub_url" + " failed", e);
 		}
 	}
-	/**
-	 * Create and return a WebDriver instance of the given type.
-	 * 
-	 * @param browserType the supported browser to be created
-	 * @throws IllegalArgumentException if the browser specified is not supported
-	 */
+
 	@Override
-	public WebDriver getWebDriver(SupportedBrowser browserType) {
+	public WebDriver getWebDriver() {
 		DesiredCapabilities capabilities;
 		// set browser capability
-		switch (browserType) {
+		switch (BROWSER_TYPE) {
 			case CHROME:
 				capabilities = DesiredCapabilities.chrome();
 				break;
@@ -51,7 +46,7 @@ public class WebDriverFactoryRemote extends WebDriverFactory {
 				capabilities = DesiredCapabilities.internetExplorer();
 				break;
 			default:
-				throw new IllegalArgumentException("The specified Browser type (" + browserType + ")"
+				throw new IllegalArgumentException("The specified Browser type (" + BROWSER_TYPE + ")"
 						+ " is not supported at the moment");
 		}
 		// set platform capability

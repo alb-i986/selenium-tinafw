@@ -14,16 +14,10 @@ public abstract class WebDriverFactory {
 	 * Create and return a WebDriver instance of the given type.
 	 * 
 	 * @param browserType the supported browser to be created
-	 * @throws IllegalArgumentException if the browser specified is not supported
-	 */
-	public abstract WebDriver getWebDriver(SupportedBrowser browserType);
-	
-	/**
 	 * @return a {@link WebDriver} according to {@link #BROWSER_TYPE}
 	 * 
-	 * @see #getWebDriver(SupportedBrowser)
+	 * @throws IllegalArgumentException if the browser specified is not supported
 	 */
-	public WebDriver getWebDriver() {
-		return getWebDriver(BROWSER_TYPE);
-	}
+	public abstract WebDriver getWebDriver();
+
 }
