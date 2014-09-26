@@ -1,10 +1,8 @@
 package me.alb_i986.selenium.tinafw.domain;
 
-import me.alb_i986.selenium.tinafw.pages.HomePage;
-
 /**
  * A User has a Browser.
- * A User may also have an email, and a password.
+ * A User may also have an email and a password.
  */
 public class User {
 
@@ -14,8 +12,6 @@ public class User {
 
 	/**
 	 * Create a User with nothing but a (closed) Browser.
-	 * Then, you may set the other fields using
-	 * the <i>with</i> methods, e.g. {@link #withEmail(String)}.
 	 */
 	public User() {
 		this.browser = new Browser();
@@ -27,19 +23,17 @@ public class User {
 
 
 	/**
-	 * Open the browser and browse to the homepge.
+	 * Open the browser but do not navigate to any page yet.
 	 * Please bear in mind that it is illegal to open
 	 * the browser more than once without closing it
 	 * first.
 	 * 
-	 * @return {@link HomePage}
-	 * 
+	 * @return this
 	 * @see Browser#open()
-	 * @see Browser#startSession()
 	 */
-	public HomePage openBrowser() {
+	public User openBrowser() {
 		browser.open();
-		return browser.startSession();
+		return this;
 	}
 	
 	/**

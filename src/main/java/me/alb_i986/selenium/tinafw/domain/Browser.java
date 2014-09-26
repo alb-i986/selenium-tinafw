@@ -43,12 +43,8 @@ public class Browser {
 		}
 	}
 	
-	/**
-	 * Start a session by browsing to the homepage.
-	 * @return HomePage
-	 */
-	public HomePage startSession() {
-		return HomePage.get(driver);
+	public void browseTo(String url) {
+		driver.get(url);
 	}
 
 	/**

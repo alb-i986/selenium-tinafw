@@ -9,6 +9,17 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+/**
+ * Abstract class representing a generic page.
+ * A Page has a {@link WebDriver}. 
+ * The constant {@link #BASE_URL} stores the base URL of the SUT,
+ * and it is loaded from the config file.
+ * 
+ * <p>
+ * Any subclass should override {@link #waitUntilIsLoaded()}
+ * to implement a more meaningful wait, specific to that page.
+ *
+ */
 public abstract class Page {
 	
 	public final static String BASE_URL = PropertyLoader.getTinaFwConfig("base_url");
@@ -41,13 +52,6 @@ public abstract class Page {
 			throw new IllegalStateException("can't go back: no previous page exists");
 		driver.navigate().back();
 		return previousPage;
-	}
-
-	/**
-	 * @see HomePage#get(WebDriver)
-	 */
-	public HomePage gotoHome() {
-		return HomePage.get(driver);
 	}
 	
 	/**
