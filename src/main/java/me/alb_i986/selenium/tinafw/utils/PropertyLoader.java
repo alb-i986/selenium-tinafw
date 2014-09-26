@@ -15,6 +15,7 @@ import java.util.Properties;
  */
 public class PropertyLoader {
 
+	public static final String PROP_NAME_PREFIX = "tinafw.";
 	public static final String CUSTOM_PROPS_RESOURCE = "/selenium-tinafw.custom.properties";
 	public static final String DEFAULT_PROPS_RESOURCE = "/selenium-tinafw.default.properties";
 	
@@ -36,7 +37,7 @@ public class PropertyLoader {
 	 * @see #getConfig(String)
 	 */
 	public static String getTinaFwConfig(String name) {
-		return getConfig("tinafw." + name);
+		return getConfig(PROP_NAME_PREFIX + name);
 	}
 	
 	/**
