@@ -1,5 +1,7 @@
 package me.alb_i986.selenium.tinafw.pages;
 
+import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.*;
@@ -7,7 +9,7 @@ import org.openqa.selenium.support.ui.*;
 
 
 /**
- * Static class providing helper functions that solve
+ * Static class providing some helper functions that solve
  * common problems concerning Selenium WebDriver.
  * 
  * The static methods are grouped in static nested classes.
@@ -17,12 +19,11 @@ public class PageHelper {
 
 	private static final Logger logger = Logger.getLogger(PageHelper.class);
 
-
 	/**
-	 * Static class providing some helper functions that deal with
-	 * explicit waits of Selenium WebDriver.
+	 * Configurable via the property "tinafw.explicit_wait_seconds".
 	 */
-	public static final long defaultWaitTimeOutInSeconds = 15;
+	public static final int EXPLICIT_WAIT_SECONDS = Integer.valueOf(
+			PropertyLoader.getTinaFwConfig("explicit_wait_seconds"));
 		
 	/**
 	 * Explicitly wait until the element identified by the given locator
@@ -137,8 +138,9 @@ public class PageHelper {
 
 	public static void hoverMouseOver(WebElement element, WebDriver driver) {
 		new Actions(driver)
-		.moveToElement(element)
-		.perform();
+			.moveToElement(element)
+			.perform()
+		;
 	}
 		
 	
@@ -194,7 +196,7 @@ public class PageHelper {
 	 * @see #until(ExpectedCondition, WebDriver, long)
 	 */
 	public static void waitUntil(ExpectedCondition<?> expectedCondition, WebDriver driver) {
-		waitUntil(expectedCondition, driver, defaultWaitTimeOutInSeconds);
+		waitUntil(expectedCondition, driver, EXPLICIT_WAIT_SECONDS);
 	}
 
 	/**
