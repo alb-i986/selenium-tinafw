@@ -3,7 +3,6 @@ package me.alb_i986.selenium.tinafw.pages;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 import me.alb_i986.selenium.tinafw.utils.ConfigException;
 import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
 
@@ -13,15 +12,27 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+/**
+ * Create instances of {@link RemoteWebDriver} with the given
+ * {@link #PLATFORM}, {@link #BROWSER_VERSION}, as per config.
+ * <p>
+ * Also, set {@link LocalFileDetector} which allows for uploading files
+ * from the local machine that runs the tests to the selenium node running
+ * the browser.
+ */
 public class WebDriverFactoryRemote extends WebDriverFactory {
 
-	private static final Platform platform = Platform.valueOf(
+	public static final Platform PLATFORM = Platform.valueOf(
 			PropertyLoader.getTinaFwConfig("grid.platform").toUpperCase());
-	private static final URL seleniumGridHubURL;
+
+	public static final String BROWSER_VERSION = 
+			PropertyLoader.getTinaFwConfig("grid.browser_version");
+
+	public static final URL GRID_HUB_URL;
 
 	static {
 		try {
-			seleniumGridHubURL = new URL(PropertyLoader.getTinaFwConfig("grid.hub_url"));
+			GRID_HUB_URL = new URL(PropertyLoader.getTinaFwConfig("grid.hub_url"));
 		} catch (MalformedURLException e) {
 			throw new ConfigException("parsing property " +
 					PropertyLoader.PROP_NAME_PREFIX + "grid.hub_url" + " failed", e);
@@ -49,11 +60,11 @@ public class WebDriverFactoryRemote extends WebDriverFactory {
 				throw new IllegalArgumentException("The specified Browser type (" + BROWSER_TYPE + ")"
 						+ " is not supported at the moment");
 		}
-		// set platform capability
-		capabilities.setPlatform(platform);
-		// create the RemoteWebDriver
-		RemoteWebDriver remoteWebDriver = new RemoteWebDriver(seleniumGridHubURL, capabilities);
-		// set FileDetector that allows for uploading files through the grid
+		capabilities.setPlatform(PLATFORM);
+		capabilities.setVersion(BROWSER_VERSION);
+		RemoteWebDriver remoteWebDriver = new RemoteWebDriver(GRID_HUB_URL, capabilities);
+		// LocalFileDetector allows for uploading files from the local machine
+		// running the tests to the selenium node running the browser
 		remoteWebDriver.setFileDetector(new LocalFileDetector());
 		return remoteWebDriver;
 	}
