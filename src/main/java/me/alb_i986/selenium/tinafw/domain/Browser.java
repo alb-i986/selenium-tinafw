@@ -2,6 +2,8 @@ package me.alb_i986.selenium.tinafw.domain;
 
 import me.alb_i986.selenium.tinafw.pages.*;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -57,7 +59,16 @@ public class Browser {
 	}
 	
 	public void browseTo(String url) {
+		assertIsOpen();
 		driver.get(url);
+	}
+	
+	/**
+	 * @see TakesScreenshot#getScreenshotAs(OutputType)
+	 */
+	public <T> T getScreenshotAs(OutputType<T> outputType) {
+		assertIsOpen();
+		return ((TakesScreenshot)driver).getScreenshotAs(outputType);
 	}
 
 	/**
@@ -69,6 +80,14 @@ public class Browser {
 	
 	public WebDriver getWebDriver() {
 		return driver;
+	}
+	
+	/**
+	 * @throws IllegalStateException if this browser is not open
+	 */
+	private void assertIsOpen() {
+		if(!isOpen())
+			throw new IllegalStateException("The browser is not open");
 	}
 
 }
