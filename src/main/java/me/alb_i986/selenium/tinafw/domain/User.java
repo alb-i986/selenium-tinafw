@@ -39,7 +39,10 @@ public class User {
 	public User doTasks(WebTask... tasks) {
 		WebTask previousTask = null;
 		for(WebTask task : tasks) {
-			task.doTask(previousTask.lastVisitedPage());
+			if(previousTask == null)
+				task.doTask(null);
+			else
+				task.doTask(previousTask.lastVisitedPage());
 			previousTask = task;
 		}
 		return this;
