@@ -2,12 +2,12 @@ package me.alb_i986.selenium.tinafw.domain;
 
 /**
  * A User has a Browser.
- * A User may also have an email and a password.
+ * Also, a User may have a username and a password.
  */
 public class User {
 
 	private Browser browser;
-	private String email = "";
+	private String username = "";
 	private String password = "";
 
 	/**
@@ -44,15 +44,15 @@ public class User {
 	}
 	
 
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 
-	public User withEmail(String email) {
-		if(email == null)
-			this.email = "";
+	public User withUsername(String username) {
+		if(username == null)
+			this.username = "";
 		else
-			this.email = email;
+			this.username = username;
 		return this;
 	}
 	
