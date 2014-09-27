@@ -26,6 +26,8 @@ public class Browser {
 	}
 	
 	public Browser(WebDriverFactory driverFactory) {
+		if(driverFactory == null)
+			throw new IllegalArgumentException("The arg cannot be null");
 		this.driverFactory = driverFactory;
 	}
 
