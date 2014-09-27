@@ -43,6 +43,7 @@ public abstract class Page {
 		this.driver = driver;
 		this.previousPage = previous;
 		PageFactory.initElements(driver, this);
+		logger.info("Loading page " + getClass().getSimpleName());
 		waitUntilIsLoaded();
 	}
 	
