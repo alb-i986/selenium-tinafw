@@ -59,20 +59,11 @@ public class Browser {
 	}
 	
 	/**
-	 * Append the given relative URL to {@link Page#BASE_URL}
-	 * and navigate there.
-	 * 
-	 * @param relativeUrl e.g. "/article/999"
-	 *          (a '/' will be prefixed if not present) 
+	 * @see PageHelper.Navigation#browseTo(String, WebDriver)
 	 */
 	public void browseTo(String relativeUrl) {
 		assertIsOpen();
-		driver.get(
-			Page.BASE_URL +
-			// add a '/' if it's not present neither in Page.BASE_URL. nor in relativeUrl
-			(!relativeUrl.startsWith("/") && !Page.BASE_URL.endsWith("/") ? "/" : "") +
-			relativeUrl.trim()
-		);
+		PageHelper.Navigation.browseTo(relativeUrl, driver);
 	}
 	
 	/**

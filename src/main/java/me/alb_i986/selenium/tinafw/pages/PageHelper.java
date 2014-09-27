@@ -120,22 +120,12 @@ public class PageHelper {
 			} catch(NoSuchElementException e) {
 				// if implicit wait times out, then refresh page and continue the loop
 				logger.info("after implicit wait, element " + locator + " is still not present: refreshing page and trying again");
-				refreshPage(driver);
+				Navigation.refreshPage(driver);
 			}
 		}
 		return null;
 	}
 	
-	/**
-	 * Navigate to the current URL.
-	 * 
-	 * @see WebDriver#get(String)
-	 * @see WebDriver#getCurrentUrl()
-	 */
-	public static void refreshPage(WebDriver driver) {
-		driver.get(driver.getCurrentUrl());
-	}
-
 	public static void hoverMouseOver(WebElement element, WebDriver driver) {
 		new Actions(driver)
 			.moveToElement(element)
@@ -143,7 +133,41 @@ public class PageHelper {
 		;
 	}
 		
-	
+
+	/**
+	 * Helper methods about navigating the web app, e.g.
+	 * browsing to a URL, refreshing the page, and so on.
+	 */
+	public static class Navigation {
+		
+		/**
+		 * Navigate to the current URL.
+		 * 
+		 * @see WebDriver#get(String)
+		 * @see WebDriver#getCurrentUrl()
+		 */
+		public static void refreshPage(WebDriver driver) {
+			driver.get(driver.getCurrentUrl());
+		}
+
+
+		/**
+		 * Append the given relative URL to {@link Page#BASE_URL}
+		 * and navigate there.
+		 * 
+		 * @param relativeUrl e.g. "/article/999"
+		 *          (a '/' will be prefixed if not present) 
+		 */
+		public static void browseTo(String relativeUrl, WebDriver driver) {
+			driver.get(
+				Page.BASE_URL +
+				// add a '/' if it's not present neither in Page.BASE_URL. nor in relativeUrl
+				(!relativeUrl.startsWith("/") && !Page.BASE_URL.endsWith("/") ? "/" : "") +
+				relativeUrl.trim()
+			);
+		}
+	}
+
 	/**
 	 * Static class providing some helper functions that solve
 	 * common problems concerning forms.
@@ -213,6 +237,5 @@ public class PageHelper {
 		wait.until(expectedCondition);
 		logger.debug("END Explicit wait: " + expectedCondition);
 	}
-
 
 }
