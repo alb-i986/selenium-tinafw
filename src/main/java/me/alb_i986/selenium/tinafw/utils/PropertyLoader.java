@@ -56,13 +56,13 @@ public class PropertyLoader {
 	public static String getConfig(String name) {
 		String propFromCmdLine = System.getProperty(name);
 		if(propFromCmdLine != null)
-			return propFromCmdLine;
+			return propFromCmdLine.trim();
 		String customPropFromFile = customProps.getProperty(name);
 		if(customPropFromFile != null)
-			return customPropFromFile;
+			return customPropFromFile.trim();
 		String defaultPropFromFile = defaultProps.getProperty(name);
 		if(defaultPropFromFile != null)
-			return defaultPropFromFile;
+			return defaultPropFromFile.trim();
 		throw new ConfigException("The property " + name +
 				" is not defined in any known sources.");
 	}
