@@ -22,12 +22,21 @@ import org.openqa.selenium.remote.RemoteWebDriver;
  */
 public class WebDriverFactoryRemote extends WebDriverFactory {
 
+	/**
+	 * Configurable via the property "tinafw.grid.platform".
+	 */
 	public static final Platform PLATFORM = Platform.valueOf(
 			PropertyLoader.getTinaFwConfig("grid.platform").toUpperCase());
 
+	/**
+	 * Configurable via the property "tinafw.grid.browser_version".
+	 */
 	public static final String BROWSER_VERSION = 
 			PropertyLoader.getTinaFwConfig("grid.browser_version");
 
+	/**
+	 * Configurable via the property "tinafw.grid.hub_url".
+	 */
 	public static final URL GRID_HUB_URL;
 
 	static {

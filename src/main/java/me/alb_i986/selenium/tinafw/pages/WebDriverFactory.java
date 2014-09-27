@@ -6,7 +6,10 @@ import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
 import org.openqa.selenium.WebDriver;
 
 public abstract class WebDriverFactory {
-	
+
+	/**
+	 * Configurable via the property "tinafw.browser".
+	 */
 	public static final SupportedBrowser BROWSER_TYPE = SupportedBrowser.valueOf(
 			PropertyLoader.getTinaFwConfig("browser").toUpperCase());
 

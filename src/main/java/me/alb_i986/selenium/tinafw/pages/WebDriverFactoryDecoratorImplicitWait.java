@@ -12,6 +12,9 @@ import org.openqa.selenium.WebDriver;
  */
 public class WebDriverFactoryDecoratorImplicitWait extends WebDriverFactoryDecorator {
 
+	/**
+	 * Configurable via the property "tinafw.implicit_wait_seconds".
+	 */
 	public static final int IMPLICIT_WAIT_SECONDS = Integer.valueOf(
 			PropertyLoader.getTinaFwConfig("implicit_wait_seconds"));
 

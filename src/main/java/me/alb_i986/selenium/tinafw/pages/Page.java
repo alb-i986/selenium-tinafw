@@ -21,7 +21,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  *
  */
 public abstract class Page {
-	
+
+	/**
+	 * Configurable via the property "tinafw.base_url".
+	 */
 	public final static String BASE_URL = PropertyLoader.getTinaFwConfig("base_url");
 	
 	protected static final Logger logger = Logger.getLogger(Page.class);
