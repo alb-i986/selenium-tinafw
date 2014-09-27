@@ -24,42 +24,50 @@ public class PageHelper {
 	 */
 	public static final int EXPLICIT_WAIT_SECONDS = Integer.valueOf(
 			PropertyLoader.getTinaFwConfig("explicit_wait_seconds"));
-		
+
 	/**
-	 * Explicitly wait until the element identified by the given locator
-	 * is visible.
-	 * Throw {@link AssertionError} if the wait times out.
-	 * 
-	 * @param locator
+	 * Generic explicit wait, taking an {@link ExpectedCondition} as a parameter.
+	 * Times out after {@link #defaultWaitTimeOutInSeconds} seconds.
+	 *  
+	 * @param expectedCondition
 	 * @param driver
 	 * 
-	 * @throws AssertionError if the wait times out, i.e. the element is not visible
+	 * @see #until(ExpectedCondition, WebDriver, long)
 	 */
-	public static void assertElementIsDisplayed(By locator, WebDriver driver) {
-		try {
-			waitUntil(ExpectedConditions.visibilityOfElementLocated(locator), driver);
-		} catch(TimeoutException e) {
-			throw new AssertionError("[assert KO] element " + locator + " is NOT displayed as expected", e);
-		}
-		logger.info("[assert OK] element " + locator + " is visible");
+	public static void waitUntil(ExpectedCondition<?> expectedCondition, WebDriver driver) {
+		waitUntil(expectedCondition, driver, EXPLICIT_WAIT_SECONDS);
+	}
+
+	/**
+	 * Generic explicit wait, taking an {@link ExpectedCondition} as a parameter.
+	 * Times out after the given number of seconds.
+	 *  
+	 * @param expectedCondition
+	 * @param driver
+	 * @param timeOutInSeconds
+	 */
+	public static void waitUntil(ExpectedCondition<?> expectedCondition, WebDriver driver, long timeOutInSeconds) {
+		logger.debug("BEGIN Explicit wait: waiting until " + expectedCondition);
+		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+		wait.until(expectedCondition);
+		logger.debug("END Explicit wait: " + expectedCondition);
 	}
 	
 	/**
-	 * Explicitly wait until the given element is visible.
-	 * Throw {@link AssertionError} if the wait times out.
+	 * Explicitly wait until the given expected condition is met.
 	 * 
-	 * @param element
+	 * @param condition
 	 * @param driver
-	 * 
-	 * @throws AssertionError if the wait times out, i.e. element is not visible
+	 * @throws AssertionError if the condition is not met
 	 */
-	public static void assertElementIsDisplayed(WebElement element, WebDriver driver) {
+	public static void assertExpectedCondition(ExpectedCondition<?> condition,
+			WebDriver driver) {
 		try {
-			waitUntil(ExpectedConditions.visibilityOf(element), driver);
+			waitUntil(condition, driver);
 		} catch(TimeoutException e) {
-			throw new AssertionError("[assert KO] element " + element + " is NOT displayed as expected");
+			throw new AssertionError("The condition was not met: " + condition , e);
 		}
-		logger.info("[assert OK] element " + element + " is displayed as expected");
+		logger.info("The condition was met: " + condition);
 	}
 	
 	/**
@@ -79,7 +87,6 @@ public class PageHelper {
 			logger.info("[assert OK] element " + locator + " is NOT displayed as expected");
 		}
 	}
-
 
 	/**
 	 * Implicitly wait for an element.
@@ -207,35 +214,6 @@ public class PageHelper {
 			textField.clear();
 			textField.sendKeys(text);
 		}
-	}
-
-
-	/**
-	 * Generic explicit wait, taking an {@link ExpectedCondition} as a parameter.
-	 * Times out after {@link #defaultWaitTimeOutInSeconds} seconds.
-	 *  
-	 * @param expectedCondition
-	 * @param driver
-	 * 
-	 * @see #until(ExpectedCondition, WebDriver, long)
-	 */
-	public static void waitUntil(ExpectedCondition<?> expectedCondition, WebDriver driver) {
-		waitUntil(expectedCondition, driver, EXPLICIT_WAIT_SECONDS);
-	}
-
-	/**
-	 * Generic explicit wait, taking an {@link ExpectedCondition} as a parameter.
-	 * Times out after the given number of seconds.
-	 *  
-	 * @param expectedCondition
-	 * @param driver
-	 * @param timeOutInSeconds
-	 */
-	public static void waitUntil(ExpectedCondition<?> expectedCondition, WebDriver driver, long timeOutInSeconds) {
-		logger.debug("BEGIN Explicit wait: waiting until " + expectedCondition);
-		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
-		wait.until(expectedCondition);
-		logger.debug("END Explicit wait: " + expectedCondition);
 	}
 
 }
