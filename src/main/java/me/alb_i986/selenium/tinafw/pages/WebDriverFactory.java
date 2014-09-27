@@ -5,6 +5,9 @@ import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
 
 import org.openqa.selenium.WebDriver;
 
+/**
+ * Using Decorator to model the WebDriverFactory.
+ */
 public abstract class WebDriverFactory {
 
 	/**
