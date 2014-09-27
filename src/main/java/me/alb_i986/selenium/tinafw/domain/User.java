@@ -36,7 +36,17 @@ public class User {
 		return this;
 	}
 	
+	public User doTasks(WebTask... tasks) {
+		WebTask previousTask = null;
+		for(WebTask task : tasks) {
+			task.doTask(previousTask.lastVisitedPage());
+			previousTask = task;
+		}
+		return this;
+	}
+	
 	/**
+	 * Any method chain ends with this method.
 	 * @see Browser#close()
 	 */
 	public void closeBrowser() {
