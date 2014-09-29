@@ -48,8 +48,8 @@ public class PageHelper {
 	 */
 	public static void waitUntil(ExpectedCondition<?> expectedCondition, WebDriver driver, long timeOutInSeconds) {
 		logger.debug("BEGIN Explicit wait: waiting until " + expectedCondition);
-		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
-		wait.until(expectedCondition);
+		new WebDriverWait(driver, timeOutInSeconds)
+			.until(expectedCondition);
 		logger.debug("END Explicit wait: " + expectedCondition);
 	}
 	
