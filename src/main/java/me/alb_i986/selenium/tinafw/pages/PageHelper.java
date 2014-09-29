@@ -47,9 +47,13 @@ public class PageHelper {
 	 * @param expectedCondition
 	 * @param driver
 	 * @param timeOutInSeconds
+	 * @see WebDriverWait#until(com.google.common.base.Function)
+	 * @throws TimeoutException if the timeout expires
 	 */
-	public static void waitUntil(ExpectedCondition<?> expectedCondition, WebDriver driver, long timeOutInSeconds) {
-		logger.debug("BEGIN Explicit wait: waiting until " + expectedCondition);
+	public static void waitUntil(ExpectedCondition<?> expectedCondition,
+			WebDriver driver, long timeOutInSeconds) {
+		logger.debug("BEGIN Explicit wait (timeout=" + timeOutInSeconds + "s). " +
+				"Waiting until " + expectedCondition);
 		new WebDriverWait(driver, timeOutInSeconds)
 			.until(expectedCondition);
 		logger.debug("END Explicit wait: " + expectedCondition);
@@ -168,12 +172,14 @@ public class PageHelper {
 		 *          (a '/' will be prefixed if not present) 
 		 */
 		public static void browseTo(String relativeUrl, WebDriver driver) {
-			driver.get(
+			String url = 
 				Page.BASE_URL +
 				// add a '/' if it's not present neither in Page.BASE_URL. nor in relativeUrl
 				(!relativeUrl.startsWith("/") && !Page.BASE_URL.endsWith("/") ? "/" : "") +
 				relativeUrl.trim()
-			);
+			;
+			driver.get(url);
+			logger.debug("Page at URL " + url + " loaded");
 		}
 	}
 
