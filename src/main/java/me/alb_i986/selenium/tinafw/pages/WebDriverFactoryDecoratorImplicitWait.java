@@ -8,15 +8,15 @@ import org.openqa.selenium.WebDriver;
 
 /**
  * Decorate a WebDriver by setting an implicit wait of
- * {@link #IMPLICIT_WAIT_SECONDS} seconds.
+ * {@link #IMPLICIT_WAIT_TIMEOUT_SECONDS} seconds.
  */
 public class WebDriverFactoryDecoratorImplicitWait extends WebDriverFactoryDecorator {
 
 	/**
-	 * Configurable via the property "tinafw.implicit_wait_seconds".
+	 * Configurable via the property "tinafw.timeout.implicit_wait".
 	 */
-	public static final int IMPLICIT_WAIT_SECONDS = Integer.valueOf(
-			PropertyLoader.getTinaFwConfig("implicit_wait_seconds"));
+	public static final int IMPLICIT_WAIT_TIMEOUT_SECONDS = Integer.valueOf(
+			PropertyLoader.getTinaFwConfig("timeout.implicit_wait"));
 
 	public WebDriverFactoryDecoratorImplicitWait(WebDriverFactory decoratingFactory) {
 		super(decoratingFactory);
@@ -28,7 +28,7 @@ public class WebDriverFactoryDecoratorImplicitWait extends WebDriverFactoryDecor
 	}
 	
 	private WebDriver setImplicitWait(WebDriver driver) {
-		driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_SECONDS, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 		return driver;
 	}
 }

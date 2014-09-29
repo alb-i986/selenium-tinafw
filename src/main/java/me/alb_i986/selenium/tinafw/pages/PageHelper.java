@@ -20,22 +20,24 @@ public class PageHelper {
 	private static final Logger logger = Logger.getLogger(PageHelper.class);
 
 	/**
-	 * Configurable via the property "tinafw.explicit_wait_seconds".
+	 * The default timeout in seconds used by
+	 * {@link #waitUntil(ExpectedCondition, WebDriver)}.
+	 * Configurable via the property "tinafw.timeout.explicit_wait".
 	 */
-	public static final int EXPLICIT_WAIT_SECONDS = Integer.valueOf(
-			PropertyLoader.getTinaFwConfig("explicit_wait_seconds"));
+	public static final int DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS = Integer.valueOf(
+			PropertyLoader.getTinaFwConfig("timeout.explicit_wait"));
 
 	/**
 	 * Generic explicit wait, taking an {@link ExpectedCondition} as a parameter.
-	 * Times out after {@link #defaultWaitTimeOutInSeconds} seconds.
+	 * Times out after {@link #DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS} seconds.
 	 *  
 	 * @param expectedCondition
 	 * @param driver
 	 * 
-	 * @see #until(ExpectedCondition, WebDriver, long)
+	 * @see #waitUntil(ExpectedCondition, WebDriver, long)
 	 */
 	public static void waitUntil(ExpectedCondition<?> expectedCondition, WebDriver driver) {
-		waitUntil(expectedCondition, driver, EXPLICIT_WAIT_SECONDS);
+		waitUntil(expectedCondition, driver, DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS);
 	}
 
 	/**
