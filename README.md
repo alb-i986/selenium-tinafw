@@ -37,9 +37,9 @@ to show pretty cool UML class diagrams in the javadocs.
 
 ## Usage
 
-#. clone this repo
-#. `cd` to its directory
-#. run `mvn install`
+1. clone this repo
+2. `cd` to its directory
+3. run `mvn install`
 
 Now you can start building your own test suite on top of selenium-tinafw
 by adding this to your pom.xml:
