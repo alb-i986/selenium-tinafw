@@ -35,3 +35,19 @@ Actually it is optional, as it is needed only for  `mvn site` or `mvn javadoc:ja
 This is because we are using [UMLGraph](http://www.umlgraph.org) as a java doclet
 to show pretty cool UML class diagrams in the javadocs.
 
+## Usage
+
+#. clone this repo
+#. `cd` to its directory
+#. run `mvn install`
+
+Now you can start building your own test suite on top of selenium-tinafw
+by adding this to your pom.xml:
+
+	<dependency>
+		<groupId>me.alb-i986.selenium</groupId>
+		<artifactId>selenium-tinafw</artifactId>
+		<version>0.0.5-SNAPSHOT</version>
+	</dependency>
+
+For a start, please see https://github.com/alb-i986/selenium-forbes-sample/
