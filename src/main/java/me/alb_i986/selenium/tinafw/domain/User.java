@@ -1,6 +1,8 @@
 package me.alb_i986.selenium.tinafw.domain;
 
 import org.apache.log4j.Logger;
+import me.alb_i986.selenium.tinafw.pages.Page;
+import me.alb_i986.selenium.tinafw.tasks.WebTask;
 
 /**
  * A User has a Browser.
@@ -41,13 +43,11 @@ public class User {
 	}
 	
 	public User doTasks(WebTask... tasks) {
-		WebTask previousTask = null;
+		Page currentPage = null;
 		for(WebTask task : tasks) {
-			if(previousTask == null)
-				task.doTask(null);
-			else
-				task.doTask(previousTask.lastVisitedPage());
-			previousTask = task;
+			logger.info("BEGIN task " + task.getClass().getSimpleName());
+			currentPage = task.doTask(currentPage);
+			logger.info("END task " + task.getClass().getSimpleName());
 		}
 		return this;
 	}
