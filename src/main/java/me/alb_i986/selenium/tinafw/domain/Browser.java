@@ -2,6 +2,7 @@ package me.alb_i986.selenium.tinafw.domain;
 
 import me.alb_i986.selenium.tinafw.pages.*;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,8 @@ import org.openqa.selenium.WebDriver;
  * 
  */
 public class Browser {
+
+	protected static final Logger logger = Logger.getLogger(Browser.class);
 
 	private WebDriverFactory driverFactory;
 	private WebDriver driver;

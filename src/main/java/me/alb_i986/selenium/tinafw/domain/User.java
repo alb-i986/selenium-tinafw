@@ -1,11 +1,15 @@
 package me.alb_i986.selenium.tinafw.domain;
 
+import org.apache.log4j.Logger;
+
 /**
  * A User has a Browser.
  * Also, a User may have a username and a password.
  */
 public class User {
 
+	protected static final Logger logger = Logger.getLogger(User.class);
+	
 	private Browser browser;
 	private String username = "";
 	private String password = "";
