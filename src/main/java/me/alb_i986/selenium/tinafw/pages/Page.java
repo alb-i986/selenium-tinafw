@@ -17,19 +17,9 @@ public interface Page {
 	
 
 	/**
-	 * @see WebDriver.Navigation#back()
-	 */
-	public Page gotoBack();
-	
-	/**
 	 * @see WebDriver#getTitle()
 	 */
 	public String getTitle();
-
-	/**
-	 * @see WebDriver#getPageSource()
-	 */
-	public String getPageSource();
 
 	/**
 	 * @see WebDriver#getCurrentUrl()

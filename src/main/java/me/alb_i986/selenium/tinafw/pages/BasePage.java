@@ -42,30 +42,11 @@ public abstract class BasePage implements Page {
 	
 
 	/**
-	 * @see WebDriver.Navigation#back()
-	 */
-	@Override
-	public Page gotoBack() {
-		if(previousPage == null)
-			throw new IllegalStateException("can't go back: no previous page exists");
-		driver.navigate().back();
-		return previousPage;
-	}
-	
-	/**
 	 * @see WebDriver#getTitle()
 	 */
 	@Override
 	public String getTitle() {
 		return driver.getTitle();
-	}
-
-	/**
-	 * @see WebDriver#getPageSource()
-	 */
-	@Override
-	public String getPageSource() {
-		return driver.getPageSource();
 	}
 
 	/**

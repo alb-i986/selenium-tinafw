@@ -181,6 +181,13 @@ public class PageHelper {
 			driver.get(url);
 			logger.debug("Page at URL " + url + " loaded");
 		}
+
+		/**
+		 * @see WebDriver.Navigation#back()
+		 */
+		public static void browseBack(WebDriver driver) {
+			driver.navigate().back();
+		}
 	}
 
 	/**

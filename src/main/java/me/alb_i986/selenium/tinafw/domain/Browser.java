@@ -70,6 +70,14 @@ public class Browser {
 		assertIsOpen();
 		PageHelper.Navigation.browseTo(relativeUrl, driver);
 	}
+	
+	/**
+	 * @see PageHelper.Navigation#browseBack(WebDriver)
+	 */
+	public void browseBack() {
+		assertIsOpen();
+		PageHelper.Navigation.browseBack(driver);
+	}
 
 	/**
 	 * Start a session by browsing to the given LoadablePage.
