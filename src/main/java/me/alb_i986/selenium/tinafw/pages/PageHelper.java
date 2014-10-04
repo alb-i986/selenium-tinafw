@@ -224,4 +224,19 @@ public class PageHelper {
 		}
 	}
 
+	/**
+	 * Typical use is to simulate hitting ESCAPE or ENTER.
+	 *  
+	 * @param driver
+	 * @param keys
+	 * 
+	 * @see Actions#sendKeys(CharSequence...)
+	 */
+	public static void hitKeys(WebDriver driver, CharSequence keys) {
+		new Actions(driver)
+			.sendKeys(keys)
+			.perform()
+		;
+	}
+
 }
