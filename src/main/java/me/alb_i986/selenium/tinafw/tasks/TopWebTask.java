@@ -14,7 +14,7 @@ import me.alb_i986.selenium.tinafw.pages.Page;
  * Concrete subclasses need to specialize {@link #doTask(Page)}
  * (i.e. override it and call super first).
  */
-public abstract class TopWebTask extends WebTask {
+public abstract class TopWebTask extends BaseWebTask {
 	
 	protected Browser browser;
 
@@ -32,14 +32,6 @@ public abstract class TopWebTask extends WebTask {
 	public Page doTask(Page previousPage) {
 		Assert.assertNull(previousPage);
 		return null;
-	}
-
-	/**
-	 * @return always true, as this task does not require any previous page.
-	 */
-	@Override
-	public boolean requirePage(Page previousPage) {
-		return true;
 	}
 
 }

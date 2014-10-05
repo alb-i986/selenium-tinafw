@@ -1,7 +1,5 @@
 package me.alb_i986.selenium.tinafw.tasks;
 
-import org.apache.log4j.Logger;
-
 import me.alb_i986.selenium.tinafw.domain.User;
 import me.alb_i986.selenium.tinafw.pages.Page;
 
@@ -22,11 +20,8 @@ import me.alb_i986.selenium.tinafw.pages.Page;
  * <p>
  * See also {@link User#doTasks(WebTask...)} for the implementation of the chaining.
  */
-public abstract class WebTask {
+public interface WebTask {
 	
-	protected static final Logger logger = Logger.getLogger(WebTask.class);
-
-	public abstract Page doTask(Page previousPage);
-	public abstract boolean requirePage(Page previousPage);
-
+	public Page doTask(Page previousPage);
+	
 }

@@ -11,7 +11,7 @@ import me.alb_i986.selenium.tinafw.pages.Page;
  * Concrete subclasses need to specialize {@link #doTask(Page)}
  * (i.e. override it and call super first).
  */
-public abstract class MidChainWT extends WebTask {
+public abstract class MidChainWT extends BaseWebTask {
 
 	/**
 	 * Assert that previous page is not null.
