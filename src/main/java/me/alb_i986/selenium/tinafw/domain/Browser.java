@@ -5,8 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import me.alb_i986.selenium.tinafw.pages.*;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -100,14 +98,6 @@ public class Browser {
 				| NoSuchMethodException | SecurityException e) {
 			throw new IllegalStateException("cannot load loadable page " + c.getSimpleName(), e);
 		}
-	}
-
-	/**
-	 * @see TakesScreenshot#getScreenshotAs(OutputType)
-	 */
-	public <T> T getScreenshotAs(OutputType<T> outputType) {
-		assertIsOpen();
-		return ((TakesScreenshot)driver).getScreenshotAs(outputType);
 	}
 
 	/**
