@@ -2,7 +2,7 @@ package me.alb_i986.selenium.tinafw.sample;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 
 import me.alb_i986.selenium.tinafw.pages.Page;
 import me.alb_i986.selenium.tinafw.tasks.MidChainWT;
@@ -19,7 +19,7 @@ public class VerifySocialIcons extends MidChainWT {
 	@Override
 	public Page doTask(Page previousPage) {
 		super.doTask(previousPage);
-		Assert.assertTrue(previousPage instanceof MyAboutMePage);
+		assertTrue(previousPage instanceof MyAboutMePage);
 		for (String social : socials) {
 			((MyAboutMePage) previousPage)
 				.assertSocialButtonIsDisplayed(social);

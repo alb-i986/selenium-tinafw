@@ -1,7 +1,7 @@
 package me.alb_i986.selenium.tinafw.sample;
 import java.util.List;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -53,7 +53,7 @@ public class MyAboutMePage extends BasePage implements LoadablePage {
 	
 	public MyAboutMePage assertBioMatches(String expectedBioRegex) {
 		String bio = biography.getText();
-		Assert.assertTrue(
+		assertTrue(
 			"bio does not match. expected regex: '" + expectedBioRegex +
 			"'; actual text: '" + bio + "'",
 			// http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#DOTALL
@@ -65,7 +65,7 @@ public class MyAboutMePage extends BasePage implements LoadablePage {
 
 	public MyAboutMePage assertSocialButtonIsDisplayed(String social) {
 		WebElement socialIcon = getSocialIcon(social);
-		Assert.assertTrue(
+		assertTrue(
 			"social icon for " + social + " not displayed", 
 			socialIcon.isDisplayed()
 		);
@@ -78,7 +78,7 @@ public class MyAboutMePage extends BasePage implements LoadablePage {
 		WebElement socialLink = socialIcon.findElement(By.cssSelector("a"));
 		String socialUrl = socialLink.getAttribute("href");
 		String expectedUrl = "http.*" + social + "\\..*";
-		Assert.assertTrue(
+		assertTrue(
 			"the social icon has a wrong link" + social + ". " +
 					"Expected: " + expectedUrl + "; " +
 					"actual: " + socialUrl,
@@ -105,7 +105,7 @@ public class MyAboutMePage extends BasePage implements LoadablePage {
 				continue;
 			}
 		}
-		Assert.assertNotNull("social button for " + social + " not found.", foundSocialIcon);
+		assertNotNull("social button for " + social + " not found.", foundSocialIcon);
 		return foundSocialIcon;
 	}
 

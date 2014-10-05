@@ -1,6 +1,6 @@
 package me.alb_i986.selenium.tinafw.tasks;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 
 import me.alb_i986.selenium.tinafw.pages.Page;
 
@@ -20,7 +20,7 @@ public abstract class MidChainWT extends BaseWebTask {
 	 */
 	@Override
 	public Page doTask(Page previousPage) {
-		Assert.assertNotNull(previousPage);
+		assertNotNull(previousPage);
 		return null;
 	}
 

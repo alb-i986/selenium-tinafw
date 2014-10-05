@@ -1,6 +1,6 @@
 package me.alb_i986.selenium.tinafw.sample;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 
 import me.alb_i986.selenium.tinafw.pages.Page;
 import me.alb_i986.selenium.tinafw.tasks.MidChainWT;
@@ -16,7 +16,7 @@ public class VerifyBio extends MidChainWT {
 	@Override
 	public Page doTask(Page previousPage) {
 		super.doTask(previousPage);
-		Assert.assertTrue(previousPage instanceof MyAboutMePage);
+		assertTrue(previousPage instanceof MyAboutMePage);
 		((MyAboutMePage) previousPage)
 			.assertBioMatches(expectedBioRegex)
 		;

@@ -1,6 +1,6 @@
 package me.alb_i986.selenium.tinafw.tasks;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 
 import me.alb_i986.selenium.tinafw.domain.Browser;
 import me.alb_i986.selenium.tinafw.pages.Page;
@@ -30,7 +30,7 @@ public abstract class TopWebTask extends BaseWebTask {
 	 */
 	@Override
 	public Page doTask(Page previousPage) {
-		Assert.assertNull(previousPage);
+		assertNull(previousPage);
 		return null;
 	}
 
