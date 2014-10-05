@@ -1,5 +1,7 @@
 package me.alb_i986.selenium.tinafw.domain;
 
+import java.lang.reflect.InvocationTargetException;
+
 import me.alb_i986.selenium.tinafw.pages.*;
 
 import org.apache.log4j.Logger;
@@ -68,7 +70,30 @@ public class Browser {
 		assertIsOpen();
 		PageHelper.Navigation.browseTo(relativeUrl, driver);
 	}
-	
+
+	/**
+	 * Start a session by browsing to the given LoadablePage.
+	 * 
+	 * @return a LoadablePage
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * 
+	 * @see LoadablePage#getLoadablePage(Class, Browser)
+	 */
+	public <T extends LoadablePage> T startSession(Class<T> c) {
+		try {
+			return LoadablePage.getLoadablePage(c, this);
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+			throw new IllegalStateException("cannot load loadable page " + c.getSimpleName(), e);
+		}
+	}
+
 	/**
 	 * @see TakesScreenshot#getScreenshotAs(OutputType)
 	 */

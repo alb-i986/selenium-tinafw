@@ -1,0 +1,48 @@
+package me.alb_i986.selenium.tinafw.pages;
+
+import java.lang.reflect.InvocationTargetException;
+
+import org.openqa.selenium.WebDriver;
+
+import me.alb_i986.selenium.tinafw.domain.Browser;
+
+/**
+ * A page that can be accessed directly, from a URL.
+ * <p>
+ * Any implementor must implement (hide) {@link #getRelativeUrl()}.
+ *  
+ * @see LoadablePage#getLoadablePage(Class, Browser)
+ */
+public interface LoadablePage extends Page {
+	
+	/**
+	 * @return the URL relative to {@link Page#BASE_URL}.
+	 */
+	static public String getRelativeUrl() {
+		throw new UnsupportedOperationException("this method is not implemented in the subclass");
+	}
+
+	/**
+	 * Load the given LoadablePage (i.e. browse to it),
+	 * create its instance, and return it.
+	 * 
+	 * @return the requested LoadablePage
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 */
+	static public <T extends LoadablePage> T getLoadablePage(Class<T> c, Browser browser)
+			throws InstantiationException, IllegalAccessException,
+				IllegalArgumentException, InvocationTargetException,
+				NoSuchMethodException, SecurityException {
+		String url = (String) c.getMethod("getRelativeUrl").invoke(null);
+		browser.browseTo(url);
+		return 
+			(T) c.getConstructor(WebDriver.class, Page.class)
+				.newInstance(browser.getWebDriver(), null);
+	}
+
+}
