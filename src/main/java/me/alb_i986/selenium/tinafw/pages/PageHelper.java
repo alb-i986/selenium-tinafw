@@ -154,13 +154,10 @@ public class PageHelper {
 	public static class Navigation {
 		
 		/**
-		 * Navigate to the current URL.
-		 * 
-		 * @see WebDriver#get(String)
-		 * @see WebDriver#getCurrentUrl()
+		 * @see WebDriver.Navigation#refresh()
 		 */
 		public static void refreshPage(WebDriver driver) {
-			driver.get(driver.getCurrentUrl());
+			driver.navigate().refresh();
 		}
 
 
