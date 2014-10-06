@@ -10,7 +10,7 @@ Start from [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/mast
 
 ## Overview
 
-The intent is to serve as a basis for any test suite/framework using [Selenium WebDriver](http://seleniumhq.org).
+`selenium-tinafw` aspires to serve as a basis for _any_ test suite/framework using [Selenium WebDriver](http://seleniumhq.org) (Java bindings only).
 
 It sits on top of Selenium WebDriver and provides a number of abstractions that encourage you to write better, more focused, more maintainable, more readable code, in a structured, organized way.
 
@@ -22,11 +22,11 @@ _We believe that WebDriver is such a beautiful API that it's a shame to hide it_
 
 Some of the services/features we proudly provide/offer:
 
-- WebDriverFactory hierarchy: elegant solution solving the problem of
+- `WebDriverFactory` hierarchy: elegant solution solving the problem of
   creating instances of WebDriver, modeled using the decorator design pattern.
   E.g. see [how it allows us to solve the problem of handling the certificate error on IE](http://git.io/YQUJfw)
   
-- WebTask hierarchy, the orchestrators of page objects:
+- `WebTask` hierarchy, the orchestrators of page objects:
   - helps keeping your code organized: each concrete WebTask is supposed to be a [Given/When/Then step](http://martinfowler.com/bliki/GivenWhenThen.html))
   - and highly readable ([fluent interface](http://www.martinfowler.com/bliki/FluentInterface.html)): see e.g. [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
   - solves the following problem in an elegant way:
@@ -36,7 +36,7 @@ Some of the services/features we proudly provide/offer:
   
   (a naive solution being "every task restarts navigating the webapp from the home page").
 
-- a multilayered architecture with:
+- a clean directory structure, aka multilayered architecture, with:
   - the _tests_ layer, for keeping your test cases along with their data
   - the _domain_ layer, containing concepts like User and Browser, as well as the concepts from your own domain, e.g. BlogPost, BlogComment 
   - the _tasks_ layer, which orchestrate the page objects by building method chains of page objects
@@ -107,6 +107,6 @@ Copy it to your project, under a 'resources' directory, customize it as per your
 
 ## TODO
 
-- add WebTest hierarchy (soon to be available)
-- add PageComponent hierarchy
-- make it a data-driven framework: shouldn't be too difficult thanks to WebTask
+- add `WebTest` hierarchy (soon to be available)
+- add `PageComponent` hierarchy
+- make it a data-driven framework: shouldn't be too difficult thanks to `WebTask`
