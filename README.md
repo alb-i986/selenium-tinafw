@@ -100,7 +100,7 @@ For a start, please see:
 ### Configuration
 Under `src/main/resources/` you can find the config file `selenium-tinafw.default.properties`.
 
-Copy it to your project, under a 'resources' directory, customize it as per your needs, and add it to your VCS. Besides, you can have another config file, which you should _not_ version, in which you can override any property defined in the defaults file.
+Copy it to your project, under a 'resources' directory, customize it as per your needs, and add it to your VCS. Besides, you can have another config file, which you must name `selenium-tinafw.custom.properties`, and you should _not_ version, in which you can override any property defined in the defaults file.
 
 
 ## TODO
