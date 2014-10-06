@@ -1,8 +1,8 @@
-package me.alb_i986.selenium.tinafw.sample;
+package me.alb_i986.selenium.tinafw.sample.tasks;
 
 import static org.junit.Assert.*;
-
 import me.alb_i986.selenium.tinafw.pages.Page;
+import me.alb_i986.selenium.tinafw.sample.pages.SearchResultsPage;
 import me.alb_i986.selenium.tinafw.tasks.MidChainWT;
 
 public class ThenCanCompliment extends MidChainWT {

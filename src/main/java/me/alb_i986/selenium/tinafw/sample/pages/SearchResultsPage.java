@@ -1,4 +1,4 @@
-package me.alb_i986.selenium.tinafw.sample;
+package me.alb_i986.selenium.tinafw.sample.pages;
 
 import java.util.List;
 

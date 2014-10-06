@@ -1,7 +1,8 @@
-package me.alb_i986.selenium.tinafw.sample;
+package me.alb_i986.selenium.tinafw.sample.tasks;
 
 import me.alb_i986.selenium.tinafw.domain.Browser;
 import me.alb_i986.selenium.tinafw.pages.Page;
+import me.alb_i986.selenium.tinafw.sample.pages.MyAboutMePage;
 import me.alb_i986.selenium.tinafw.tasks.TopWebTask;
 
 /**

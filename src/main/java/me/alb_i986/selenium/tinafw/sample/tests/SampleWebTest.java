@@ -1,10 +1,11 @@
-package me.alb_i986.selenium.tinafw.sample;
+package me.alb_i986.selenium.tinafw.sample.tests;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import me.alb_i986.selenium.tinafw.domain.User;
+import me.alb_i986.selenium.tinafw.sample.tasks.*;
 
 public class SampleWebTest {
 
