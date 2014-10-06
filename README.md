@@ -6,6 +6,7 @@ Introducing Selenium Tina Framework.
 A minimal and effective Selenium framework, not a f*ing wrapper.
 
 For a quick insight, please see the sample provided in the [package _sample_](https://github.com/alb-i986/selenium-tinafw/tree/master/src/main/java/me/alb_i986/selenium/tinafw/sample/), which implements a small test suite showing all of the concepts introduced in this work.
+Start from [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java), down to the WebTasks (i.e. OnMyAboutMePage, WhenSearch, ThenCanCompliment), down to page objects (SearchResultsPage, MyAboutMePage)
 
 ## Overview
 
@@ -19,7 +20,7 @@ You could virtually access a WebDriver instance from a test class (although you 
 _We believe that WebDriver is such a beautiful API that it's a shame to hide it_.
 
 
-A list of some of the services we proudly provide:
+Some of the services/features we proudly provide/offer:
 
 - WebDriverFactory hierarchy: elegant solution solving the problem of
   creating instances of WebDriver, modeled using the decorator design pattern.
@@ -27,7 +28,7 @@ A list of some of the services we proudly provide:
   
 - WebTask hierarchy, the orchestrators of page objects:
   - helps keeping your code organized: each concrete WebTask is supposed to be a [Given/When/Then step](http://martinfowler.com/bliki/GivenWhenThen.html))
-  - and highly readable ([fluent interface](http://www.martinfowler.com/bliki/FluentInterface.html)): see e.g. [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/SampleWebTest.java)
+  - and highly readable ([fluent interface](http://www.martinfowler.com/bliki/FluentInterface.html)): see e.g. [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
   - solves the following problem in an elegant way:
 
   > Given two tasks that run sequentially, the first does something and ends at a certain page.
@@ -95,7 +96,8 @@ by adding this to your POM file:
 
 For a start, please see:
  - the sample provided in the [package _sample_](https://github.com/alb-i986/selenium-tinafw/tree/master/src/main/java/me/alb_i986/selenium/tinafw/sample/), containing a small but full working example of use
- - https://github.com/alb-i986/selenium-forbes-sample/ (sometimes may be out of date, bear with me)
+ - https://github.com/alb-i986/selenium-forbes-sample/ (might currently be out of date, please bear with me)
+ 
  
 ### Configuration
 Under `src/main/resources/` you can find the config file `selenium-tinafw.default.properties`.
