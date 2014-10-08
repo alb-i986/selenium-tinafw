@@ -1,10 +1,16 @@
 package me.alb_i986.selenium.tinafw.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import me.alb_i986.selenium.tinafw.pages.Page;
 import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
+import me.alb_i986.selenium.tinafw.tasks.Given;
+import me.alb_i986.selenium.tinafw.tasks.Then;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
+import me.alb_i986.selenium.tinafw.tasks.When;
 
 /**
  * A User has a Browser.
@@ -69,6 +75,29 @@ public class User {
 	 */
 	public User doTask(Page initialPage, WebTask task) {
 		task.doTask(initialPage);
+		return this;
+	}
+
+	/**
+	 * If any arg is null, that step will be simply skipped.
+	 * So, if your test case happens not to have one of the steps,
+	 * you can just pass null for the missing step.
+	 * 
+	 * @param given
+	 * @param when
+	 * @param then
+	 * @return this
+	 */
+	public User runSteps(Given given, When when, Then then) {
+		// check args and discard those null
+		List<WebTask> tasks = new ArrayList<>();
+		if(given != null)
+			tasks.add(given);
+		if(when != null)
+			tasks.add(when);
+		if(then != null)
+			tasks.add(then);
+		doTask(new CompositeWebTask(tasks));
 		return this;
 	}
 	
