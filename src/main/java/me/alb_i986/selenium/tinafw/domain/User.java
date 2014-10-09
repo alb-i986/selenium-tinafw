@@ -1,7 +1,9 @@
 package me.alb_i986.selenium.tinafw.domain;
 
 import org.apache.log4j.Logger;
+
 import me.alb_i986.selenium.tinafw.pages.Page;
+import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
 
 /**
@@ -42,13 +44,31 @@ public class User {
 		return this;
 	}
 	
-	public User doTasks(WebTask... tasks) {
-		Page currentPage = null;
-		for(WebTask task : tasks) {
-			logger.info("BEGIN task " + task.getClass().getSimpleName());
-			currentPage = task.doTask(currentPage);
-			logger.info("END task " + task.getClass().getSimpleName());
-		}
+	/**
+	 * Run the given task (or task<i>s</i>, if it is a {@link CompositeWebTask}),
+	 * with no initial page.
+	 * This means that the given task (or the <i>first</> subtask if it is a
+	 * {@link CompositeWebTask}) must do the navigation itself.
+	 * 
+	 * @param task
+	 * @return this
+	 * 
+	 * @see #doTask(Page, WebTask)
+	 */
+	public User doTask(WebTask task) {
+		return doTask(null, task);
+	}
+
+	/**
+	 * Run the given task (or task<i>s</i>, if it is a {@link CompositeWebTask}),
+	 * starting from the given initial page.
+	 * 
+	 * @param initialPage
+	 * @param task
+	 * @return this
+	 */
+	public User doTask(Page initialPage, WebTask task) {
+		task.doTask(initialPage);
 		return this;
 	}
 	
