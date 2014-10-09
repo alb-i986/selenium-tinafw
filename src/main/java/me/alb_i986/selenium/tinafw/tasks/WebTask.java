@@ -22,6 +22,6 @@ import me.alb_i986.selenium.tinafw.pages.Page;
  */
 public interface WebTask {
 	
-	public Page doTask(Page previousPage);
+	public Page doTask(Page initialPage);
 	
 }
