@@ -15,8 +15,4 @@ public class Given extends CompositeWebTask {
 		super(tasks);
 	}
 	
-	public static Given given(WebTask... givens) {
-		return new Given(givens);
-	}
-
 }

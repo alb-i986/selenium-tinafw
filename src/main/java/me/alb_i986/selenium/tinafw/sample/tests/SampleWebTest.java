@@ -7,9 +7,7 @@ import org.junit.Test;
 import me.alb_i986.selenium.tinafw.domain.User;
 import me.alb_i986.selenium.tinafw.sample.tasks.*;
 import me.alb_i986.selenium.tinafw.tasks.*;
-import static me.alb_i986.selenium.tinafw.tasks.When.*;
-import static me.alb_i986.selenium.tinafw.tasks.Given.*;
-import static me.alb_i986.selenium.tinafw.tasks.Then.*;
+import static me.alb_i986.selenium.tinafw.tasks.BDDWebTask.*;
 
 public class SampleWebTest {
 
