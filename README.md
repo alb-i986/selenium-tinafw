@@ -42,6 +42,27 @@ Some of the services/features we proudly provide/offer:
   - the _tasks_ layer, which orchestrate the page objects by building method chains of page objects
   - the _pages_ layer, with [page objects](https://code.google.com/p/selenium/wiki/PageObjects)
 
+- meaningful logs, thanks to `WebTask`'s and `Page`'s:
+
+		INFO  CompositeWebTask - BEGIN subtask Given
+		INFO  CompositeWebTask - BEGIN subtask OnMyAboutMePage
+		DEBUG PageHelper$Navigation - Page at URL http://alb-i986.me/ loaded
+		INFO  BasePage - Loading page MyAboutMePage
+		DEBUG PageHelper - BEGIN Explicit wait (timeout=15s). Waiting until visibility of [[ChromeDriver: chrome on MAC (e8eac3735de18ef7920ce08755d3f6bf)] -> css selector: #profile_box h1.name]
+		DEBUG PageHelper - END Explicit wait: visibility of [[ChromeDriver: chrome on MAC (e8eac3735de18ef7920ce08755d3f6bf)] -> css selector: #profile_box h1.name]
+		INFO  CompositeWebTask - END subtask OnMyAboutMePage
+		INFO  CompositeWebTask - END subtask Given
+		INFO  CompositeWebTask - BEGIN subtask When
+		INFO  CompositeWebTask - BEGIN subtask Search
+		INFO  BasePage - Loading page SearchResultsPage
+		DEBUG PageHelper - BEGIN Explicit wait (timeout=15s). Waiting until visibility of [[ChromeDriver: chrome on MAC (e8eac3735de18ef7920ce08755d3f6bf)] -> css selector: #search-results div]
+		DEBUG PageHelper - END Explicit wait: visibility of [[ChromeDriver: chrome on MAC (e8eac3735de18ef7920ce08755d3f6bf)] -> css selector: #search-results div]
+		INFO  CompositeWebTask - END subtask Search
+		INFO  CompositeWebTask - END subtask When
+		INFO  CompositeWebTask - BEGIN subtask Then
+		INFO  CompositeWebTask - BEGIN subtask CanCompliment
+		INFO  CompositeWebTask - END subtask CanCompliment
+		INFO  CompositeWebTask - END subtask Then
 
 ## Design goals
 
