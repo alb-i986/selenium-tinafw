@@ -5,7 +5,7 @@ import me.alb_i986.selenium.tinafw.pages.Page;
 import me.alb_i986.selenium.tinafw.sample.pages.SearchResultsPage;
 import me.alb_i986.selenium.tinafw.tasks.MidChainWT;
 
-public class ThenCanCompliment extends MidChainWT {
+public class CanCompliment extends MidChainWT {
 
 	private int searchResultIndex ;
 	private String compliment;
@@ -21,12 +21,12 @@ public class ThenCanCompliment extends MidChainWT {
 		;
 	}
 
-	public ThenCanCompliment theGuy(int i) {
+	public CanCompliment theGuy(int i) {
 		this.searchResultIndex = i;
 		return this;
 	}
 
-	public ThenCanCompliment with(String compliment) {
+	public CanCompliment with(String compliment) {
 		this.compliment = compliment;
 		return this;
 	}

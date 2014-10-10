@@ -9,7 +9,7 @@ import me.alb_i986.selenium.tinafw.tasks.MidChainWT;
  * Search for something by using the search box
  * at the top.
  */
-public class WhenSearch extends MidChainWT {
+public class Search extends MidChainWT {
 	
 	private String query;
 
@@ -23,7 +23,7 @@ public class WhenSearch extends MidChainWT {
 		;
 	}
 
-	public WhenSearch forQuery(String query) {
+	public Search forQuery(String query) {
 		this.query = query;
 		return this;
 	}
