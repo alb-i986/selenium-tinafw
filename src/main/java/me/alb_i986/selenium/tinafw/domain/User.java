@@ -7,8 +7,29 @@ import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
 
 /**
- * A User has a Browser.
- * Also, a User may have a username and a password.
+ * A User has a Browser, which he/she can open and close;
+ * can browse to a relative URL; can do tasks.
+ * Finally, a User may have a username and a password.
+ * If your user requires more information (e.g. a role),
+ * you may extend this class and add as many fields as needed.
+ * <p>
+ * Typically, User will be the only object directly referenced in your
+ * test code (apart from WebTask's).
+ * In fact, from User you can reach Browser, and then WebDriver
+ * (which may be useful for debugging purposes).
+ * <p>
+ * A typical use is as follows:
+ * <pre>
+ * {@code
+ * new User()
+ *   .openBrowser();
+ *   .doTask(new XXXCompositeWebTask( [..] ));
+ *   .closeBrowser()
+ * ;
+ * }
+ * </pre>
+ * This is how tests should look like.
+ * 
  */
 public class User {
 
@@ -43,6 +64,23 @@ public class User {
 		browser.open();
 		return this;
 	}
+
+	/**
+	 * Any method chain ends with this method.
+	 * @see Browser#close()
+	 */
+	public void closeBrowser() {
+		browser.close();
+	}
+
+	/**
+	 * @param relativeUrl a relative URL (relative to {@link Page#BASE_URL})
+	 * @see Browser#browseTo(String)
+	 */
+	public User browseTo(String relativeUrl) {
+		browser.browseTo(relativeUrl);
+		return this;
+	}
 	
 	/**
 	 * Run the given task (or task<i>s</i>, if it is a {@link CompositeWebTask}),
@@ -72,14 +110,6 @@ public class User {
 		return this;
 	}
 
-	/**
-	 * Any method chain ends with this method.
-	 * @see Browser#close()
-	 */
-	public void closeBrowser() {
-		browser.close();
-	}
-	
 
 	public String getUsername() {
 		return username;
