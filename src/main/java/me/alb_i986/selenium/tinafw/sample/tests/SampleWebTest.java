@@ -7,6 +7,9 @@ import org.junit.Test;
 import me.alb_i986.selenium.tinafw.domain.User;
 import me.alb_i986.selenium.tinafw.sample.tasks.*;
 import me.alb_i986.selenium.tinafw.tasks.*;
+import static me.alb_i986.selenium.tinafw.tasks.When.*;
+import static me.alb_i986.selenium.tinafw.tasks.Given.*;
+import static me.alb_i986.selenium.tinafw.tasks.Then.*;
 
 public class SampleWebTest {
 
@@ -18,18 +21,19 @@ public class SampleWebTest {
 		user.openBrowser();
 	}
 	
+
 	@Test
 	public void testSearch() {
 		user.doTask(
 			new BDDWebTask(
-				new Given(
+				given(
 					new OnMyAboutMePage(user.getBrowser())
 				),
-				new When(
+				when(
 					new Search()
 						.forQuery("paolo")
 				),
-				new Then(
+				then(
 					new CanCompliment()
 						.theGuy(2)
 						.with("love")
@@ -37,16 +41,16 @@ public class SampleWebTest {
 			)
 		);
 	}
-
+	
 	@Test
 	public void testMyPage() {
 		user.doTask(
 			new BDDWebTask(
-				new Given(
+				given(
 					new OnMyAboutMePage(user.getBrowser())
 				),
 				null,
-				new Then(
+				then(
 					new VerifyBio()
 						.matches(".*Genuinely driven by Passion.*"),
 					new VerifySocialIcons()

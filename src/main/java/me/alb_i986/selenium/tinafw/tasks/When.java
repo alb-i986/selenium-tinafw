@@ -15,4 +15,8 @@ public class When extends CompositeWebTask {
 		super(tasks);
 	}
 
+	public static When when(WebTask... whens) {
+		return new When(whens);
+	}
+	
 }

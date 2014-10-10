@@ -15,4 +15,8 @@ public class Then extends CompositeWebTask {
 		super(tasks);
 	}
 
+	public static Then then(WebTask... thens) {
+		return new Then(thens);
+	}
+
 }
