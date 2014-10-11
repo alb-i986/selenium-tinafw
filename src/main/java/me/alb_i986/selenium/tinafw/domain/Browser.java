@@ -114,4 +114,11 @@ public class Browser {
 			throw new IllegalStateException("The browser is not open");
 	}
 
+	/**
+	 * Supposed to be used only by unit tests.
+	 */
+	public void setDriver(WebDriver driver) {
+		this.driver = driver;
+	}
+
 }
