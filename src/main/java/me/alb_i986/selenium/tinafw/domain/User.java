@@ -36,18 +36,39 @@ public class User {
 	protected static final Logger logger = Logger.getLogger(User.class);
 	
 	private Browser browser;
+	private Page currentPage;
+	
 	private String username = "";
 	private String password = "";
 
 	/**
-	 * Create a User with nothing but a (closed) Browser.
+	 * Create a User with a closed {@link Browser}, and no initial page.
 	 */
 	public User() {
-		this.browser = new Browser();
+		this(new Browser());
 	}
 
+	/**
+	 * Create a User with the given Browser (which may be open or closed)
+	 * and no initial page.
+	 * 
+	 * @param browser
+	 */
 	public User(Browser browser) {
+		this(browser, null);
+	}
+	
+	/**
+	 * 
+	 * Create a User with the given Browser (which may be open or closed)
+	 * and the given initial page.
+	 * 
+	 * @param browser
+	 * @param initialPage
+	 */
+	public User(Browser browser, Page initialPage) {
 		this.browser = browser;
+		this.currentPage = initialPage;
 	}
 
 
@@ -83,33 +104,32 @@ public class User {
 	}
 	
 	/**
-	 * Run the given task (or task<i>s</i>, if it is a {@link CompositeWebTask}),
-	 * with no initial page.
-	 * This means that the given task (or the <i>first</> subtask if it is a
-	 * {@link CompositeWebTask}) must do the navigation itself.
+	 * Run the given task (or task<i>s</i>,
+	 * if it is a {@link CompositeWebTask}),
+	 * starting from the known current page
+	 * (which is part of the state of this object).
+	 * Finally update the current page with the one
+	 * the given task visited last.
 	 * 
 	 * @param task
 	 * @return this
 	 * 
-	 * @see #doTask(Page, WebTask)
+	 * @see WebTask#doTask(Page)
 	 */
 	public User doTask(WebTask task) {
-		return doTask(null, task);
-	}
-
-	/**
-	 * Run the given task (or task<i>s</i>, if it is a {@link CompositeWebTask}),
-	 * starting from the given initial page.
-	 * 
-	 * @param initialPage
-	 * @param task
-	 * @return this
-	 */
-	public User doTask(Page initialPage, WebTask task) {
-		task.doTask(initialPage);
+		this.currentPage = task.doTask(currentPage);
 		return this;
 	}
 
+
+	/**
+	 * @return the page that the last performed task was visiting;
+	 *         or the initial page (which may be null), 
+	 *         if no tasks have been performed yet.
+	 */
+	public Page getCurrentPage() {
+		return currentPage;
+	}
 
 	public String getUsername() {
 		return username;
