@@ -47,8 +47,10 @@ public class SearchResultsPage extends BasePage {
 
 	private void complimentWith(String compliment) {
 		try {
+			By complimentBtnLocator = By.cssSelector("div.ui-dialog.compliment-modal li.compliment." + compliment);
+			PageHelper.waitUntil(ExpectedConditions.visibilityOfElementLocated(complimentBtnLocator), driver);
 			WebElement complimentBtn = driver.findElement(
-				By.cssSelector("div.ui-dialog.compliment-modal li.compliment." + compliment))
+				complimentBtnLocator )
 			;
 			complimentBtn.click();
 		} finally {
