@@ -3,6 +3,7 @@ package me.alb_i986.selenium.tinafw.pages;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 import me.alb_i986.selenium.tinafw.utils.ConfigException;
 import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
 
@@ -49,10 +50,10 @@ public class WebDriverFactoryRemote implements WebDriverFactory {
 	}
 
 	@Override
-	public WebDriver getWebDriver() {
+	public WebDriver getWebDriver(SupportedBrowser browserType) {
 		DesiredCapabilities capabilities;
 		// set browser capability
-		switch (BROWSER_TYPE) {
+		switch (browserType) {
 			case CHROME:
 				capabilities = DesiredCapabilities.chrome();
 				break;
@@ -66,7 +67,7 @@ public class WebDriverFactoryRemote implements WebDriverFactory {
 				capabilities = DesiredCapabilities.internetExplorer();
 				break;
 			default:
-				throw new IllegalArgumentException("The specified Browser type (" + BROWSER_TYPE + ")"
+				throw new IllegalArgumentException("The specified Browser type (" + browserType + ")"
 						+ " is not supported at the moment");
 		}
 		capabilities.setPlatform(PLATFORM);

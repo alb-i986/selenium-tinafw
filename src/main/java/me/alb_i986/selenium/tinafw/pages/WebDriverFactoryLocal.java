@@ -1,5 +1,7 @@
 package me.alb_i986.selenium.tinafw.pages;
 
+import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
@@ -11,12 +13,12 @@ public class WebDriverFactoryLocal implements WebDriverFactory {
 	 * @throws RuntimeException if the instantiation of the WebDriver fails
 	 */
 	@Override
-	public WebDriver getWebDriver() {
+	public WebDriver getWebDriver(SupportedBrowser browserType) {
 		try {
-			return (WebDriver) BROWSER_TYPE.toClass().newInstance();
+			return (WebDriver) browserType.toClass().newInstance();
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException e) {
-			throw new RuntimeException("cannot create a WebDriver instance for " + BROWSER_TYPE, e);
+			throw new RuntimeException("cannot create a WebDriver instance for " + browserType, e);
 		}
 	}
 

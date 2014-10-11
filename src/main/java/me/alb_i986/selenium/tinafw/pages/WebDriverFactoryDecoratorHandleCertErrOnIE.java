@@ -17,9 +17,9 @@ public class WebDriverFactoryDecoratorHandleCertErrOnIE extends WebDriverFactory
 	}
 
 	@Override
-	public WebDriver getWebDriver() {
+	public WebDriver getWebDriver(SupportedBrowser browserType) {
 		WebDriver driver = super.getWebDriver();
-		if(BROWSER_TYPE == SupportedBrowser.IE) {
+		if(browserType == SupportedBrowser.IE) {
 			// here is the trick in JS
 			driver.get("javascript:document.getElementById('overridelink').click();");
 		}

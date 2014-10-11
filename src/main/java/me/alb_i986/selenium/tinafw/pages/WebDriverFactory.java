@@ -17,13 +17,18 @@ public interface WebDriverFactory {
 			PropertyLoader.getTinaFwConfig("browser").toUpperCase());
 
 	/**
-	 * Create and return a WebDriver instance of the given type.
-	 * 
-	 * @param browserType the supported browser to be created
-	 * @return a {@link WebDriver} according to {@link #BROWSER_TYPE}
-	 * 
+	 * @param browserType
+	 * @return a {@link WebDriver} according to the parameter
 	 * @throws IllegalArgumentException if the browser specified is not supported
 	 */
-	public WebDriver getWebDriver();
+	public WebDriver getWebDriver(SupportedBrowser browserType);
+
+	/**
+	 * @return a {@link WebDriver} according to {@link #BROWSER_TYPE}
+	 * @see #getWebDriver(SupportedBrowser)
+	 */
+	default public WebDriver getWebDriver() {
+		return getWebDriver(BROWSER_TYPE);
+	}
 
 }
