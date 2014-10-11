@@ -1,35 +1,23 @@
 package me.alb_i986.selenium.tinafw.pages;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.safari.SafariDriver;
 
 public class WebDriverFactoryLocal implements WebDriverFactory {
+	
+	protected static final Logger logger = Logger.getLogger(WebDriverFactoryLocal.class);
 
+	/**
+	 * @throws RuntimeException if the instantiation of the WebDriver fails
+	 */
 	@Override
 	public WebDriver getWebDriver() {
-		WebDriver driver;
-		//TODO Class.forName(browserType.toString().toLowerCase())
-		switch (BROWSER_TYPE) {
-			case CHROME:
-				driver = new ChromeDriver();
-				break;
-			case FIREFOX:
-				driver = new FirefoxDriver();
-				break;
-			case SAFARI:
-				driver = new SafariDriver();
-				break;
-			case IE:
-				driver = new InternetExplorerDriver();
-				break;
-			default:
-				throw new IllegalArgumentException("The specified Browser type (" + BROWSER_TYPE + ")"
-							+ " is not supported at the moment");
+		try {
+			return (WebDriver) BROWSER_TYPE.toClass().newInstance();
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			throw new RuntimeException("cannot create a WebDriver instance for " + BROWSER_TYPE, e);
 		}
-		return driver;
 	}
 
 }
