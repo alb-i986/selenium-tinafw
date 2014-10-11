@@ -136,5 +136,22 @@ public class User {
 	public Browser getBrowser() {
 		return browser;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(!(o instanceof User))
+			return false;
+		return equals((User)o);
+	}
+	
+	/**
+	 * @param user
+	 * @return true if the two users have the same username 
+	 */
+	public <T extends User> boolean equals(T user) {
+		if(username == null || user == null)
+			return false;
+		return username.equals(user.getUsername());
+	}
 
 }
