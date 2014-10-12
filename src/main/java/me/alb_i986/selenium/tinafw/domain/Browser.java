@@ -81,12 +81,7 @@ public class Browser {
 	 * Start a session by browsing to the given LoadablePage.
 	 * 
 	 * @return a LoadablePage
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws IllegalStateException if the page cannot be loaded/instantiated 
 	 * 
 	 * @see LoadablePage#getLoadablePage(Class, Browser)
 	 */

@@ -1,6 +1,5 @@
 package me.alb_i986.selenium.tinafw.tasks;
 
-import me.alb_i986.selenium.tinafw.domain.User;
 import me.alb_i986.selenium.tinafw.pages.Page;
 
 /**
@@ -18,7 +17,7 @@ import me.alb_i986.selenium.tinafw.pages.Page;
  * each task can continue the navigation from the page the
  * previous task was visiting.
  * <p>
- * See also {@link User#doTasks(WebTask...)} for the implementation of the chaining.
+ * @see CompositeWebTask
  */
 public interface WebTask {
 	

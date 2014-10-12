@@ -7,28 +7,32 @@ import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
 
 /**
- * A User has a Browser, which he/she can open and close;
- * can browse to a relative URL; can do tasks.
- * Finally, a User may have a username and a password.
- * If your user requires more information (e.g. a role),
- * you may extend this class and add as many fields as needed.
- * <p>
- * Typically, User will be the only object directly referenced in your
- * test code (apart from WebTask's).
- * In fact, from User you can reach Browser, and then WebDriver
- * (which may be useful for debugging purposes).
+ * User encapsulates Browser, and has two main behaviors:
+ * <ul>
+ * <li>{@link #openBrowser()}: creates an instance of WebDriver, thus opening a real browser</li>
+ * <li>{@link #doTask(WebTask)()}: performs the given actions against the SUT</li>
+ * </ul>
  * <p>
  * A typical use is as follows:
  * <pre>
  * {@code
  * new User()
  *   .openBrowser();
- *   .doTask(new XXXCompositeWebTask( [..] ));
+ *   .doTask(new CompositeWebTask( [..] ));
  *   .closeBrowser()
  * ;
  * }
  * </pre>
- * This is how tests should look like.
+ * BTW, this is how tests will look like.
+ * <p>
+ * Typically the navigation will be performed by tasks.
+ * Using {@link #browseTo(String)} instead is not recommended,
+ * and it will probably be deprecated/removed.
+ * <p>
+ * A User may have a username and a password.
+ * User may be extended in case more information were required (e.g.: a role).
+ * Subclasses should just add fields and accessor methods, and possibly
+ * override {@link #equals(User)}.
  * 
  */
 public class User {

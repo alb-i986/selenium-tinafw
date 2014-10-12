@@ -12,9 +12,9 @@ import me.alb_i986.selenium.tinafw.pages.Page;
  * CompositeWebTask allows you to build trees of WebTask's.
  * The idea is to have many atomic WebTask's (the leaves of the tree)
  * focused on a very small user interaction.
- * And then you start build up tasks by <i>composition<i>.
+ * And then you start build up tasks by <i>composition</i>.
  * <p>
- * With CompositeWebTask you may even get rid of the page objects (!),
+ * <i>With CompositeWebTask you may even get rid of page objects (!)</i>,
  * and have WebTask's talk directly to PageComponent's.
  * <p>
  * CompositeWebTask exploits the
