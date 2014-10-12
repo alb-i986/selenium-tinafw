@@ -78,9 +78,7 @@ public class User {
 
 	/**
 	 * Open the browser but do not navigate to any page yet.
-	 * Please bear in mind that it is illegal to open
-	 * the browser more than once without closing it
-	 * first.
+	 * If the browser was already open, does nothing.
 	 * 
 	 * @return this
 	 * @see Browser#open()

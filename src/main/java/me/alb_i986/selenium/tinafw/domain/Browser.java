@@ -37,18 +37,14 @@ public class Browser {
 	}
 
 	/**
-	 * Create an instance of WebDriver.
-	 * 
-	 * @throws IllegalStateException if this browser
-	 *         has already been opened
+	 * Create an instance of WebDriver, thus open a real browser.
+	 * Does nothing if this browser had already been opened.
 	 * 
 	 * @see WebDriverFactory#getWebDriver()
 	 */
 	public void open() {
-		if(isOpen()) {
-			throw new IllegalStateException("Browser already open: close it first");
-		}
-		driver = driverFactory.getWebDriver();
+		if(!isOpen())
+			driver = driverFactory.getWebDriver();
 	}
 	
 	/**
