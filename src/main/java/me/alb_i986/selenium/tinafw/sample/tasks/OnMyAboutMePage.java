@@ -17,7 +17,7 @@ public class OnMyAboutMePage extends TopWebTask {
 	@Override
 	public Page doTask(Page previousPage) {
 		super.doTask(previousPage);
-		return browser.startSession(MyAboutMePage.class);
+		return browser.browseTo(MyAboutMePage.class);
 	}
 
 }

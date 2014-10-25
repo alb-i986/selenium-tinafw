@@ -64,6 +64,24 @@ public class Browser {
 		assertIsOpen();
 		PageHelper.Navigation.browseTo(relativeUrl, driver);
 	}
+
+	/**
+	 * Browse to the given LoadablePage, and return its page object.
+	 * 
+	 * @return the requested LoadablePage
+	 * @throws IllegalStateException if the page cannot be loaded/instantiated 
+	 * 
+	 * @see LoadablePage#getLoadablePage(Class, Browser)
+	 */
+	public <T extends LoadablePage> T browseTo(Class<T> c) {
+		try {
+			return LoadablePage.getLoadablePage(c, driver);
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+			throw new IllegalStateException("cannot load loadable page " + c.getSimpleName(), e);
+		}
+	}
 	
 	/**
 	 * @see PageHelper.Navigation#browseBack(WebDriver)
@@ -71,24 +89,6 @@ public class Browser {
 	public void browseBack() {
 		assertIsOpen();
 		PageHelper.Navigation.browseBack(driver);
-	}
-
-	/**
-	 * Start a session by browsing to the given LoadablePage.
-	 * 
-	 * @return a LoadablePage
-	 * @throws IllegalStateException if the page cannot be loaded/instantiated 
-	 * 
-	 * @see LoadablePage#getLoadablePage(Class, Browser)
-	 */
-	public <T extends LoadablePage> T startSession(Class<T> c) {
-		try {
-			return LoadablePage.getLoadablePage(c, this);
-		} catch (InstantiationException | IllegalAccessException
-				| IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException e) {
-			throw new IllegalStateException("cannot load loadable page " + c.getSimpleName(), e);
-		}
 	}
 
 	/**

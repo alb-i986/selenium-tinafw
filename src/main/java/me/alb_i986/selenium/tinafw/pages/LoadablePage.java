@@ -25,6 +25,7 @@ public interface LoadablePage extends Page {
 	/**
 	 * Load the given LoadablePage (i.e. browse to it),
 	 * create its instance, and return it.
+	 * @param driver 
 	 * 
 	 * @return the requested LoadablePage
 	 * @throws IllegalAccessException 
@@ -34,15 +35,15 @@ public interface LoadablePage extends Page {
 	 * @throws InvocationTargetException 
 	 * @throws IllegalArgumentException 
 	 */
-	static public <T extends LoadablePage> T getLoadablePage(Class<T> c, Browser browser)
+	static public <T extends LoadablePage> T getLoadablePage(Class<T> c, WebDriver driver)
 			throws InstantiationException, IllegalAccessException,
 				IllegalArgumentException, InvocationTargetException,
 				NoSuchMethodException, SecurityException {
 		String url = (String) c.getMethod("getRelativeUrl").invoke(null);
-		browser.browseTo(url);
+		PageHelper.Navigation.browseTo(url, driver);
 		return 
 			(T) c.getConstructor(WebDriver.class, Page.class)
-				.newInstance(browser.getWebDriver(), null);
+				.newInstance(driver, null);
 	}
 
 }
