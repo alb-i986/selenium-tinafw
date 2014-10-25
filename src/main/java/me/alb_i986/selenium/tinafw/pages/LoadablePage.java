@@ -3,6 +3,7 @@ package me.alb_i986.selenium.tinafw.pages;
 import java.lang.reflect.InvocationTargetException;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 
 /**
  * A page that can be accessed directly, from a URL.
@@ -21,27 +22,29 @@ public interface LoadablePage extends Page {
 	}
 
 	/**
-	 * Load the given LoadablePage (i.e. browse to it),
-	 * create its instance, and return it.
+	 * Load the given LoadablePage.
+	 * Browse to its URL, create its instance (which includes a wait until the page
+	 * is loaded), and finally return it.
+	 * 
+	 * @param loadablePageClass the class object for the requested page
 	 * @param driver 
 	 * 
 	 * @return the requested LoadablePage
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
+	 * @throws WebDriverException if the page cannot be loaded
+	 * @throws IllegalStateException if the page cannot be instantiated
 	 */
-	static public <T extends LoadablePage> T load(Class<T> c, WebDriver driver)
-			throws InstantiationException, IllegalAccessException,
-				IllegalArgumentException, InvocationTargetException,
-				NoSuchMethodException, SecurityException {
-		String url = (String) c.getMethod("getRelativeUrl").invoke(null);
-		PageHelper.Navigation.browseTo(url, driver);
-		return 
-			(T) c.getConstructor(WebDriver.class, Page.class)
-				.newInstance(driver, null);
+	static public <T extends LoadablePage> T load(Class<T> loadablePageClass, WebDriver driver) {
+		try {
+			String relativeUrl = (String) loadablePageClass.getMethod("getRelativeUrl").invoke(null);
+			PageHelper.Navigation.browseTo(relativeUrl, driver);
+			return 
+				(T) loadablePageClass.getConstructor(WebDriver.class, Page.class)
+					.newInstance(driver, null);
+		} catch (InvocationTargetException e) {
+			throw new WebDriverException("cannot load loadable page " + loadablePageClass.getSimpleName(), e);
+		} catch (InstantiationException | NoSuchMethodException | IllegalAccessException e) {
+			throw new IllegalStateException("cannot instantiate loadable page " + loadablePageClass.getSimpleName(), e);
+		}
 	}
 
 }

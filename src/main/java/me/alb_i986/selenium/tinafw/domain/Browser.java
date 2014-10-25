@@ -1,7 +1,5 @@
 package me.alb_i986.selenium.tinafw.domain;
 
-import java.lang.reflect.InvocationTargetException;
-
 import me.alb_i986.selenium.tinafw.pages.*;
 
 import org.apache.log4j.Logger;
@@ -66,21 +64,14 @@ public class Browser {
 	}
 
 	/**
-	 * Browse to the given LoadablePage, and return its page object.
+	 * Browse to the given LoadablePage, and return its page object instance.
 	 * 
 	 * @return the requested LoadablePage
-	 * @throws IllegalStateException if the page cannot be loaded/instantiated 
 	 * 
-	 * @see LoadablePage#load(Class, Browser)
+	 * @see LoadablePage#load(Class, WebDriver)
 	 */
 	public <T extends LoadablePage> T browseTo(Class<T> c) {
-		try {
-			return LoadablePage.load(c, driver);
-		} catch (InstantiationException | IllegalAccessException
-				| IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException e) {
-			throw new IllegalStateException("cannot load loadable page " + c.getSimpleName(), e);
-		}
+		return LoadablePage.load(c, driver);
 	}
 	
 	/**
