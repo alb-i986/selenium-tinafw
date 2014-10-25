@@ -4,14 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.openqa.selenium.WebDriver;
 
-import me.alb_i986.selenium.tinafw.domain.Browser;
-
 /**
  * A page that can be accessed directly, from a URL.
  * <p>
  * Any implementor must implement (hide) {@link #getRelativeUrl()}.
  *  
- * @see LoadablePage#getLoadablePage(Class, Browser)
+ * @see #load(Class, WebDriver)
  */
 public interface LoadablePage extends Page {
 	
@@ -35,7 +33,7 @@ public interface LoadablePage extends Page {
 	 * @throws InvocationTargetException 
 	 * @throws IllegalArgumentException 
 	 */
-	static public <T extends LoadablePage> T getLoadablePage(Class<T> c, WebDriver driver)
+	static public <T extends LoadablePage> T load(Class<T> c, WebDriver driver)
 			throws InstantiationException, IllegalAccessException,
 				IllegalArgumentException, InvocationTargetException,
 				NoSuchMethodException, SecurityException {

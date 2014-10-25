@@ -71,11 +71,11 @@ public class Browser {
 	 * @return the requested LoadablePage
 	 * @throws IllegalStateException if the page cannot be loaded/instantiated 
 	 * 
-	 * @see LoadablePage#getLoadablePage(Class, Browser)
+	 * @see LoadablePage#load(Class, Browser)
 	 */
 	public <T extends LoadablePage> T browseTo(Class<T> c) {
 		try {
-			return LoadablePage.getLoadablePage(c, driver);
+			return LoadablePage.load(c, driver);
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
