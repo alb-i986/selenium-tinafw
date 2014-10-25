@@ -32,7 +32,7 @@ public class CompositeWebTask extends BaseWebTask {
 	public CompositeWebTask(WebTask... subtasks) {
 		for (WebTask subtask : subtasks) {
 			if(subtask == null)
-				logger.warn("Building CompositeWebTask. Discarding null task");
+				logger.debug("Building CompositeWebTask: discarding null task");
 			else
 				this.subtasks.add(subtask);
 		}
