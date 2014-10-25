@@ -176,7 +176,7 @@ public class PageHelper {
 				relativeUrl.trim()
 			;
 			driver.get(url);
-			logger.debug("Page at URL " + url + " loaded");
+			logger.debug("URL " + url + " loaded");
 		}
 
 		/**
