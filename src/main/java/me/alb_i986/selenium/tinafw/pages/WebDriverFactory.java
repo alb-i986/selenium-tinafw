@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 /**
  * Using Decorator to model the WebDriverFactory.
  */
-public abstract class WebDriverFactory {
+public interface WebDriverFactory {
 
 	/**
 	 * Configurable via the property "tinafw.browser".
@@ -24,6 +24,6 @@ public abstract class WebDriverFactory {
 	 * 
 	 * @throws IllegalArgumentException if the browser specified is not supported
 	 */
-	public abstract WebDriver getWebDriver();
+	public WebDriver getWebDriver();
 
 }

@@ -2,7 +2,7 @@ package me.alb_i986.selenium.tinafw.pages;
 
 import org.openqa.selenium.WebDriver;
 
-public abstract class WebDriverFactoryDecorator extends WebDriverFactory {
+public abstract class WebDriverFactoryDecorator implements WebDriverFactory {
 	
 	private WebDriverFactory decoratingFactory;
 	

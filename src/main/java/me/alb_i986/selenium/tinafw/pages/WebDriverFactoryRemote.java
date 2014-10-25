@@ -20,7 +20,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
  * from the local machine that runs the tests to the selenium node running
  * the browser.
  */
-public class WebDriverFactoryRemote extends WebDriverFactory {
+public class WebDriverFactoryRemote implements WebDriverFactory {
 
 	/**
 	 * Configurable via the property "tinafw.grid.platform".
