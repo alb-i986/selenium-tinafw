@@ -2,6 +2,7 @@ package me.alb_i986.selenium.tinafw.domain;
 
 import static org.junit.Assert.*;
 import me.alb_i986.selenium.tinafw.pages.Page;
+import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
 
 import org.junit.After;
@@ -32,7 +33,7 @@ public class UserTest {
 		// open a browser by injecting a WebDriver in the Browser instance
 		user.getBrowser().setDriver(new HtmlUnitDriver());
 		assertNull(user.getCurrentPage());
-		WebTask taskThatReturnsANotNullPage = new WebTask() {
+		WebTask taskThatReturnsANotNullPage = new BaseWebTask() {
 			
 			@Override
 			public Page doTask(Page initialPage) {
@@ -66,7 +67,7 @@ public class UserTest {
 	public void doTask_landingToNullPage() {
 		// open a browser by injecting a WebDriver in the Browser instance
 		user.getBrowser().setDriver(new HtmlUnitDriver());
-		WebTask taskThatReturnsANullPage = new WebTask() {
+		WebTask taskThatReturnsANullPage = new BaseWebTask() {
 			
 			@Override
 			public Page doTask(Page initialPage) {
