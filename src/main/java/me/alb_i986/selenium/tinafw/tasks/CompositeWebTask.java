@@ -3,6 +3,8 @@ package me.alb_i986.selenium.tinafw.tasks;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
+
 import me.alb_i986.selenium.tinafw.pages.Page;
 
 /**
@@ -46,12 +48,18 @@ public class CompositeWebTask extends BaseWebTask {
 	/**
 	 * Runs each subtask in order, and finally return the
 	 * page that the last task was visiting.
+	 * Each subtask will run with the same user as the composite.
+	 * 
+	 * @throws AssertionError if the user set in this composite is null
 	 */
 	@Override
 	public Page doTask(Page initialPage) {
 		Page currentPage = initialPage;
 		for(WebTask task : subtasks) {
 			logger.info("BEGIN subtask " + task.getClass().getSimpleName());
+			// before running the subtask, set the user
+			Assert.assertNotNull(getUser());
+			task.setUser(getUser());
 			currentPage = task.doTask(currentPage);
 			logger.info("END subtask " + task.getClass().getSimpleName());
 		}

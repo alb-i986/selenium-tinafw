@@ -119,6 +119,7 @@ public class User {
 	 * @see WebTask#doTask(Page)
 	 */
 	public User doTask(WebTask task) {
+		task.setUser(this);
 		this.currentPage = task.doTask(currentPage);
 		return this;
 	}
