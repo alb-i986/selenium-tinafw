@@ -1,6 +1,7 @@
 package me.alb_i986.selenium.tinafw.tests;
 
 import me.alb_i986.selenium.tinafw.tests.rules.BrowserManager;
+import me.alb_i986.selenium.tinafw.tests.rules.HtmlReporter;
 import me.alb_i986.selenium.tinafw.tests.rules.TestRetrier;
 import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
 
@@ -44,6 +45,9 @@ public abstract class JunitWebTest implements WebTest {
 
 	@Rule
 	public BrowserManager browserManager = new BrowserManager();
+
+	@Rule
+	public HtmlReporter htmlReporter = new HtmlReporter();
 		
 	@Rule
 	public TestWatcher watchman = new TestWatcher() {
