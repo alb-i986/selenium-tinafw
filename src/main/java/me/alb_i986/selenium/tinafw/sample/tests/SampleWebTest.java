@@ -1,21 +1,22 @@
 package me.alb_i986.selenium.tinafw.sample.tests;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import me.alb_i986.selenium.tinafw.domain.User;
 import me.alb_i986.selenium.tinafw.sample.tasks.*;
 import me.alb_i986.selenium.tinafw.tasks.*;
+import me.alb_i986.selenium.tinafw.tests.JunitWebTest;
 import static me.alb_i986.selenium.tinafw.tasks.BDDWebTask.*;
 
-public class SampleWebTest {
+public class SampleWebTest extends JunitWebTest {
 
 	private User user;
 	
-	@Before
+	@Override
 	public void before() {
+		super.before();
 		user = new User();
+		browserManager.registerBrowsers(user.getBrowser());
 		user.openBrowser();
 	}
 	
@@ -57,11 +58,6 @@ public class SampleWebTest {
 				)
 			)
 		);
-	}
-	
-	@After
-	public void after() {
-		user.closeBrowser();
 	}
 	
 }
