@@ -5,20 +5,19 @@ import java.util.List;
 import static org.junit.Assert.*;
 import me.alb_i986.selenium.tinafw.pages.Page;
 import me.alb_i986.selenium.tinafw.sample.pages.MyAboutMePage;
-import me.alb_i986.selenium.tinafw.tasks.MidChainWT;
+import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
 
 /**
  * Verify that each of the given social buttons
  * (passed through {@link #isDisplayed(String)})
  * is displayed.
  */
-public class VerifySocialIcons extends MidChainWT {
+public class VerifySocialIcons extends BaseWebTask {
 	
 	private List<String> socials = new ArrayList<>();
 
 	@Override
 	public Page doTask(Page previousPage) {
-		super.doTask(previousPage);
 		assertTrue(previousPage instanceof MyAboutMePage);
 		for (String social : socials) {
 			((MyAboutMePage) previousPage)
