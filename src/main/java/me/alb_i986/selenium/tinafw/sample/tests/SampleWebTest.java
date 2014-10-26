@@ -25,7 +25,7 @@ public class SampleWebTest {
 		user.doTask(
 			new BDDWebTask(
 				given(
-					new OnMyAboutMePage(user.getBrowser())
+					new OnMyAboutMePage()
 				),
 				when(
 					new Search()
@@ -45,7 +45,7 @@ public class SampleWebTest {
 		user.doTask(
 			new BDDWebTask(
 				given(
-					new OnMyAboutMePage(user.getBrowser())
+					new OnMyAboutMePage()
 				),
 				null,
 				then(

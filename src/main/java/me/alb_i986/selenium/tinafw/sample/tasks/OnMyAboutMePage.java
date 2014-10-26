@@ -1,23 +1,18 @@
 package me.alb_i986.selenium.tinafw.sample.tasks;
 
-import me.alb_i986.selenium.tinafw.domain.Browser;
-import me.alb_i986.selenium.tinafw.pages.Page;
+import me.alb_i986.selenium.tinafw.pages.LoadablePage;
 import me.alb_i986.selenium.tinafw.sample.pages.MyAboutMePage;
-import me.alb_i986.selenium.tinafw.tasks.TopWebTask;
+import me.alb_i986.selenium.tinafw.tasks.NavigationWebTask;
 
 /**
  * Navigate to my about.me page.
  */
-public class OnMyAboutMePage extends TopWebTask {
+public class OnMyAboutMePage extends NavigationWebTask {
 
-	public OnMyAboutMePage(Browser browser) {
-		super(browser);
-	}
-	
+	@SuppressWarnings("unchecked")
 	@Override
-	public Page doTask(Page previousPage) {
-		super.doTask(previousPage);
-		return browser.browseTo(MyAboutMePage.class);
+	public <T extends LoadablePage> Class<T> getPageClassToLoad() {
+		return (Class<T>) MyAboutMePage.class;
 	}
 
 }
