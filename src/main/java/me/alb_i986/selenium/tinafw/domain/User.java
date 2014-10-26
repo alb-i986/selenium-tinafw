@@ -116,11 +116,11 @@ public class User {
 	 * @param task
 	 * @return this
 	 * 
-	 * @see WebTask#doTask(Page)
+	 * @see WebTask#run(Page)
 	 */
 	public User doTask(WebTask task) {
 		task.setUser(this);
-		this.currentPage = task.doTask(currentPage);
+		this.currentPage = task.run(currentPage);
 		return this;
 	}
 

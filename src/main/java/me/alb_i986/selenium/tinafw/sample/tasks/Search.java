@@ -14,7 +14,7 @@ public class Search extends BaseWebTask {
 	private String query;
 
 	@Override
-	public Page doTask(Page previousPage) {
+	public Page run(Page previousPage) {
 		assertTrue(previousPage instanceof MyAboutMePage);
 		return
 		((MyAboutMePage) previousPage)

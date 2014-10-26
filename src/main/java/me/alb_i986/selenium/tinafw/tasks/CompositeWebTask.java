@@ -53,14 +53,14 @@ public class CompositeWebTask extends BaseWebTask {
 	 * @throws AssertionError if the user set in this composite is null
 	 */
 	@Override
-	public Page doTask(Page initialPage) {
+	public Page run(Page initialPage) {
 		Page currentPage = initialPage;
 		for(WebTask task : subtasks) {
 			logger.info("BEGIN subtask " + task.getClass().getSimpleName());
 			// before running the subtask, set the user
 			Assert.assertNotNull(getUser());
 			task.setUser(getUser());
-			currentPage = task.doTask(currentPage);
+			currentPage = task.run(currentPage);
 			logger.info("END subtask " + task.getClass().getSimpleName());
 		}
 		return currentPage;

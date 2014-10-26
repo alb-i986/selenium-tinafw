@@ -49,7 +49,7 @@ public interface WebTask {
 	 * @param initialPage the page it is displayed before this task starts
 	 * @return the last page that is displayed after this task finishes
 	 */
-	public Page doTask(Page initialPage);
+	public Page run(Page initialPage);
 	
 	/**
 	 * @param user the user this task will run as.

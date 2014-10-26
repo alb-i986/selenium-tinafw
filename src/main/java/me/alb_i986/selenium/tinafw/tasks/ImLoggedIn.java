@@ -11,7 +11,7 @@ public class ImLoggedIn extends BaseWebTask {
 	 * 
 	 * @param noPage this param won't be considered: may be null
 	 */
-	public Page doTask(Page noPage) {
+	public Page run(Page noPage) {
 		return
 			user.getBrowser().browseTo(LoginPage.class)
 				.loginAs(user.getUsername(), user.getPassword())

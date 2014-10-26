@@ -36,7 +36,7 @@ public class UserTest {
 		WebTask taskThatReturnsANotNullPage = new BaseWebTask() {
 			
 			@Override
-			public Page doTask(Page initialPage) {
+			public Page run(Page initialPage) {
 				return new Page() {
 					
 					@Override
@@ -70,7 +70,7 @@ public class UserTest {
 		WebTask taskThatReturnsANullPage = new BaseWebTask() {
 			
 			@Override
-			public Page doTask(Page initialPage) {
+			public Page run(Page initialPage) {
 				return null;
 			}
 		};

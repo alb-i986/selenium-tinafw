@@ -12,7 +12,7 @@ public class CanCompliment extends BaseWebTask {
 
 
 	@Override
-	public Page doTask(Page previousPage) {
+	public Page run(Page previousPage) {
 		assertTrue(previousPage instanceof SearchResultsPage);
 		return
 		((SearchResultsPage) previousPage)

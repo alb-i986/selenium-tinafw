@@ -17,7 +17,7 @@ public class VerifySocialIcons extends BaseWebTask {
 	private List<String> socials = new ArrayList<>();
 
 	@Override
-	public Page doTask(Page previousPage) {
+	public Page run(Page previousPage) {
 		assertTrue(previousPage instanceof MyAboutMePage);
 		for (String social : socials) {
 			((MyAboutMePage) previousPage)

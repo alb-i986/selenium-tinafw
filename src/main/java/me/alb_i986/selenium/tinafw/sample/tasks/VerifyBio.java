@@ -14,7 +14,7 @@ public class VerifyBio extends BaseWebTask {
 	private String expectedBioRegex;
 
 	@Override
-	public Page doTask(Page previousPage) {
+	public Page run(Page previousPage) {
 		assertTrue(previousPage instanceof MyAboutMePage);
 		((MyAboutMePage) previousPage)
 			.assertBioMatches(expectedBioRegex)
