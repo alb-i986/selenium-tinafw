@@ -10,7 +10,7 @@ import me.alb_i986.selenium.tinafw.tasks.WebTask;
  * User encapsulates Browser, and has two main behaviors:
  * <ul>
  * <li>{@link #openBrowser()}: creates an instance of WebDriver, thus opening a real browser</li>
- * <li>{@link #doTask(WebTask)()}: performs the given actions against the SUT</li>
+ * <li>{@link #doTask(WebTask)}: performs the given actions against the SUT</li>
  * </ul>
  * <p>
  * A typical use is as follows:
@@ -31,8 +31,8 @@ import me.alb_i986.selenium.tinafw.tasks.WebTask;
  * <p>
  * A User may have a username and a password.
  * User may be extended in case more information were required (e.g.: a role).
- * Subclasses should just add fields and accessor methods, and possibly
- * override {@link #equals(User)}.
+ * Subclasses should just add fields, setters, and getters,
+ * and possibly override {@link #equals(User)}.
  * 
  */
 public class User {

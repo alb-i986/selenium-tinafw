@@ -17,7 +17,7 @@ public class TestHelper {
 	
 	/**
 	 * @return the HTML with an img with the screenshot embedded in base64 format
-	 * @see http://en.wikipedia.org/wiki/Data_URI_scheme#HTML
+	 * @see <a href="http://en.wikipedia.org/wiki/Data_URI_scheme#HTML">Data_URI_scheme @ Wikipedia</a>
 	 */
 	public static String getScreenshotAsHTML(Browser browser) {
 		String html = "";

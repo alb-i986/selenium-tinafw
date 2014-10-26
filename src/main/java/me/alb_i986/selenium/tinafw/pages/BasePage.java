@@ -82,6 +82,7 @@ public abstract class BasePage implements Page {
 	 * Actually this method should be abstract,
 	 * but it isn't just for convenience.
 	 * It is highly recommended to override it.
+	 * Or you may just override {@link #getIdentifyingLocator()}.
 	 */
 	protected void waitUntilIsLoaded() {
 		PageHelper.waitUntil(

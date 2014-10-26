@@ -1,5 +1,7 @@
 package me.alb_i986.selenium.tinafw.pages;
 
+import org.openqa.selenium.WebDriver;
+
 import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
 
 /**
