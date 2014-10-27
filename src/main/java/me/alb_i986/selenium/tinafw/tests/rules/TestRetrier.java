@@ -1,10 +1,16 @@
 package me.alb_i986.selenium.tinafw.tests.rules;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
+/**
+ * Retry a failing test for the given number of times,
+ * configurable in the constructor.
+ *
+ */
 public class TestRetrier implements TestRule {
 
 	protected static final Logger logger = Logger.getLogger(TestRetrier.class);
@@ -40,14 +46,15 @@ public class TestRetrier implements TestRule {
 						break;
 					} catch (Throwable t) {
 						caughtThrowable = t;
-						// if this will not actually be retried,
-						// there is no need to log the failure (would be a duplicate log)
+						// if this test will not actually be retried,
+						// there is no need to log the failure: it would be a duplicate log
 						if(maxExecutions>1) {
 							logger.info("END test: FAILED " + (i + 1) + "/" + maxExecutions + " "
 									+ description.getDisplayName());
 						}
 					}
 				}
+				Assert.assertTrue(i<=maxExecutions);
 				if(i==maxExecutions) { 
 					throw caughtThrowable;
 				} else {
