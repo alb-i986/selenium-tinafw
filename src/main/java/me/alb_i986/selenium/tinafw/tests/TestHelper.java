@@ -5,7 +5,13 @@ import static org.junit.Assert.*;
 
 import org.openqa.selenium.*;
 
+/**
+ * Static class providing utility methods for tests.
+ *
+ */
 public class TestHelper {
+	
+	private TestHelper() {}
 
 	/**
 	 * @see TakesScreenshot#getScreenshotAs(OutputType)
