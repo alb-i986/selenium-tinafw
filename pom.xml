@@ -9,7 +9,7 @@
 
 	<name>selenium-tinafw</name>
 	<description>A framework for writing maintainable poetry with Selenium WebDriver.</description>
-	<url>https://github.com/alb-i986/selenium-tinafw/</url>
+	<url>http://alb-i986.github.io/selenium-tinafw/</url>
 	<licenses>
 		<license>
 			<name>MIT License</name>
@@ -104,6 +104,17 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.5</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
