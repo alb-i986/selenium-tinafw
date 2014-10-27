@@ -11,12 +11,13 @@ import org.apache.log4j.Logger;
 import org.junit.rules.ExternalResource;
 
 /**
- * JUnit Rule which closes all registered browsers when a test finishes.
+ * JUnit Rule responsible for closing all registered browsers
+ * as soon as a test finishes.
  * <p>
- * It is recommended to have tests explicitly close browsers as soon as they
- * are not needed.
- * This is especially true when using also a TestRetrier, in which case,
- * BrowserManager will be able to close the browsers only after the last retry.
+ * It is recommended NOT to have tests explicitly close their browsers,
+ * otherwise some other rules may be prevented from doing their job, e.g.
+ * {@link HtmlReporter}.
+ * 
  */
 public class BrowserManager extends ExternalResource {
 	
