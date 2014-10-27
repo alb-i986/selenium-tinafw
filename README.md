@@ -1,8 +1,6 @@
 selenium-tinafw
 ===============
 
-Introducing Selenium Tina Framework.
-
 A minimal and effective Selenium framework, not a f*ing wrapper.
 
 For a quick insight, please see the sample provided in the [package _sample_](https://github.com/alb-i986/selenium-tinafw/tree/master/src/main/java/me/alb_i986/selenium/tinafw/sample/), which implements a small test suite showing all of the concepts introduced in this work.
@@ -112,7 +110,7 @@ by adding this to your POM file:
 	<dependency>
 		<groupId>me.alb-i986.selenium</groupId>
 		<artifactId>selenium-tinafw</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.2-SNAPSHOT</version>
 	</dependency>
 
 For a start, please see:
@@ -128,6 +126,5 @@ Copy it to your project, under a 'resources' directory, customize it as per your
 
 ## TODO
 
-- add `WebTest` hierarchy (soon to be available)
-- add `PageComponent` hierarchy
+- add `PageComponent` hierarchy (soon to be available)
 - make it a data-driven framework: shouldn't be too difficult thanks to `WebTask`
