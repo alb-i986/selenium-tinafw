@@ -1,6 +1,7 @@
 package me.alb_i986.selenium.tinafw.tests;
 
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
+import me.alb_i986.selenium.tinafw.domain.User;;
 
 /**
  * All a WebTest needs to know is:

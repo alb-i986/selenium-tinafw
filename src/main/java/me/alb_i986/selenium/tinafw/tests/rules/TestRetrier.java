@@ -12,7 +12,7 @@ public class TestRetrier implements TestRule {
 	private int maxExecutions;
 
 	/**
-	 * If arg <= 0, then set it to 1.
+	 * If arg lte 0, then set it to 1.
 	 * @param maxExecutions
 	 */
 	public TestRetrier(int maxExecutions) {

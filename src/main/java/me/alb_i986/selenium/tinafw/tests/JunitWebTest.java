@@ -24,14 +24,13 @@ import org.junit.runner.Description;
  * register every Browser it opens to the BrowserManager. E.g.:
  * <pre>
  * {@code
- * @Override
  * public void before() {
  * 	super.before();
  * 	user = new User();
  * 	browserManager.registerBrowsers(user.getBrowser());
  * }
  * }
- * <pre>
+ * </pre>
  */
 public abstract class JunitWebTest implements WebTest {
 	
