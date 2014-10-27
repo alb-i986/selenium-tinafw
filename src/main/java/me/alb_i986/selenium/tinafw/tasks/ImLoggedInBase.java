@@ -4,7 +4,7 @@ import me.alb_i986.selenium.tinafw.pages.LoginPage;
 import me.alb_i986.selenium.tinafw.pages.Page;
 import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
 
-public class ImLoggedIn extends BaseWebTask {
+public abstract class ImLoggedInBase extends BaseWebTask {
 
 	/**
 	 * Browse to the login page and do the login.
@@ -13,9 +13,11 @@ public class ImLoggedIn extends BaseWebTask {
 	 */
 	public Page run(Page noPage) {
 		return
-			user.getBrowser().browseTo(LoginPage.class)
+			user.getBrowser().browseTo(getLoginPageClass())
 				.loginAs(user.getUsername(), user.getPassword())
 			;
 	}
+	
+	public abstract Class<? extends LoginPage> getLoginPageClass();
 
 }
