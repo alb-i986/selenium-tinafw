@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.internal.AssumptionViolatedException;
+import org.junit.rules.RuleChain;
+import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
@@ -17,7 +19,8 @@ import org.junit.runner.Description;
  * JunitWebTest provides a few useful JUnit Rules out of the box:
  * <ul>
  * <li>{@link TestRetrier}: retries a failing test</li>
- * <li>{@link BrowserManager}: closes the browsers when a test finishes</li>
+ * <li>{@link BrowserManager}: closes the registered browsers as soon as a test finishes</li>
+ * <li>{@link HtmlReporter}: generated an HTML report with screenshots</li>
  * <li>{@link TestWatcher}: logs the state of the running test (e.g.: "passed", "failed")</li>
  * </ul>
  * <p>
@@ -38,19 +41,12 @@ public abstract class JunitWebTest implements WebTest {
 	public static final int MAX_EXECUTIONS =
 			Integer.parseInt(PropertyLoader.getTinaFwConfig("max_executions"));
 	
-	protected static final Logger logger = Logger.getLogger(WebTest.class);
-	
-    @Rule
-    public TestRetrier retryRule = new TestRetrier(MAX_EXECUTIONS);
-
-	@Rule
-	public BrowserManager browserManager = new BrowserManager();
-
-	@Rule
-	public HtmlReporter htmlReporter = new HtmlReporter();
-		
-	@Rule
-	public TestWatcher watchman = new TestWatcher() {
+	protected static final Logger logger = Logger.getLogger(JunitWebTest.class);
+    
+    protected TestRetrier retryRule = new TestRetrier(MAX_EXECUTIONS);
+    protected BrowserManager browserManager = new BrowserManager();
+    protected HtmlReporter htmlReporter = new HtmlReporter();
+	protected TestWatcher watchman = new TestWatcher() {
 		
 		@Override
 		protected void skipped(AssumptionViolatedException e, Description description) {
@@ -77,6 +73,15 @@ public abstract class JunitWebTest implements WebTest {
 		}
 	};
 
+	@Rule
+	public TestRule ruleChain =
+		RuleChain
+			.outerRule(watchman)
+			.around(browserManager)
+			.around(htmlReporter)
+			.around(retryRule)
+		;
+	
 	/**
 	 * Empty after method.
 	 */
