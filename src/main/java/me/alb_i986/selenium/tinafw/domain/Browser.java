@@ -1,6 +1,7 @@
 package me.alb_i986.selenium.tinafw.domain;
 
 import me.alb_i986.selenium.tinafw.pages.*;
+import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,12 @@ import org.openqa.selenium.WebDriver;
  * 
  */
 public class Browser {
+
+	/**
+	 * Configurable via the property "tinafw.browser".
+	 */
+	public static final SupportedBrowser BROWSER_TYPE_FROM_CONFIG = SupportedBrowser.valueOf(
+			PropertyLoader.getTinaFwConfig("browser").toUpperCase());
 
 	protected static final Logger logger = Logger.getLogger(Browser.class);
 
@@ -35,14 +42,24 @@ public class Browser {
 	}
 
 	/**
+	 * Open a browser according to {@link #BROWSER_TYPE_FROM_CONFIG}.
+	 * 
+	 * @see #open(SupportedBrowser)
+	 */
+	public void open() {
+		open(BROWSER_TYPE_FROM_CONFIG);
+	}
+
+	/**
+	 * Open a browser according to the given parameter.
 	 * Create an instance of WebDriver, thus open a real browser.
 	 * Does nothing if this browser had already been opened.
 	 * 
-	 * @see WebDriverFactory#getWebDriver()
+	 * @see WebDriverFactory#getWebDriver(SupportedBrowser)
 	 */
-	public void open() {
+	public void open(SupportedBrowser browserType) {
 		if(!isOpen())
-			driver = driverFactory.getWebDriver();
+			driver = driverFactory.getWebDriver(browserType);
 	}
 	
 	/**
