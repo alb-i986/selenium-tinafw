@@ -1,5 +1,7 @@
 package me.alb_i986.selenium.tinafw.pages;
 
+import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
+
 import org.openqa.selenium.WebDriver;
 
 public abstract class WebDriverFactoryDecorator implements WebDriverFactory {
@@ -11,9 +13,8 @@ public abstract class WebDriverFactoryDecorator implements WebDriverFactory {
 	}
 
 	@Override
-	public WebDriver getWebDriver() {
-		return decoratingFactory.getWebDriver();
+	public WebDriver getWebDriver(SupportedBrowser browserType) {
+		return decoratingFactory.getWebDriver(browserType);
 	}
-	
 	
 }

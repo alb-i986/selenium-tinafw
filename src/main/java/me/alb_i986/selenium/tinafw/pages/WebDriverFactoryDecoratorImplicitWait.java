@@ -25,7 +25,7 @@ public class WebDriverFactoryDecoratorImplicitWait extends WebDriverFactoryDecor
 
 	@Override
 	public WebDriver getWebDriver(SupportedBrowser browserType) {
-		return setImplicitWait(super.getWebDriver());
+		return setImplicitWait(super.getWebDriver(browserType));
 	}
 	
 	private WebDriver setImplicitWait(WebDriver driver) {
