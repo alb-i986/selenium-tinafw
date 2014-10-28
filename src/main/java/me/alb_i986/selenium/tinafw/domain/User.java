@@ -40,7 +40,7 @@ public class User {
 	protected static final Logger logger = Logger.getLogger(User.class);
 	
 	private SupportedBrowser browserType;
-
+	
 	private Browser browser;
 	private Page currentPage;
 	
@@ -78,23 +78,36 @@ public class User {
 		this.currentPage = initialPage;
 	}
 
-
 	/**
 	 * Open the browser but do not navigate to any page yet.
 	 * If the browser was already open, does nothing.
 	 * 
 	 * @return this
-	 * @see Browser#open()
+	 * @see Browser#open(SupportedBrowser)
 	 */
-	public User openBrowser() {
-		browser.open();
-		return this;
-	}
-
 	public User openBrowser(SupportedBrowser browserType) {
 		browser.open(browserType);
 		return this;
 	}
+
+	/**
+	 * Open the browser previously specified with
+	 * {@link #withBrowserType(SupportedBrowser)}.
+	 * 
+	 * @return this
+	 * @throws IllegalStateException if the browser type has not been specified,
+	 *         i.e. withBrowserType has not been called
+	 * 
+	 * @see #openBrowser(SupportedBrowser)
+	 */
+	public User openBrowser() {
+		if(browserType == null)
+			throw new IllegalStateException("browserType has not been set. "
+					+ "Please set it with #withBrowserType");
+		openBrowser(browserType);
+		return this;
+	}
+
 
 	/**
 	 * Any method chain ends with this method.
@@ -164,10 +177,11 @@ public class User {
 	}
 	
 	public User withBrowserType(SupportedBrowser browserType) {
+		if(browserType == null)
+			throw new IllegalArgumentException("browser type is null");
 		this.browserType = browserType;
 		return this;
 	}
-
 
 	public Browser getBrowser() {
 		return browser;

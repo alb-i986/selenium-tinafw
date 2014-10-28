@@ -1,7 +1,6 @@
 package me.alb_i986.selenium.tinafw.domain;
 
 import me.alb_i986.selenium.tinafw.pages.*;
-import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -14,12 +13,6 @@ import org.openqa.selenium.WebDriver;
  * 
  */
 public class Browser {
-
-	/**
-	 * Configurable via the property "tinafw.browser".
-	 */
-	public static final SupportedBrowser BROWSER_TYPE_FROM_CONFIG = SupportedBrowser.valueOf(
-			PropertyLoader.getTinaFwConfig("browser").toUpperCase());
 
 	protected static final Logger logger = Logger.getLogger(Browser.class);
 
@@ -39,15 +32,6 @@ public class Browser {
 		if(driverFactory == null)
 			throw new IllegalArgumentException("The arg cannot be null");
 		this.driverFactory = driverFactory;
-	}
-
-	/**
-	 * Open a browser according to {@link #BROWSER_TYPE_FROM_CONFIG}.
-	 * 
-	 * @see #open(SupportedBrowser)
-	 */
-	public void open() {
-		open(BROWSER_TYPE_FROM_CONFIG);
 	}
 
 	/**

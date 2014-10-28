@@ -43,6 +43,9 @@ Some of the services/features we proudly provide/offer:
 
 - HTML reports with embedded screenshots for each failing test, thanks to
   [HtmlReporter](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/HtmlReporter.java)
+  
+- the ability to run each test on many different browsers (or just one)
+  by simply setting the property `tinafw.browsers = chrome, firefox`
 
 - a clean directory structure, aka multilayered architecture, with:
   - the _tests_ layer, for keeping your test cases along with their data
