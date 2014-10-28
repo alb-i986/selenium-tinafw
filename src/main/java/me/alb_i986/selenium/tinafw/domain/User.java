@@ -39,11 +39,14 @@ public class User {
 
 	protected static final Logger logger = Logger.getLogger(User.class);
 	
+	private SupportedBrowser browserType;
+
 	private Browser browser;
 	private Page currentPage;
 	
 	private String username = "";
 	private String password = "";
+
 
 	/**
 	 * Create a User with a closed {@link Browser}, and no initial page.
@@ -61,7 +64,7 @@ public class User {
 	public User(Browser browser) {
 		this(browser, null);
 	}
-	
+
 	/**
 	 * 
 	 * Create a User with the given Browser (which may be open or closed)
@@ -85,6 +88,11 @@ public class User {
 	 */
 	public User openBrowser() {
 		browser.open();
+		return this;
+	}
+
+	public User openBrowser(SupportedBrowser browserType) {
+		browser.open(browserType);
 		return this;
 	}
 
@@ -152,6 +160,11 @@ public class User {
 	
 	public User withPassword(String password) {
 		this.password = password;
+		return this;
+	}
+	
+	public User withBrowserType(SupportedBrowser browserType) {
+		this.browserType = browserType;
 		return this;
 	}
 
