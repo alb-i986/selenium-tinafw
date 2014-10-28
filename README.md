@@ -28,7 +28,7 @@ Some of the services/features we proudly provide/offer:
     > Given two tasks that run sequentially, the first does something and ends at a certain page.
     > How can the second task know which was the last page the first task was visiting?
   
-    (a naive solution being "every task restarts navigating the webapp from the home page").
+    (a naive solution being "every task restarts navigating the SUT from the home page").
 
 - `WebDriverFactory` hierarchy: elegant solution solving the problem of
   creating instances of WebDriver, modeled using the decorator design pattern.
@@ -41,7 +41,7 @@ Some of the services/features we proudly provide/offer:
   as an example of usage.
   For an introduction to BDD, please see the article [Introducing BDD, by Dan North](http://dannorth.net/introducing-bdd/).
 
-- HTML reports with embedded screenshots of failing tests, thanks to
+- HTML reports with embedded screenshots for each failing test, thanks to
   [HtmlReporter](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/HtmlReporter.java)
 
 - a clean directory structure, aka multilayered architecture, with:
@@ -93,14 +93,12 @@ Graphviz is actually optional: it is needed for generating javadocs with pretty 
 
 ## Dependencies
 
-As you can see in the POM file, they are:
-
+The main dependencies are:
 - selenium-java
 - junit
 - log4j
-- umlgraph
 
-This is just a FYI, as maven handles that.
+Please see the [POM file](https://github.com/alb-i986/selenium-tinafw/blob/master/pom.xml) for more details.
 
 
 ## Usage
