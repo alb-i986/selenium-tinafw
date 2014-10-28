@@ -20,27 +20,38 @@ _We believe that WebDriver is such a beautiful API that it's a shame to hide it_
 
 Some of the services/features we proudly provide/offer:
 
-- `WebDriverFactory` hierarchy: elegant solution solving the problem of
-  creating instances of WebDriver, modeled using the decorator design pattern.
-  E.g. see [how it allows us to solve the problem of handling the certificate error on IE](http://git.io/YQUJfw)
-  
 - `WebTask` hierarchy, the orchestrators of page objects:
   - helps keeping your code organized: each concrete WebTask is supposed to be a [Given/When/Then step](http://martinfowler.com/bliki/GivenWhenThen.html))
   - and highly readable ([fluent interface](http://www.martinfowler.com/bliki/FluentInterface.html)): see e.g. [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
   - solves the following problem in an elegant way:
 
-  > Given two tasks that run sequentially, the first does something and ends at a certain page.
-  > How can the second task know which was the last page the first task was visiting?
+    > Given two tasks that run sequentially, the first does something and ends at a certain page.
+    > How can the second task know which was the last page the first task was visiting?
   
-  (a naive solution being "every task restarts navigating the webapp from the home page").
+    (a naive solution being "every task restarts navigating the webapp from the home page").
+
+- `WebDriverFactory` hierarchy: elegant solution solving the problem of
+  creating instances of WebDriver, modeled using the decorator design pattern.
+  E.g. see [how it allows us to solve the problem of handling the certificate error on IE](http://git.io/YQUJfw)
+
+- BDD-style tests are not only supported but also strongly encouraged.
+  Thanks to `WebTask`'s, it is very easy to start writing BDD-style tests with `selenium-tinafw`:
+  all you need to do is wrap your own WebTask's in a `Given` `When` or `Then` task (each of which is a `CompositeWebTask`).
+  See [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
+  as an example of usage.
+  For an introduction to BDD, please see the article [Introducing BDD, by Dan North](http://dannorth.net/introducing-bdd/).
+
+- HTML reports with embedded screenshots of failing tests, thanks to
+  [HtmlReporter](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/HtmlReporter.java)
 
 - a clean directory structure, aka multilayered architecture, with:
   - the _tests_ layer, for keeping your test cases along with their data
-  - the _domain_ layer, containing concepts like User and Browser, as well as the concepts from your own domain, e.g. BlogPost, BlogComment 
-  - the _tasks_ layer, which orchestrate the page objects by building method chains of page objects
+  - the _domain_ layer, containing concepts like User and Browser, and supposed to contain the concepts
+    of your own domain as well, e.g. `BlogPost`, `BlogComment`
+  - the _tasks_ layer, containing the orchestrators of page objects
   - the _pages_ layer, with [page objects](https://code.google.com/p/selenium/wiki/PageObjects)
 
-- meaningful logs, thanks to `WebTask`'s and `Page`'s:
+- meaningful logs, e.g.:
 
 		INFO  CompositeWebTask - BEGIN subtask Given
 		INFO  CompositeWebTask - BEGIN subtask OnMyAboutMePage
@@ -64,16 +75,10 @@ Some of the services/features we proudly provide/offer:
 
 ## Design goals
 
-- small, clean, Object-based API ([as Simon Stewart said about WebDriver](http://google-opensource.blogspot.ie/2009/05/introducing-webdriver.html))
-
+- small, clean, Object-based API ([here, quoting Simon Stewart](http://google-opensource.blogspot.ie/2009/05/introducing-webdriver.html))
 - not a wrapper
-
 - high cohesion.
-  E.g.: WebTest directly depends on User only;
-  User directly depends on Browser.
-  
 - flexibility
-  
 - poetry (to be, as well as to allow for)
 
 
@@ -121,10 +126,13 @@ For a start, please see:
 ### Configuration
 Under `src/main/resources/` you can find the config file `selenium-tinafw.default.properties`.
 
-Copy it to your project, under a 'resources' directory, customize it as per your needs, and add it to your VCS. Besides, you can have another config file, which you must name `selenium-tinafw.custom.properties`, and you should _not_ version, in which you can override any property defined in the defaults file.
+Copy it to your project, under a 'resources' directory, customize it as per your needs, and add it to your VCS.
+Besides, you can have another config file, which you must name `selenium-tinafw.custom.properties`, which you should _not_ version,
+in which you can override any property defined in the defaults file.
 
 
 ## TODO
 
+- publish the artifact to [Maven Central](http://search.maven.org/)
 - add `PageComponent` hierarchy (soon to be available)
-- make it a data-driven framework: shouldn't be too difficult thanks to `WebTask`
+- make it a data-driven framework
