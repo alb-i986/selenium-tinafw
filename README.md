@@ -46,6 +46,13 @@ Some of the services/features we proudly provide/offer:
   
 - the ability to run each test on many different browsers (or just one)
   by simply setting the property `tinafw.browsers = chrome, firefox`
+  
+- the ability to retry a failed test for a given number of times (configurable).
+  See [TestRetrier](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/TestRetrier.java)
+  
+- an automatic mechanism for closing browsers as soon as a test finishes,
+  as well as the option to disable such a mechanism by setting a property.
+  See [BrowserManager](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/BrowserManager.java)
 
 - a clean directory structure, aka multilayered architecture, with:
   - the _tests_ layer, for keeping your test cases along with their data
