@@ -6,10 +6,11 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 /**
- * A Browser has a WebDriver.
- * 
- * A Browser may be opened and closed.
- * By opening a Browser, a WebDriver is instantiated.
+ * A Browser has a type, one of {@link SupportedBrowser}. 
+ * A Browser may be opened and closed, and may be used to
+ * browse to some page.
+ * <p>
+ * It is backed by a WebDriver: by opening a Browser, a WebDriver is instantiated.
  * 
  */
 public class Browser {
@@ -18,6 +19,7 @@ public class Browser {
 
 	private WebDriverFactory driverFactory;
 	private WebDriver driver;
+	private SupportedBrowser type;
 
 	/**
 	 * By default inject a {@link WebDriverFactoryLocal} decorated by
@@ -42,8 +44,11 @@ public class Browser {
 	 * @see WebDriverFactory#getWebDriver(SupportedBrowser)
 	 */
 	public void open(SupportedBrowser browserType) {
-		if(!isOpen())
+		if(!isOpen()) {
+			type = browserType;
+			logger.info("Opening browser " + browserType);
 			driver = driverFactory.getWebDriver(browserType);
+		}
 	}
 	
 	/**
@@ -53,6 +58,7 @@ public class Browser {
 		if(isOpen()) {
 			driver.quit();
 			driver = null;
+			type = null;
 		}
 	}
 	
@@ -92,6 +98,10 @@ public class Browser {
 	
 	public WebDriver getWebDriver() {
 		return driver;
+	}
+	
+	public SupportedBrowser getType() {
+		return type;
 	}
 	
 	/**
