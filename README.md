@@ -85,6 +85,27 @@ Some of the services/features we proudly provide/offer:
 		INFO  CompositeWebTask - END subtask CanCompliment
 		INFO  CompositeWebTask - END subtask Then
 
+
+## Usage
+
+1. clone this repo
+2. `cd` to its directory
+3. run `mvn install`
+
+Now you can start building your own test suite/framework on top of `selenium-tinafw`
+by adding this to your POM file:
+
+	<dependency>
+		<groupId>me.alb-i986.selenium</groupId>
+		<artifactId>selenium-tinafw</artifactId>
+		<version>0.2-SNAPSHOT</version>
+	</dependency>
+
+For a start, please see:
+ - the sample provided in the [package _sample_](https://github.com/alb-i986/selenium-tinafw/tree/master/src/main/java/me/alb_i986/selenium/tinafw/sample/), containing a small but full working example of use
+ - https://github.com/alb-i986/selenium-forbes-sample/ (might currently be out of date, please bear with me)
+ 
+ 
 ## Design goals
 
 - small, clean, Object-based API ([here, quoting Simon Stewart](http://google-opensource.blogspot.ie/2009/05/introducing-webdriver.html))
@@ -112,26 +133,6 @@ The main dependencies are:
 
 Please see the [POM file](https://github.com/alb-i986/selenium-tinafw/blob/master/pom.xml) for more details.
 
-
-## Usage
-
-1. clone this repo
-2. `cd` to its directory
-3. run `mvn install`
-
-Now you can start building your own test suite/framework on top of `selenium-tinafw`
-by adding this to your POM file:
-
-	<dependency>
-		<groupId>me.alb-i986.selenium</groupId>
-		<artifactId>selenium-tinafw</artifactId>
-		<version>0.2-SNAPSHOT</version>
-	</dependency>
-
-For a start, please see:
- - the sample provided in the [package _sample_](https://github.com/alb-i986/selenium-tinafw/tree/master/src/main/java/me/alb_i986/selenium/tinafw/sample/), containing a small but full working example of use
- - https://github.com/alb-i986/selenium-forbes-sample/ (might currently be out of date, please bear with me)
- 
  
 ### Configuration
 Under `src/main/resources/` you can find the config file `selenium-tinafw.default.properties`.
