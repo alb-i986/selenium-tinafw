@@ -34,7 +34,7 @@ import org.junit.runners.Parameterized.Parameters;
  * <li>{@link TestWatcher}: logs the state of the running test (e.g.: "passed", "failed")</li>
  * </ul>
  * <p>
- * In order for the BrowserManager to do its job, each test must
+ * In order for BrowserManager to do its job, each test must
  * register every Browser it opens to the BrowserManager. E.g.:
  * <pre>
  * {@code
@@ -45,6 +45,9 @@ import org.junit.runners.Parameterized.Parameters;
  * }
  * }
  * </pre>
+ * <p>
+ * Also, JunitWebTest leverages JUnit's {@link Parameterized} runner to provide the ability
+ * to run each test on many different browsers, which can be specified in the config file.
  */
 @RunWith(Parameterized.class)
 public abstract class JunitWebTest implements WebTest {

@@ -18,6 +18,8 @@ You could virtually access a WebDriver instance from a test class (although you 
 _We believe that WebDriver is such a beautiful API that it's a shame to hide it_.
 
 
+## Features
+
 Some of the services/features we proudly provide/offer:
 
 - `WebTask` hierarchy, the orchestrators of page objects:

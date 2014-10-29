@@ -34,6 +34,11 @@ public class HtmlReportBuilder {
 		this.writer = writer;
 	}
 
+	/**
+	 * Begin the report by opening the tags html, head, body, table.
+	 * 
+	 * @return this
+	 */
 	public HtmlReportBuilder beginReport() {
 	    writer.println("<html><head>");
 	    writer.println("<script src=\"https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js\"></script>");
@@ -42,6 +47,9 @@ public class HtmlReportBuilder {
 		return this;
 	}
 
+	/**
+	 * End the report by closing the tags table, body, html.
+	 */
 	public void endReport() {
 		writer.println("</tbody></table></body></html>");
 		writer.close();
@@ -61,6 +69,13 @@ public class HtmlReportBuilder {
 		return this;
 	}
 
+	/**
+	 * Print the given page source with pretty syntax highlighting.
+	 * If the arg is null, then print an error message in the report.
+	 * 
+	 * @param pageSource
+	 * @return this
+	 */
 	public HtmlReportBuilder pageSource(String pageSource) {
 		writer.println("<tr><td>");
 		if(pageSource == null) {
@@ -101,6 +116,13 @@ public class HtmlReportBuilder {
 		return this;
 	}
 
+	/**
+	 * Print the given <key, value> pair in its own line.
+	 * 
+	 * @param key
+	 * @param value
+	 * @return this
+	 */
 	public HtmlReportBuilder info(String key, String value) {
 		writer.println("<tr><td>");
 		writer.println("<table>");
