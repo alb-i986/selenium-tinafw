@@ -8,8 +8,16 @@ import org.openqa.selenium.TakesScreenshot;
 
 /**
  * Encapsulates the logic for generating the HTML of a report.
+ * HtmlReportBuilder is designed with a fluent interface to allow clients
+ * to build a report by chaining the different parts of the report in
+ * <i>any</i> order (e.g.: title, info, screenshot, page source).
+ * There is one constrain, though:
+ * <ul>
+ * <li>{@link #beginReport()} must be called first (and never again)</li>
+ * <li>{@link #endReport()} must be called last</li>
+ * </ul>
  * <p>
- * The syntax highlighting for the page sources is provided by
+ * It provides syntax highlighting (e.g. for page sources) thanks to
  * <a href="https://code.google.com/p/google-code-prettify/" target="new">
  * google-code-prettify</a>.
  *

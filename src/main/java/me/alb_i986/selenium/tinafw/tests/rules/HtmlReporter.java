@@ -22,6 +22,8 @@ import org.openqa.selenium.WebDriverException;
 /**
  * TestRule for generating an HTML report with embedded screenshots
  * and page sources for each failure.
+ * 
+ * @see HtmlReportBuilder
  *
  */
 public class HtmlReporter extends TestWatcher {
