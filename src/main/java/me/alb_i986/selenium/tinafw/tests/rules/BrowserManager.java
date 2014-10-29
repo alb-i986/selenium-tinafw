@@ -20,7 +20,10 @@ import org.junit.rules.ExternalResource;
  * 
  */
 public class BrowserManager extends ExternalResource {
-	
+
+	/**
+	 * Configurable via the property "tinafw.keep_browsers_open".
+	 */
 	public static final boolean KEEP_BROWSERS_OPEN_ON_EXIT = Boolean.parseBoolean(
 			PropertyLoader.getTinaFwConfig("keep_browsers_open"));
 

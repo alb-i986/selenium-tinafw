@@ -49,6 +49,9 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public abstract class JunitWebTest implements WebTest {
 	
+	/**
+	 * Configurable via the property "tinafw.max_executions".
+	 */
 	public static final int MAX_EXECUTIONS =
 			Integer.parseInt(PropertyLoader.getTinaFwConfig("max_executions"));
 	

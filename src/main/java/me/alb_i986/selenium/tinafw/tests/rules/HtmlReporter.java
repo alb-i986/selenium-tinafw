@@ -28,6 +28,9 @@ import org.openqa.selenium.WebDriverException;
  */
 public class HtmlReporter extends TestWatcher {
 
+	/**
+	 * Configurable via the property "tinafw.reports_dir".
+	 */
 	private static final String REPORTS_DIR = PropertyLoader.getTinaFwConfig("reports_dir");
 
 	protected static final Logger logger = Logger.getLogger(HtmlReporter.class);
