@@ -49,7 +49,7 @@ public class HtmlReporter extends TestWatcher {
 			writer = createHtmlFile(description.getClassName(), description.getMethodName());
 			new HtmlReportBuilder(writer)
 				.beginReport()
-				.testName(description.getMethodName())
+				.title(description.getDisplayName())
 				.screenshot(TestHelper.getScreenshotAsBase64(browser.getWebDriver()))
 				.pageSource(getPageSource(browser.getWebDriver()))
 				.endReport()

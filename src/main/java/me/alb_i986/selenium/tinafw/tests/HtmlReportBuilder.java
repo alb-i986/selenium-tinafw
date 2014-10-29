@@ -39,12 +39,17 @@ public class HtmlReportBuilder {
 		writer.close();
 	}
 
-	public HtmlReportBuilder testName(String testName) {
-		if(testName != null) {
-			writer.println("<tr><td>");
-			writer.println("Test " + testName);
-			writer.println("</td></tr>");
-		}
+	/**
+	 * Print the title of the report.
+	 * If the given title is null, write an error message in place of the title.
+	 * 
+	 * @param title
+	 * @return this
+	 */
+	public HtmlReportBuilder title(String title) {
+		writer.println("<tr><td>");
+		writer.println(title != null ? title : "NO TITLE GIVEN");
+		writer.println("</td></tr>");
 		return this;
 	}
 
