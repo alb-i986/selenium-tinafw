@@ -104,6 +104,13 @@ by adding this to your POM file:
 For a start, please see:
  - the sample provided in the [package _sample_](https://github.com/alb-i986/selenium-tinafw/tree/master/src/main/java/me/alb_i986/selenium/tinafw/sample/), containing a small but full working example of use
  - https://github.com/alb-i986/selenium-forbes-sample/ (might currently be out of date, please bear with me)
+
+### Configuration
+Under `src/main/resources/` you can find the config file `selenium-tinafw.default.properties`.
+
+Copy it to your project, under a 'resources' directory, customize it as per your needs, and add it to your VCS.
+Besides, you can have another config file, which you must name `selenium-tinafw.custom.properties`, which you should _not_ version,
+in which you can override any property defined in the defaults file.
  
  
 ## Design goals
@@ -132,14 +139,6 @@ The main dependencies are:
 - log4j
 
 Please see the [POM file](https://github.com/alb-i986/selenium-tinafw/blob/master/pom.xml) for more details.
-
- 
-### Configuration
-Under `src/main/resources/` you can find the config file `selenium-tinafw.default.properties`.
-
-Copy it to your project, under a 'resources' directory, customize it as per your needs, and add it to your VCS.
-Besides, you can have another config file, which you must name `selenium-tinafw.custom.properties`, which you should _not_ version,
-in which you can override any property defined in the defaults file.
 
 
 ## TODO
