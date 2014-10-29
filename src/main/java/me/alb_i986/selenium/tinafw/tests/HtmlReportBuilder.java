@@ -92,5 +92,17 @@ public class HtmlReportBuilder {
 		writer.println("</td></tr>");
 		return this;
 	}
+
+	public HtmlReportBuilder info(String key, String value) {
+		writer.println("<tr><td>");
+		writer.println("<table>");
+		writer.println("<tr>");
+		writer.println("<td>" + key + ":</td>");
+		writer.println("<td>" + value + "</td>");
+		writer.println("</tr>");
+		writer.println("</table>");
+		writer.println("</td></tr>");
+		return this;
+	}
 	
 }

@@ -50,6 +50,7 @@ public class HtmlReporter extends TestWatcher {
 			new HtmlReportBuilder(writer)
 				.beginReport()
 				.title(description.getDisplayName())
+				.info("Browser", browser.getType().toString())
 				.screenshot(TestHelper.getScreenshotAsBase64(browser.getWebDriver()))
 				.pageSource(getPageSource(browser.getWebDriver()))
 				.endReport()
