@@ -22,17 +22,17 @@ public class BrowserTest {
 	 * Testing post conditions of {@link Browser#open()}:
 	 * <ol>
 	 * <li>Given a Browser with a null WebDriver</li>
-	 * <li>When I open the browser</li>
-	 * <li>Then {@link Browser#isOpen()} should return true</li>
-	 * <li>And {@link Browser#getWebDriver()} should be not null</li>
+	 * <li>When I open Chrome</li>
+	 * <li>Then {@link Browser#getWebDriver()} should be not null</li>
+	 * <li>And {@link Browser#isOpen()} should return true</li>
 	 * </ol>
 	 */
 	@Test
-	public void givenNullDriverWhenOpenThenBrowserShouldBeOpen() {
+	public void givenNullDriverWhenOpenChromeThenDriverIsNotNull() {
 		browser.setDriver(null);
-		browser.open();
-		assertTrue(browser.isOpen());
+		browser.open(SupportedBrowser.CHROME);
 		assertNotNull(browser.getWebDriver());
+		assertTrue(browser.isOpen());
 	}
 
 	/**
