@@ -105,6 +105,9 @@ For a start, please see:
  - the sample provided in the [package _sample_](https://github.com/alb-i986/selenium-tinafw/tree/master/src/main/java/me/alb_i986/selenium/tinafw/sample/), containing a small but full working example of use
  - https://github.com/alb-i986/selenium-forbes-sample/ (might currently be out of date, please bear with me)
 
+Javadocs can be found at [http://alb-i986.github.io/selenium-tinafw/javadoc/](http://alb-i986.github.io/selenium-tinafw/javadoc/)
+ 
+
 ### Configuration
 Under `src/main/resources/` you can find the config file `selenium-tinafw.default.properties`.
 
