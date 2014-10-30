@@ -117,7 +117,7 @@ public class HtmlReportBuilder {
 	}
 
 	/**
-	 * Print the given <key, value> pair in its own line.
+	 * Print the given &lt;key, value&gt; pair in its own line.
 	 * 
 	 * @param key
 	 * @param value
