@@ -145,6 +145,23 @@ public class User {
 		return this;
 	}
 
+	/**
+	 * Instantiate a {@link CompositeWebTask} made up of all
+	 * of the given tasks, and run it.
+	 * <p>
+	 * Convenience method for running multiple tasks at once
+	 * without wrapping them around a {@link CompositeWebTask}
+	 * by hand.
+	 * 
+	 * @param tasks
+	 * @return this
+	 * 
+	 * @see #doTask(WebTask)
+	 */
+	public User doTasks(WebTask... tasks) {
+		return doTask(new CompositeWebTask(tasks));
+	}
+
 
 	/**
 	 * @return the page that the last performed task was visiting;
