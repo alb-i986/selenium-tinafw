@@ -57,10 +57,11 @@ public class TestRetrier implements TestRule {
 				Assert.assertTrue(i<=maxExecutions);
 				if(i==maxExecutions) { 
 					throw caughtThrowable;
-				} else {
-					logger.info("END test: FAILED " + (i + 1) + "/" + maxExecutions + " "
+				} else if (i > 0) {
+					logger.info("END test: PASSED " + (i + 1) + "/" + maxExecutions + " "
 							+ description.getDisplayName() + " -- seems FLAKY");
 				}
+				// if i == 0 => do not write a "PASSED" log: it would be a duplicate
 			}
 		};
 	}
