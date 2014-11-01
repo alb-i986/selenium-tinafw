@@ -34,11 +34,12 @@ public class PageHelper {
 	 *  
 	 * @param expectedCondition
 	 * @param driver
+	 * @return 
 	 * 
 	 * @see #waitUntil(ExpectedCondition, WebDriver, long)
 	 */
-	public static void waitUntil(ExpectedCondition<?> expectedCondition, WebDriver driver) {
-		waitUntil(expectedCondition, driver, DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS);
+	public static <T> T waitUntil(ExpectedCondition<T> expectedCondition, WebDriver driver) {
+		return waitUntil(expectedCondition, driver, DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS);
 	}
 
 	/**
@@ -48,33 +49,37 @@ public class PageHelper {
 	 * @param expectedCondition
 	 * @param driver
 	 * @param timeOutInSeconds
+	 * @return whatever WebDriverWait#until returns
+	 * 
 	 * @see WebDriverWait#until(com.google.common.base.Function)
 	 * @throws TimeoutException if the timeout expires
 	 */
-	public static void waitUntil(ExpectedCondition<?> expectedCondition,
+	public static <T> T waitUntil(ExpectedCondition<T> expectedCondition,
 			WebDriver driver, long timeOutInSeconds) {
-		logger.debug("BEGIN Explicit wait (timeout=" + timeOutInSeconds + "s). " +
-				"Waiting until " + expectedCondition);
-		new WebDriverWait(driver, timeOutInSeconds)
-			.until(expectedCondition);
-		logger.debug("END Explicit wait: " + expectedCondition);
+		logger.debug("BEGIN wait (timeout=" + timeOutInSeconds + "s) for "
+			+ expectedCondition);
+		T object = 
+			new WebDriverWait(driver, timeOutInSeconds)
+				.until(expectedCondition);
+		logger.debug("END wait for  " + expectedCondition);
+		return object;
 	}
 	
 	/**
 	 * Explicitly wait until the given expected condition is met.
+	 * Throw {@link AssertionError} if the wait times out.
 	 * 
 	 * @param condition
 	 * @param driver
+	 * @return whatever #waitUntil returns
 	 * @throws AssertionError if the condition is not met
 	 */
-	public static void assertExpectedCondition(ExpectedCondition<?> condition,
-			WebDriver driver) {
+	public static <T> T assertExpectedCondition(ExpectedCondition<T> condition, WebDriver driver) {
 		try {
-			waitUntil(condition, driver);
+			return waitUntil(condition, driver);
 		} catch(TimeoutException e) {
-			throw new AssertionError("The condition was not met: " + condition , e);
+			throw new AssertionError("Explicit wait timed out. The condition '" + condition + "' was not met" , e);
 		}
-		logger.info("The condition was met: " + condition);
 	}
 	
 	/**
