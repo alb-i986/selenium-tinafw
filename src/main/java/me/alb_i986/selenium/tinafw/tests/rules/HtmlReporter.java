@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import me.alb_i986.selenium.tinafw.domain.Browser;
 import me.alb_i986.selenium.tinafw.tests.HtmlReportBuilder;
 import me.alb_i986.selenium.tinafw.tests.TestHelper;
-import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
+import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 import org.apache.log4j.Logger;
 import org.junit.rules.TestWatcher;
@@ -29,9 +29,9 @@ import org.openqa.selenium.WebDriverException;
 public class HtmlReporter extends TestWatcher {
 
 	/**
-	 * Configurable via the property "tinafw.reports_dir".
+	 * @see TinafwPropLoader#getReportsDir()
 	 */
-	private static final String REPORTS_DIR = PropertyLoader.getTinaFwConfig("reports_dir");
+	private static final String REPORTS_DIR = TinafwPropLoader.getReportsDir();
 
 	protected static final Logger logger = Logger.getLogger(HtmlReporter.class);
 	

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import me.alb_i986.selenium.tinafw.domain.Browser;
-import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
+import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 import org.apache.log4j.Logger;
 import org.junit.rules.ExternalResource;
@@ -22,10 +22,10 @@ import org.junit.rules.ExternalResource;
 public class BrowserManager extends ExternalResource {
 
 	/**
-	 * Configurable via the property "tinafw.keep_browsers_open".
+	 * @see TinafwPropLoader#getKeepBrowsersOpen()
 	 */
-	public static final boolean KEEP_BROWSERS_OPEN_ON_EXIT = Boolean.parseBoolean(
-			PropertyLoader.getTinaFwConfig("keep_browsers_open"));
+	public static final boolean KEEP_BROWSERS_OPEN_ON_EXIT =
+			TinafwPropLoader.getKeepBrowsersOpen();
 
 	protected static final Logger logger = Logger.getLogger(BrowserManager.class);
 	

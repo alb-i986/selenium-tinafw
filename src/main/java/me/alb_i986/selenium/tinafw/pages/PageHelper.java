@@ -1,6 +1,6 @@
 package me.alb_i986.selenium.tinafw.pages;
 
-import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
+import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
@@ -22,11 +22,12 @@ public class PageHelper {
 	/**
 	 * The default timeout in seconds used by
 	 * {@link #waitUntil(ExpectedCondition, WebDriver)}.
-	 * Configurable via the property "tinafw.timeout.explicit_wait".
+	 *
+	 * @see TinafwPropLoader#getExplicitWait()
 	 */
-	public static final int DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS = Integer.valueOf(
-			PropertyLoader.getTinaFwConfig("timeout.explicit_wait"));
-
+	public static final int DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS =
+			TinafwPropLoader.getExplicitWait();
+			
 	/**
 	 * Generic explicit wait, taking an {@link ExpectedCondition} as a parameter.
 	 * Times out after {@link #DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS} seconds.

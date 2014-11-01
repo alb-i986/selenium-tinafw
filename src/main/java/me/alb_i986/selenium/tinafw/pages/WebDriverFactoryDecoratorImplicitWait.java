@@ -3,7 +3,7 @@ package me.alb_i986.selenium.tinafw.pages;
 import java.util.concurrent.TimeUnit;
 
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
-import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
+import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 import org.openqa.selenium.WebDriver;
 
@@ -14,10 +14,10 @@ import org.openqa.selenium.WebDriver;
 public class WebDriverFactoryDecoratorImplicitWait extends WebDriverFactoryDecorator {
 
 	/**
-	 * Configurable via the property "tinafw.timeout.implicit_wait".
+	 * @see TinafwPropLoader#getImplicitWait()
 	 */
-	public static final int IMPLICIT_WAIT_TIMEOUT_SECONDS = Integer.valueOf(
-			PropertyLoader.getTinaFwConfig("timeout.implicit_wait"));
+	public static final int IMPLICIT_WAIT_TIMEOUT_SECONDS = 
+			TinafwPropLoader.getImplicitWait();
 
 	public WebDriverFactoryDecoratorImplicitWait(WebDriverFactory decoratingFactory) {
 		super(decoratingFactory);
@@ -29,7 +29,8 @@ public class WebDriverFactoryDecoratorImplicitWait extends WebDriverFactoryDecor
 	}
 	
 	private WebDriver setImplicitWait(WebDriver driver) {
-		driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(
+				IMPLICIT_WAIT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 		return driver;
 	}
 }

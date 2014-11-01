@@ -2,16 +2,14 @@ package me.alb_i986.selenium.tinafw.tests;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 import me.alb_i986.selenium.tinafw.tests.rules.BrowserManager;
 import me.alb_i986.selenium.tinafw.tests.rules.HtmlReporter;
 import me.alb_i986.selenium.tinafw.tests.rules.TestLogger;
 import me.alb_i986.selenium.tinafw.tests.rules.TestRetrier;
-import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
+import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -53,10 +51,9 @@ import org.junit.runners.Parameterized.Parameters;
 public abstract class JunitWebTest implements WebTest {
 	
 	/**
-	 * Configurable via the property "tinafw.max_executions".
+	 * @see TinafwPropLoader#getMaxExecutions()
 	 */
-	public static final int MAX_EXECUTIONS =
-			Integer.parseInt(PropertyLoader.getTinaFwConfig("max_executions"));
+	public static final int MAX_EXECUTIONS = TinafwPropLoader.getMaxExecutions();
 	
 	protected static final Logger logger = Logger.getLogger(JunitWebTest.class);
     
@@ -78,26 +75,15 @@ public abstract class JunitWebTest implements WebTest {
 	public SupportedBrowser browserType;
 
 	/**
-	 * Configurable via the property "tinafw.browsers".
+	 * Provides the test parameters,
+	 * i.e. the browsers to run the tests with.
 	 * 
-	 * @throws IllegalArgumentException if the property 'tinafw.browsers' is not valid,
-	 *         i.e. its value cannot be converted to {@link SupportedBrowser},
-	 *         or there are no browsers specified 
+	 * @see TinafwPropLoader#getBrowsers()
 	 */
 	@Parameters
 	public static Collection<Object[]> browsers() {
-		String[] browserNames = PropertyLoader.getTinaFwConfig("browsers").split("([,; ]+)");
-		if(browserNames.length == 0)
-			throw new IllegalArgumentException("no browsers specified in the property 'tinafw.browsers'");
-		List<SupportedBrowser> browsers = new ArrayList<>();
-		for (String browserName : browserNames) {
-			browsers.add(SupportedBrowser.valueOf(browserName.toUpperCase()));
-		}
-		// convert to a set => no duplicates
-		Set<SupportedBrowser> browsersSet = EnumSet.copyOf(browsers);
-		
 		List<Object[]> data = new ArrayList<>();
-		for (SupportedBrowser browser : browsersSet) {
+		for (SupportedBrowser browser : TinafwPropLoader.getBrowsers()) {
 			data.add(new Object[] {browser});
 		}
 		return data;

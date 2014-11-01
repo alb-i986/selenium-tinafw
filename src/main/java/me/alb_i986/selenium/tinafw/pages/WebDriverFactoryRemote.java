@@ -1,11 +1,9 @@
 package me.alb_i986.selenium.tinafw.pages;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
-import me.alb_i986.selenium.tinafw.utils.ConfigException;
-import me.alb_i986.selenium.tinafw.utils.PropertyLoader;
+import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -24,30 +22,21 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class WebDriverFactoryRemote implements WebDriverFactory {
 
 	/**
-	 * Configurable via the property "tinafw.grid.platform".
+	 * @see TinafwPropLoader#getGridPlatform()
 	 */
-	public static final Platform PLATFORM = Platform.valueOf(
-			PropertyLoader.getTinaFwConfig("grid.platform").toUpperCase());
+	public static final Platform PLATFORM = TinafwPropLoader.getGridPlatform();
 
 	/**
-	 * Configurable via the property "tinafw.grid.browser_version".
+	 * @see TinafwPropLoader#getGridBrowserVersion()
 	 */
-	public static final String BROWSER_VERSION = 
-			PropertyLoader.getTinaFwConfig("grid.browser_version");
+	public static final String BROWSER_VERSION =
+			TinafwPropLoader.getGridBrowserVersion();
 
 	/**
-	 * Configurable via the property "tinafw.grid.hub_url".
+	 * @see TinafwPropLoader#getGridHubUrl()
 	 */
-	public static final URL GRID_HUB_URL;
+	public static final URL GRID_HUB_URL = TinafwPropLoader.getGridHubUrl();
 
-	static {
-		try {
-			GRID_HUB_URL = new URL(PropertyLoader.getTinaFwConfig("grid.hub_url"));
-		} catch (MalformedURLException e) {
-			throw new ConfigException("parsing property " +
-					PropertyLoader.PROP_NAME_PREFIX + "grid.hub_url" + " failed", e);
-		}
-	}
 
 	@Override
 	public WebDriver getWebDriver(SupportedBrowser browserType) {

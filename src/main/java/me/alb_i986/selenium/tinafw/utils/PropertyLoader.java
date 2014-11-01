@@ -7,81 +7,87 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Read config properties from the known sources, which are:
+ * Read properties from the known sources, i.e.:
  * <ul>
  * <li>command line arguments</li>
- * <li>properties files ({@value #DEFAULT_PROPS_RESOURCE} and {@value #CUSTOM_PROPS_RESOURCE})</li>
+ * <li>properties files
+ *   <ul>
+ *     <li>default properties file</li>
+ *     <li>custom properties file</li>
+ *   </ul>
+ * </li>
  * </ul>
  */
 public class PropertyLoader {
 
-	public static final String PROP_NAME_PREFIX = "tinafw.";
-	public static final String CUSTOM_PROPS_RESOURCE = "/selenium-tinafw.custom.properties";
-	public static final String DEFAULT_PROPS_RESOURCE = "/selenium-tinafw.default.properties";
-	
 	private static final Logger logger = Logger.getLogger(PropertyLoader.class);
 
-	private static Properties customProps = loadPropsFromResource(CUSTOM_PROPS_RESOURCE, false);
-	private static Properties defaultProps = loadPropsFromResource(DEFAULT_PROPS_RESOURCE, true);
+	private Properties customProps;
+	private Properties defaultProps;
+
+	public PropertyLoader(String defaultPropsResource, String customPropsResource) {
+		defaultProps = loadPropsFromResource(defaultPropsResource, true);
+		customProps = loadPropsFromResource(customPropsResource, false);
+	}
+
 
 	/**
-	 * This is a static class: as such, it cannot be instantiated.
-	 */
-	private PropertyLoader() {}
-	
-	/**
-	 * Convenience method for getting a config in the namespace "tinafw".
-	 * The prefix "tinafw." is prepended for you.
+	 * @param namespace e.g. "my.namespace" (with no starting/ending periods)
+	 * @param propName the name of the property, after the namespace
+	 * @return the value of the required property
 	 * 
-	 * @param name the name of the wanted config without the prefix "tinafw."
-	 * @see #getConfig(String)
+	 * @see #getProperty(String)
 	 */
-	public static String getTinaFwConfig(String name) {
-		return getConfig(PROP_NAME_PREFIX + name);
+	public String getProperty(String namespace, String propName) {
+		return getProperty(namespace + "." + propName);
 	}
 	
 	/**
-	 * Load the given config value from one of the known sources.
+	 * Load the given property from one of the known sources.
 	 * The order of precedence is as follows:
 	 * <ol>
 	 * <li>command line arguments</li>
-	 * <li>custom properties files: {@value #CUSTOM_PROPS_RESOURCE}</li>
-	 * <li>defaults properties files: {@value #DEFAULT_PROPS_RESOURCE}</li>
+	 * <li>custom properties file</li>
+	 * <li>defaults properties file</li>
 	 * </ol>
 	 * 
-	 * @param name the name of the wanted config (aka the key)
-	 * @return the value of the wanted config
-	 * @throws ConfigException if the config cannot be found
+	 * @param key the name of the wanted property, <b>namespace included</b>
+	 * @return the value of the wanted property
+	 * @throws ConfigException if the property cannot be found
 	 */
-	public static String getConfig(String name) {
-		String propFromCmdLine = System.getProperty(name);
+	public String getProperty(String key) {
+		String propFromCmdLine = System.getProperty(key);
 		if(propFromCmdLine != null)
 			return propFromCmdLine.trim();
-		String customPropFromFile = customProps.getProperty(name);
+		String customPropFromFile = customProps.getProperty(key);
 		if(customPropFromFile != null)
 			return customPropFromFile.trim();
-		String defaultPropFromFile = defaultProps.getProperty(name);
+		String defaultPropFromFile = defaultProps.getProperty(key);
 		if(defaultPropFromFile != null)
 			return defaultPropFromFile.trim();
-		throw new ConfigException("The property " + name +
+		throw new ConfigException("The property " + key +
 				" is not defined in any known sources.");
 	}
 	
 	/**
 	 * Load properties from a resource.
+	 * 
 	 * @param resourceName
-	 * @param failOnResourceNotFound when true,
-	 *        a ConfigException is raised if the resource cannot be found
-	 * @return a new Properties object
-	 * @throws ConfigException if the resource cannot be found, and failOnResourceNotFound is true
+	 * @param failOnResourceNotFoundOrNotLoaded when true, a ConfigException
+	 *        is raised if the resource cannot be found or loaded
+	 * @return a {@link Properties} with the properties loaded from the resource
+	 * @throws ConfigException if the resource cannot be found or loaded,
+	 *         and failOnResourceNotFound is true
 	 */
-	private static Properties loadPropsFromResource(String resourceName, boolean failOnResourceNotFound) {
+	private Properties loadPropsFromResource(String resourceName, boolean failOnResourceNotFoundOrNotLoaded) {
 		Properties props = new Properties();
 		InputStream resource = PropertyLoader.class.getResourceAsStream(resourceName);
-		if(resource == null) {
-			if(failOnResourceNotFound) {
-				throw new ConfigException("Config file " + resourceName + " not found");
-			} else { // if the file does not exist, return an empty Properties
+		boolean resourceNotFound = (resource == null);
+		if(resourceNotFound) {
+			if(failOnResourceNotFoundOrNotLoaded) {
+				throw new ConfigException("resource " + resourceName + " not found");
+			} else {
+				// if the resource is not found, return an empty Properties
 				logger.warn("Skipping resource " + resourceName + ": file not found.");
 				return props;
 			}
@@ -89,7 +95,10 @@ public class PropertyLoader {
 		try {
 			props.load(resource);
 		} catch (IOException e) {
-			throw new ConfigException("Cannot read properties from " + resourceName, e);
+			if(failOnResourceNotFoundOrNotLoaded)
+				throw new ConfigException("Cannot load properties from " + resourceName, e);
+			else
+				logger.warn("Cannot load properties from " + resourceName + ". " + e.getMessage());
 		}
 		return props;
 	}
