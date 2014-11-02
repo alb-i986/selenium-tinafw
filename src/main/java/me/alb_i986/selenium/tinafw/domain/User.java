@@ -18,8 +18,11 @@ import me.alb_i986.selenium.tinafw.tasks.WebTask;
  * {@code
  * new User()
  *   .openBrowser();
- *   .doTask(new CompositeWebTask( [..] ));
- *   .closeBrowser()
+ *   .doTasks(
+ *      new XYTask(),
+ *      new YZTask(),
+ *      [..]
+ *   ).closeBrowser()
  * ;
  * }
  * </pre>
