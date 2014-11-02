@@ -90,6 +90,38 @@ public class UserTest {
 		assertNull(user.getCurrentPage());
 	}
 
+	@Test
+	public void equalsToNonUser() {
+		Object o = new Object();
+		assertFalse(user.equals(o));
+	}
+
+	@Test
+	public void equalsToUserWithSameUsername() {
+		User userWithSameUsername = new User().withUsername(user.getUsername());
+		assertTrue(user.equals(userWithSameUsername));
+	}
+
+	@Test
+	public void equalsToUserWithDifferentUsername() {
+		User userWithNullUsername = new User().withUsername("asdasd");
+		// make sure the two usernames are different
+		assertFalse(user.getUsername().equals(userWithNullUsername.getUsername()));
+		assertFalse(user.equals(userWithNullUsername));
+	}
+
+	@Test
+	public void equalsToNullObject() {
+		Object nullObject = null;
+		assertFalse(user.equals(nullObject));
+	}
+
+	@Test
+	public void equalsToNullUser() {
+		User nullUser = null;
+		assertFalse(user.equals(nullUser));
+	}
+
 
 	@After
 	public void after() {
