@@ -1,4 +1,7 @@
-package me.alb_i986.selenium.tinafw.tasks;
+package me.alb_i986.selenium.tinafw.tasks.bdd;
+
+import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
+import me.alb_i986.selenium.tinafw.tasks.WebTask;
 
 /**
  * A CompositeWebTask accepting only a Given, a When,

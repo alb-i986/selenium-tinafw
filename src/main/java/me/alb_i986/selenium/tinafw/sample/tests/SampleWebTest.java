@@ -5,8 +5,9 @@ import org.junit.Test;
 import me.alb_i986.selenium.tinafw.domain.User;
 import me.alb_i986.selenium.tinafw.sample.tasks.*;
 import me.alb_i986.selenium.tinafw.tasks.*;
+import me.alb_i986.selenium.tinafw.tasks.bdd.BDDWebTask;
 import me.alb_i986.selenium.tinafw.tests.JunitWebTest;
-import static me.alb_i986.selenium.tinafw.tasks.BDDWebTask.*;
+import static me.alb_i986.selenium.tinafw.tasks.bdd.BDDWebTask.*;
 
 public class SampleWebTest extends JunitWebTest {
 
