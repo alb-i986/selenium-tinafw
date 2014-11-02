@@ -1,4 +1,4 @@
-# Tutorial: build your own Selenium test suite on top selenium-tinafw
+# Tutorial: build your own Selenium test suite on top of selenium-tinafw
 
 
 ## Preliminaries
