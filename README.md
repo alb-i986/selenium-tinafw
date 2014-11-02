@@ -88,33 +88,8 @@ Some of the services/features we proudly provide/offer:
 
 ## Usage
 
-1. clone this repo
-2. `cd` to its directory
-3. run `mvn install`
+Please see the [Getting started page](https://github.com/alb-i986/selenium-tinafw/wiki/Getting-started) on the wiki.
 
-Now you can start building your own test suite/framework on top of `selenium-tinafw`
-by adding this to your POM file:
-
-	<dependency>
-		<groupId>me.alb-i986.selenium</groupId>
-		<artifactId>selenium-tinafw</artifactId>
-		<version>0.2-SNAPSHOT</version>
-	</dependency>
-
-For a start, please see:
- - the sample provided in the [package _sample_](https://github.com/alb-i986/selenium-tinafw/tree/master/src/main/java/me/alb_i986/selenium/tinafw/sample/), containing a small but full working example of use
- - https://github.com/alb-i986/selenium-forbes-sample/ (might currently be out of date, please bear with me)
-
-Javadocs can be found at [http://alb-i986.github.io/selenium-tinafw/javadoc/](http://alb-i986.github.io/selenium-tinafw/javadoc/)
- 
-
-### Configuration
-Under `src/main/resources/` you can find the config file `selenium-tinafw.default.properties`.
-
-Copy it to your project, under a 'resources' directory, customize it as per your needs, and add it to your VCS.
-Besides, you can have another config file, which you must name `selenium-tinafw.custom.properties`, which you should _not_ version,
-in which you can override any property defined in the defaults file.
- 
  
 ## Design goals
 
