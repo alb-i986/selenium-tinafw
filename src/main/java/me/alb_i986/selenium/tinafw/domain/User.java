@@ -35,7 +35,8 @@ import me.alb_i986.selenium.tinafw.tasks.WebTask;
  * and possibly override {@link #equals(User)}.
  * 
  */
-public class User {
+@SuppressWarnings("rawtypes")
+public class User<T extends User> {
 
 	protected static final Logger logger = Logger.getLogger(User.class);
 	
@@ -85,9 +86,10 @@ public class User {
 	 * @return this
 	 * @see Browser#open(SupportedBrowser)
 	 */
-	public User openBrowser(SupportedBrowser browserType) {
+	@SuppressWarnings("unchecked")
+	public T openBrowser(SupportedBrowser browserType) {
 		browser.open(browserType);
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -100,12 +102,13 @@ public class User {
 	 * 
 	 * @see #openBrowser(SupportedBrowser)
 	 */
-	public User openBrowser() {
+	@SuppressWarnings("unchecked")
+	public T openBrowser() {
 		if(browserType == null)
 			throw new IllegalStateException("browserType has not been set. "
 					+ "Please set it with #withBrowserType");
 		openBrowser(browserType);
-		return this;
+		return (T) this;
 	}
 
 
@@ -121,9 +124,10 @@ public class User {
 	 * @param relativeUrl a relative URL (relative to {@link Page#BASE_URL})
 	 * @see Browser#browseTo(String)
 	 */
-	public User browseTo(String relativeUrl) {
+	@SuppressWarnings("unchecked")
+	public T browseTo(String relativeUrl) {
 		browser.browseTo(relativeUrl);
-		return this;
+		return (T) this;
 	}
 	
 	/**
@@ -139,10 +143,11 @@ public class User {
 	 * 
 	 * @see WebTask#run(Page)
 	 */
-	public User doTask(WebTask task) {
+	@SuppressWarnings("unchecked")
+	public T doTask(WebTask task) {
 		task.setUser(this);
 		this.currentPage = task.run(currentPage);
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -158,7 +163,7 @@ public class User {
 	 * 
 	 * @see #doTask(WebTask)
 	 */
-	public User doTasks(WebTask... tasks) {
+	public T doTasks(WebTask... tasks) {
 		return doTask(new CompositeWebTask(tasks));
 	}
 
@@ -176,28 +181,31 @@ public class User {
 		return username;
 	}
 
-	public User withUsername(String username) {
+	@SuppressWarnings("unchecked")
+	public T withUsername(String username) {
 		if(username == null)
 			this.username = "";
 		else
 			this.username = username;
-		return this;
+		return (T) this;
 	}
 	
 	public String getPassword() {
 		return password;
 	}
 	
-	public User withPassword(String password) {
+	@SuppressWarnings("unchecked")
+	public T withPassword(String password) {
 		this.password = password;
-		return this;
+		return (T) this;
 	}
 	
-	public User withBrowserType(SupportedBrowser browserType) {
+	@SuppressWarnings("unchecked")
+	public T withBrowserType(SupportedBrowser browserType) {
 		if(browserType == null)
 			throw new IllegalArgumentException("browser type is null");
 		this.browserType = browserType;
-		return this;
+		return (T) this;
 	}
 
 	public Browser getBrowser() {
@@ -215,7 +223,7 @@ public class User {
 	 * @param user
 	 * @return true if the two users have the same username 
 	 */
-	public <T extends User> boolean equals(T user) {
+	public boolean equals(T user) {
 		if(username == null || user == null)
 			return false;
 		return username.equals(user.getUsername());
