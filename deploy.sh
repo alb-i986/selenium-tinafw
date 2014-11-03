@@ -21,3 +21,6 @@ git add --all javadoc/
 git commit -m "update javadoc"
 git push origin gh-pages
 
+# finally checkout master
+git co master
+
