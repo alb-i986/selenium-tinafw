@@ -35,4 +35,24 @@ public class TinafwExpectedConditions {
 			}
 		};
 	}
+
+	/**
+	 * Expectation for checking that {@link WebDriver#getCurrentUrl()} is not empty.
+	 * 
+	 * @return <code>true</code> if WebDriver#getCurrentUrl is not empty
+	 */
+	public static ExpectedCondition<Boolean> currentUrlIsNotEmpty() {
+		return new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver driver) {
+				return !driver.getCurrentUrl().equals("");
+			}
+
+			@Override
+			public String toString() {
+				return "current URL to be not empty";
+			}
+		};
+	}
+
 }
