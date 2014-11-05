@@ -1,6 +1,7 @@
 package me.alb_i986.selenium.tinafw.tasks;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Assert;
@@ -23,7 +24,7 @@ import me.alb_i986.selenium.tinafw.pages.Page;
  * <a href="http://en.wikipedia.org/wiki/Composite_pattern">
  * Composite design pattern</a>.
  */
-public class CompositeWebTask extends BaseWebTask {
+public class CompositeWebTask extends BaseWebTask implements Iterable<WebTask> {
 
 	private List<WebTask> subtasks = new ArrayList<>();
 	
@@ -55,7 +56,7 @@ public class CompositeWebTask extends BaseWebTask {
 	@Override
 	public Page run(Page initialPage) {
 		Page currentPage = initialPage;
-		for(WebTask task : subtasks) {
+		for(WebTask task : this) {
 			logger.info("BEGIN subtask " + task.getClass().getSimpleName());
 			// before running the subtask, set the user
 			Assert.assertNotNull(getUser());
@@ -64,6 +65,17 @@ public class CompositeWebTask extends BaseWebTask {
 			logger.info("END subtask " + task.getClass().getSimpleName());
 		}
 		return currentPage;
+	}
+
+	/**
+	 * The iterator for iterating over the subtasks
+	 * this composite is made up of.
+	 * <p>
+	 * Backed by {@link List#iterator()}.
+	 */
+	@Override
+	public Iterator<WebTask> iterator() {
+		return subtasks.iterator();
 	}
 
 }
