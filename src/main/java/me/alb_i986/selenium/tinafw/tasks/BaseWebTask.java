@@ -3,7 +3,6 @@ package me.alb_i986.selenium.tinafw.tasks;
 import me.alb_i986.selenium.tinafw.domain.User;
 
 import org.apache.log4j.Logger;
-import org.junit.Assert;
 
 /**
  * Abstract WebTask responsible for knowing the 'who',
@@ -16,7 +15,8 @@ public abstract class BaseWebTask implements WebTask {
 	protected User user;
 	
 	public WebTask setUser(User user) {
-		Assert.assertNotNull(user);
+		if(user == null)
+			throw new IllegalArgumentException("user is null");
 		this.user = user;
 		return this;
 	}
