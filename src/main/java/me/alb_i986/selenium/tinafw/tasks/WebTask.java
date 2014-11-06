@@ -52,6 +52,27 @@ public interface WebTask {
 	public Page run(Page initialPage);
 	
 	/**
+	 * Builds an {@link OrWebTask} made up of (in order)
+	 * this task and the given alternative task.
+	 * This method can be "recursively" chained in order to define
+	 * a multi-member OR, e.g.:
+	 * {@code
+	 * new MyTask()
+	 *    .or(new Alternative1())
+	 *    .or(new Alternative2())
+	 *    .or(new Alternative3())
+	 * ;
+	 * }
+	 * 
+	 * @param alternativeTask the task to run if this task fails
+	 * @return an {@link OrWebTask} made up of (in order)
+	 *         this task and the alternative
+	 */
+	default public WebTask or(WebTask alternativeTask) {
+		return new OrWebTask(this, alternativeTask);
+	}
+	
+	/**
 	 * @param user the user this task will run as.
 	 * @return this
 	 */
