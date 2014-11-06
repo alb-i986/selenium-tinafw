@@ -25,8 +25,8 @@ import me.alb_i986.selenium.tinafw.pages.Page;
  * For this condition to hold, for example, each alternative
  * should be always on the very same page, at any time,
  * never navigate to another page, and should not change the state
- * of dialogs (i.e. to open dialogs which were not initially open, or close
- * dialogs which were initially open).
+ * of dialogs (i.e. should not open dialogs which were not initially open,
+ * or close dialogs which were initially open).
  * <p>
  * This constraint can be removed by implementing a mechanism that
  * restores the initial situation. Two possible ways:

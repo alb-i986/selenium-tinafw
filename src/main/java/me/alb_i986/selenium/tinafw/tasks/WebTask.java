@@ -68,7 +68,7 @@ public interface WebTask {
 	 * @return an {@link OrWebTask} made up of (in order)
 	 *         this task and the alternative
 	 */
-	default public WebTask or(WebTask alternativeTask) {
+	default public OrWebTask or(WebTask alternativeTask) {
 		return new OrWebTask(this, alternativeTask);
 	}
 	
