@@ -1,6 +1,16 @@
 #!/bin/bash
 
 
+# stash pop only if we did run a `git stash` previously
+stash_back() {
+  if [ "$STASHED" -eq "1" ] ; then
+    git stash pop
+  fi
+}
+
+
+
+
 git co master
 
 # first, stash 'em all
@@ -9,7 +19,7 @@ if [ "$( git status | grep -F 'nothing to commit' )" = "" ] ; then
   if [ $? -eq 0 ] ; then
     STASHED=1
   else
-    STASHED-0
+    STASHED=0
     exit $?
   fi
 fi
@@ -17,8 +27,11 @@ fi
 # assert that the build is good
 mvn clean install
 if [ $? -ne 0 ] ; then
+  stash_back
   exit $?
 fi
+
+read -p " Are you sure you want to proceed with the release process? "
 
 
 # deploy sources to github
@@ -42,6 +55,4 @@ git branch -d gh-pages
 mvn deploy
 
 # finally, stash 'em all back, if appropriate
-if [ "$STASHED" -eq "1" ] ; then
-  git stash pop
-fi
+stash_back
