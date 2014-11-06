@@ -15,7 +15,7 @@ public abstract class NavigationWebTask extends BaseWebTask {
 	 */
 	@Override
 	public WebPage run(WebPage previousPage) {
-		return user.getBrowser().browseTo(getPageClassToLoad());
+		return browser().browseTo(getPageClassToLoad());
 	}
 
 	public abstract <T extends LoadablePage> Class<T> getPageClassToLoad();
