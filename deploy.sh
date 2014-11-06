@@ -35,10 +35,10 @@ git status
 git add --all javadoc/
 git commit -m "update javadoc"
 git push origin gh-pages
-git branch -d gh-pages
 
 # finally checkout master and deploy to maven central
 git co master
+git branch -d gh-pages
 mvn deploy
 
 # finally, stash 'em all back, if appropriate
