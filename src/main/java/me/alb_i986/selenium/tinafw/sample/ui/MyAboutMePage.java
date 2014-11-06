@@ -1,7 +1,8 @@
-package me.alb_i986.selenium.tinafw.sample.pages;
+package me.alb_i986.selenium.tinafw.sample.ui;
 import java.util.List;
 
 import static org.junit.Assert.*;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -10,10 +11,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import me.alb_i986.selenium.tinafw.pages.BasePage;
-import me.alb_i986.selenium.tinafw.pages.LoadablePage;
-import me.alb_i986.selenium.tinafw.pages.Page;
-import me.alb_i986.selenium.tinafw.pages.PageHelper;
+import me.alb_i986.selenium.tinafw.ui.BasePage;
+import me.alb_i986.selenium.tinafw.ui.LoadablePage;
+import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.PageHelper;
 
 
 /**

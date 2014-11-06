@@ -1,7 +1,7 @@
 package me.alb_i986.selenium.tinafw.tasks;
 
-import me.alb_i986.selenium.tinafw.pages.LoginPage;
-import me.alb_i986.selenium.tinafw.pages.Page;
+import me.alb_i986.selenium.tinafw.ui.LoginPage;
+import me.alb_i986.selenium.tinafw.ui.Page;
 
 /**
  * Concrete subclasses must define the method `getPageClassToLoad`

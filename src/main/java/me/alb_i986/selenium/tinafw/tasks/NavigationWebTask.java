@@ -1,7 +1,7 @@
 package me.alb_i986.selenium.tinafw.tasks;
 
-import me.alb_i986.selenium.tinafw.pages.LoadablePage;
-import me.alb_i986.selenium.tinafw.pages.Page;
+import me.alb_i986.selenium.tinafw.ui.LoadablePage;
+import me.alb_i986.selenium.tinafw.ui.Page;
 
 /**
  * A WebTask encapsulating a navigation step.

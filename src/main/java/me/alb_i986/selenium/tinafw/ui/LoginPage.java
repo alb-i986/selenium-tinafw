@@ -1,4 +1,4 @@
-package me.alb_i986.selenium.tinafw.pages;
+package me.alb_i986.selenium.tinafw.ui;
 
 /**
  * Represents the page for logging in which will typically offer

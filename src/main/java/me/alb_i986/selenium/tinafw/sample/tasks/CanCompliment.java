@@ -1,9 +1,9 @@
 package me.alb_i986.selenium.tinafw.sample.tasks;
 
 import static org.junit.Assert.*;
-import me.alb_i986.selenium.tinafw.pages.Page;
-import me.alb_i986.selenium.tinafw.sample.pages.SearchResultsPage;
+import me.alb_i986.selenium.tinafw.sample.ui.SearchResultsPage;
 import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
+import me.alb_i986.selenium.tinafw.ui.Page;
 
 public class CanCompliment extends BaseWebTask {
 

@@ -1,9 +1,9 @@
 package me.alb_i986.selenium.tinafw.domain;
 
 import static org.junit.Assert.*;
-import me.alb_i986.selenium.tinafw.pages.Page;
 import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
+import me.alb_i986.selenium.tinafw.ui.Page;
 
 import org.junit.After;
 import org.junit.Before;

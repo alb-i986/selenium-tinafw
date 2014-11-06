@@ -39,7 +39,7 @@ First of all we recommend to create the following directory structure aka packag
 
 - tests
 - domain
-- pages
+- ui
 - utils
 
 

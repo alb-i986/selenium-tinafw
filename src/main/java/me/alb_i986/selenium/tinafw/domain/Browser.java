@@ -1,6 +1,6 @@
 package me.alb_i986.selenium.tinafw.domain;
 
-import me.alb_i986.selenium.tinafw.pages.*;
+import me.alb_i986.selenium.tinafw.ui.*;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;

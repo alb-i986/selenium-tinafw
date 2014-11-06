@@ -1,4 +1,4 @@
-package me.alb_i986.selenium.tinafw.pages;
+package me.alb_i986.selenium.tinafw.ui;
 
 import java.net.URL;
 

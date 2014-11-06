@@ -2,9 +2,9 @@ package me.alb_i986.selenium.tinafw.domain;
 
 import org.apache.log4j.Logger;
 
-import me.alb_i986.selenium.tinafw.pages.Page;
 import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
+import me.alb_i986.selenium.tinafw.ui.Page;
 
 /**
  * User encapsulates Browser, and has two main behaviors:

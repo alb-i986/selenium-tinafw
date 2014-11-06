@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import me.alb_i986.selenium.tinafw.pages.Page;
+import me.alb_i986.selenium.tinafw.ui.Page;
 
 /**
  * A WebTask made up of many supposedly small (sub-)tasks,

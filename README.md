@@ -61,7 +61,7 @@ Some of the services/features we proudly provide/offer:
   - the _domain_ layer, containing concepts like User and Browser, and supposed to contain the concepts
     of your own domain as well, e.g. `BlogPost`, `BlogComment`
   - the _tasks_ layer, containing the orchestrators of page objects
-  - the _pages_ layer, with [page objects](https://code.google.com/p/selenium/wiki/PageObjects)
+  - the _ui_ layer, with [page objects](https://code.google.com/p/selenium/wiki/PageObjects)
 
 - meaningful logs, e.g.:
 
@@ -102,7 +102,7 @@ Please see the [Getting started page](https://github.com/alb-i986/selenium-tinaf
 
 ## Requirements
 
-- Java 8 (see e.g. [LoadablePage](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/pages/LoadablePage.java), which makes use of [static methods in interfaces](http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html))
+- Java 8 (see e.g. [LoadablePage](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/ui/LoadablePage.java), which makes use of [static methods in interfaces](http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html))
 - Maven
 - Graphviz
 

@@ -1,9 +1,9 @@
-package me.alb_i986.selenium.tinafw.page;
+package me.alb_i986.selenium.tinafw.ui;
 
 import static org.junit.Assert.*;
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
-import me.alb_i986.selenium.tinafw.pages.WebDriverFactory;
-import me.alb_i986.selenium.tinafw.pages.WebDriverFactoryLocal;
+import me.alb_i986.selenium.tinafw.ui.WebDriverFactory;
+import me.alb_i986.selenium.tinafw.ui.WebDriverFactoryLocal;
 
 import org.junit.After;
 import org.junit.Before;

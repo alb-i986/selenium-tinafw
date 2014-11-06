@@ -2,7 +2,7 @@ package me.alb_i986.selenium.tinafw.tasks;
 
 import java.util.List;
 
-import me.alb_i986.selenium.tinafw.pages.Page;
+import me.alb_i986.selenium.tinafw.ui.Page;
 
 /**
  * A {@link CompositeWebTask} which chains subtasks in a logical OR.
