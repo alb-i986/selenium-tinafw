@@ -12,10 +12,10 @@ import org.openqa.selenium.WebDriverException;
  *  
  * @see #load(Class, WebDriver)
  */
-public interface LoadablePage extends Page {
+public interface LoadablePage extends WebPage {
 	
 	/**
-	 * @return the URL relative to {@link Page#BASE_URL}.
+	 * @return the URL relative to {@link WebPage#BASE_URL}.
 	 */
 	static public String getRelativeUrl() {
 		throw new UnsupportedOperationException("this method is not implemented in the subclass");
@@ -38,7 +38,7 @@ public interface LoadablePage extends Page {
 			String relativeUrl = (String) loadablePageClass.getMethod("getRelativeUrl").invoke(null);
 			PageHelper.Navigation.browseTo(relativeUrl, driver);
 			return 
-				(T) loadablePageClass.getConstructor(WebDriver.class, Page.class)
+				(T) loadablePageClass.getConstructor(WebDriver.class, WebPage.class)
 					.newInstance(driver, null);
 		} catch (InvocationTargetException e) {
 			throw new WebDriverException("cannot load loadable page " + loadablePageClass.getSimpleName(), e);

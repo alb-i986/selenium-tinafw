@@ -3,7 +3,7 @@ package me.alb_i986.selenium.tinafw.sample.tasks;
 import static org.junit.Assert.*;
 import me.alb_i986.selenium.tinafw.sample.ui.MyAboutMePage;
 import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 /**
  * Search for something by using the search box
@@ -14,7 +14,7 @@ public class Search extends BaseWebTask {
 	private String query;
 
 	@Override
-	public Page run(Page previousPage) {
+	public WebPage run(WebPage previousPage) {
 		assertTrue(previousPage instanceof MyAboutMePage);
 		return
 		((MyAboutMePage) previousPage)

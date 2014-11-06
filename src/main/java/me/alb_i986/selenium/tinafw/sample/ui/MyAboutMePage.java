@@ -11,17 +11,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import me.alb_i986.selenium.tinafw.ui.BasePage;
+import me.alb_i986.selenium.tinafw.ui.BaseWebPage;
 import me.alb_i986.selenium.tinafw.ui.LoadablePage;
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 import me.alb_i986.selenium.tinafw.ui.PageHelper;
 
 
 /**
  * Models the page at http://about.me/alb_i986
- * (which happens to be the default value of {@link Page#BASE_URL}).
+ * (which happens to be the default value of {@link WebPage#BASE_URL}).
  */
-public class MyAboutMePage extends BasePage implements LoadablePage {
+public class MyAboutMePage extends BaseWebPage implements LoadablePage {
 
 	private static final String DOTALL_EMBEDDED_FLAG = "(?s)";
 
@@ -38,7 +38,7 @@ public class MyAboutMePage extends BasePage implements LoadablePage {
 	private WebElement searchTextField;
 
 	
-	public MyAboutMePage(WebDriver driver, Page previous) {
+	public MyAboutMePage(WebDriver driver, WebPage previous) {
 		super(driver, previous);
 	}
 

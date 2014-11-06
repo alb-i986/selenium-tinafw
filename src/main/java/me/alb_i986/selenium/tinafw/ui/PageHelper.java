@@ -168,7 +168,7 @@ public class PageHelper {
 
 
 		/**
-		 * Append the given relative URL to {@link Page#BASE_URL}
+		 * Append the given relative URL to {@link WebPage#BASE_URL}
 		 * and navigate there.
 		 * 
 		 * @param relativeUrl e.g. "/article/999"
@@ -176,9 +176,9 @@ public class PageHelper {
 		 */
 		public static void browseTo(String relativeUrl, WebDriver driver) {
 			String url = 
-				Page.BASE_URL +
+				WebPage.BASE_URL +
 				// add a '/' if it's not present neither in Page.BASE_URL. nor in relativeUrl
-				(!relativeUrl.startsWith("/") && !Page.BASE_URL.endsWith("/") ? "/" : "") +
+				(!relativeUrl.startsWith("/") && !WebPage.BASE_URL.endsWith("/") ? "/" : "") +
 				relativeUrl.trim()
 			;
 			driver.get(url);

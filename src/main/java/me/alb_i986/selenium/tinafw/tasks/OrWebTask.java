@@ -2,7 +2,7 @@ package me.alb_i986.selenium.tinafw.tasks;
 
 import java.util.List;
 
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 /**
  * A {@link CompositeWebTask} which chains subtasks in a logical OR.
@@ -57,7 +57,7 @@ public class OrWebTask extends CompositeWebTask {
 	}
 
 	@Override
-	public Page run(Page initialPage) {
+	public WebPage run(WebPage initialPage) {
 		RuntimeException caughtException = null;
 		for (WebTask subtask : this) {
 			try {

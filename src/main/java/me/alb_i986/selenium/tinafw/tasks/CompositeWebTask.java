@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 /**
  * A WebTask made up of many supposedly small (sub-)tasks,
@@ -53,8 +53,8 @@ public class CompositeWebTask extends BaseWebTask implements Iterable<WebTask> {
 	 * @throws AssertionError if the user set in this composite is null
 	 */
 	@Override
-	public Page run(Page initialPage) {
-		Page currentPage = initialPage;
+	public WebPage run(WebPage initialPage) {
+		WebPage currentPage = initialPage;
 		for(WebTask task : this) {
 			logger.info("BEGIN subtask " + task.getClass().getSimpleName());
 			// before running the subtask, set the user

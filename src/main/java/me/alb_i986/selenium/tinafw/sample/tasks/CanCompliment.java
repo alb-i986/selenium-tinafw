@@ -3,7 +3,7 @@ package me.alb_i986.selenium.tinafw.sample.tasks;
 import static org.junit.Assert.*;
 import me.alb_i986.selenium.tinafw.sample.ui.SearchResultsPage;
 import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 public class CanCompliment extends BaseWebTask {
 
@@ -12,7 +12,7 @@ public class CanCompliment extends BaseWebTask {
 
 
 	@Override
-	public Page run(Page previousPage) {
+	public WebPage run(WebPage previousPage) {
 		assertTrue(previousPage instanceof SearchResultsPage);
 		return
 		((SearchResultsPage) previousPage)

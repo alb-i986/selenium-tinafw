@@ -3,7 +3,7 @@ package me.alb_i986.selenium.tinafw.domain;
 import static org.junit.Assert.*;
 import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,8 +36,8 @@ public class UserTest {
 		WebTask taskThatReturnsANotNullPage = new BaseWebTask() {
 			
 			@Override
-			public Page run(Page initialPage) {
-				return new Page() {
+			public WebPage run(WebPage initialPage) {
+				return new WebPage() {
 					
 					@Override
 					public String getTitle() {
@@ -70,7 +70,7 @@ public class UserTest {
 		WebTask taskThatReturnsANullPage = new BaseWebTask() {
 			
 			@Override
-			public Page run(Page initialPage) {
+			public WebPage run(WebPage initialPage) {
 				return null;
 			}
 		};

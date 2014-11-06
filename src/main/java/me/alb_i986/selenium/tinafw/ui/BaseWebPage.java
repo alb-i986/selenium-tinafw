@@ -18,12 +18,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * to implement a more meaningful wait for that page.
  *
  */
-public abstract class BasePage implements Page {
+public abstract class BaseWebPage implements WebPage {
 
-	protected static final Logger logger = Logger.getLogger(Page.class);
+	protected static final Logger logger = Logger.getLogger(WebPage.class);
 
 	protected WebDriver driver;
-	protected Page previousPage;
+	protected WebPage previousPage;
 	
 	/**
 	 * Calls {@link PageFactory#initElements(WebDriver, Object)}
@@ -32,7 +32,7 @@ public abstract class BasePage implements Page {
 	 * @param driver
 	 * @param previous
 	 */
-	public BasePage(WebDriver driver, Page previous) {
+	public BaseWebPage(WebDriver driver, WebPage previous) {
 		this.driver = driver;
 		this.previousPage = previous;
 		PageFactory.initElements(driver, this);

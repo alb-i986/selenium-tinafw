@@ -1,7 +1,7 @@
 package me.alb_i986.selenium.tinafw.tasks;
 
 import me.alb_i986.selenium.tinafw.domain.User;
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 /**
  * A WebTask is supposed to simulate a user interaction with the SUT.
@@ -49,7 +49,7 @@ public interface WebTask {
 	 * @param initialPage the page it is displayed before this task starts
 	 * @return the last page that is displayed after this task finishes
 	 */
-	public Page run(Page initialPage);
+	public WebPage run(WebPage initialPage);
 	
 	/**
 	 * Builds an {@link OrWebTask} made up of (in order)

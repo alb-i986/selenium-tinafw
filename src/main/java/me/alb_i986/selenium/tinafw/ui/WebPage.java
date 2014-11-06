@@ -10,7 +10,7 @@ import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
  * The constant {@link #BASE_URL} stores the base URL of the SUT,
  * and it is loaded from the config file.
  */
-public interface Page {
+public interface WebPage {
 
 	/**
 	 * @see TinafwPropLoader#getBaseUrl()

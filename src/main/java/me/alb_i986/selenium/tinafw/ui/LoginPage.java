@@ -7,7 +7,7 @@ package me.alb_i986.selenium.tinafw.ui;
  *
  * @param <T> the concrete Page that {@link #loginAs(String, String)} will return
  */
-public interface LoginPage<T extends Page> extends LoadablePage {
+public interface LoginPage<T extends WebPage> extends LoadablePage {
 	
 	/**
 	 * Fill in the login form, and submit it.

@@ -1,7 +1,7 @@
 package me.alb_i986.selenium.tinafw.tasks;
 
 import me.alb_i986.selenium.tinafw.ui.LoadablePage;
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 /**
  * A WebTask encapsulating a navigation step.
@@ -14,7 +14,7 @@ public abstract class NavigationWebTask extends BaseWebTask {
 	 * @return an instance of {@link #getPageClassToLoad()}
 	 */
 	@Override
-	public Page run(Page previousPage) {
+	public WebPage run(WebPage previousPage) {
 		return user.getBrowser().browseTo(getPageClassToLoad());
 	}
 

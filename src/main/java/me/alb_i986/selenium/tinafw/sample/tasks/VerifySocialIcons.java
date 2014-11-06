@@ -5,7 +5,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import me.alb_i986.selenium.tinafw.sample.ui.MyAboutMePage;
 import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 /**
  * Verify that each of the given social buttons
@@ -17,7 +17,7 @@ public class VerifySocialIcons extends BaseWebTask {
 	private List<String> socials = new ArrayList<>();
 
 	@Override
-	public Page run(Page previousPage) {
+	public WebPage run(WebPage previousPage) {
 		assertTrue(previousPage instanceof MyAboutMePage);
 		for (String social : socials) {
 			((MyAboutMePage) previousPage)

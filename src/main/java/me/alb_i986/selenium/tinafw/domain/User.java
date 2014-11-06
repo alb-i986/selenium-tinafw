@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 
 import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 /**
  * User encapsulates Browser, and has two main behaviors:
@@ -46,7 +46,7 @@ public class User<T extends User> {
 	private SupportedBrowser browserType;
 	
 	private Browser browser;
-	private Page currentPage;
+	private WebPage currentPage;
 	
 	private String username = "";
 	private String password = "";
@@ -77,7 +77,7 @@ public class User<T extends User> {
 	 * @param browser
 	 * @param initialPage
 	 */
-	public User(Browser browser, Page initialPage) {
+	public User(Browser browser, WebPage initialPage) {
 		this.browser = browser;
 		this.currentPage = initialPage;
 	}
@@ -124,7 +124,7 @@ public class User<T extends User> {
 	}
 
 	/**
-	 * @param relativeUrl a relative URL (relative to {@link Page#BASE_URL})
+	 * @param relativeUrl a relative URL (relative to {@link WebPage#BASE_URL})
 	 * @see Browser#browseTo(String)
 	 */
 	@SuppressWarnings("unchecked")
@@ -144,7 +144,7 @@ public class User<T extends User> {
 	 * @param task
 	 * @return this
 	 * 
-	 * @see WebTask#run(Page)
+	 * @see WebTask#run(WebPage)
 	 */
 	@SuppressWarnings("unchecked")
 	public T doTask(WebTask task) {
@@ -176,7 +176,7 @@ public class User<T extends User> {
 	 *         or the initial page (which may be null), 
 	 *         if no tasks have been performed yet.
 	 */
-	public Page getCurrentPage() {
+	public WebPage getCurrentPage() {
 		return currentPage;
 	}
 

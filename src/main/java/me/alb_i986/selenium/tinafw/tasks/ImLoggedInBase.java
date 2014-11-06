@@ -1,7 +1,7 @@
 package me.alb_i986.selenium.tinafw.tasks;
 
 import me.alb_i986.selenium.tinafw.ui.LoginPage;
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 /**
  * Concrete subclasses must define the method `getPageClassToLoad`
@@ -16,8 +16,8 @@ public abstract class ImLoggedInBase extends NavigationWebTask {
 	 * @param noPage this param won't be considered: may be null
 	 */
 	@SuppressWarnings("rawtypes")
-	public Page run(Page noPage) {
-		Page loginPage = super.run(noPage);
+	public WebPage run(WebPage noPage) {
+		WebPage loginPage = super.run(noPage);
 		return 
 			((LoginPage) loginPage)
 				.loginAs(user.getUsername(), user.getPassword())

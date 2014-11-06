@@ -9,11 +9,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import me.alb_i986.selenium.tinafw.ui.BasePage;
-import me.alb_i986.selenium.tinafw.ui.Page;
+import me.alb_i986.selenium.tinafw.ui.BaseWebPage;
+import me.alb_i986.selenium.tinafw.ui.WebPage;
 import me.alb_i986.selenium.tinafw.ui.PageHelper;
 
-public class SearchResultsPage extends BasePage {
+public class SearchResultsPage extends BaseWebPage {
 
 	@FindBy(css = "#search-results div")
 	private WebElement main;
@@ -21,7 +21,7 @@ public class SearchResultsPage extends BasePage {
 	@FindBy(css = "#search-results div.pagethumb2")
 	private List<WebElement> searchResults;
 
-	public SearchResultsPage(WebDriver driver, Page previous) {
+	public SearchResultsPage(WebDriver driver, WebPage previous) {
 		super(driver, previous);
 	}
 	
