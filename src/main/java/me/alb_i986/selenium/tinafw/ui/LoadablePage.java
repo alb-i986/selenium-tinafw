@@ -6,19 +6,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
 /**
- * A page that can be accessed directly, from a URL.
+ * A page that can be accessed directly, from a URL with no run-time parameters,
+ * e.g. "/articles"; not "/article/XX"
  * <p>
  * Any implementor must implement (hide) {@link #getRelativeUrl()}.
  *  
- * @see #load(Class, WebDriver)
  */
 public interface LoadablePage extends WebPage {
 	
 	/**
-	 * @return the URL relative to {@link WebPage#BASE_URL}.
+	 * @return the URL relative to {@link WebPage#BASE_URL}
 	 */
 	static public String getRelativeUrl() {
-		throw new UnsupportedOperationException("this method is not implemented in the subclass");
+		throw new UnsupportedOperationException("this method need to be redefined in the subclass");
 	}
 
 	/**

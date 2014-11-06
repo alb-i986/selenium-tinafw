@@ -4,7 +4,7 @@ import me.alb_i986.selenium.tinafw.ui.LoadablePage;
 import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 /**
- * A WebTask encapsulating a navigation step.
+ * A WebTask encapsulating a step for navigating to a {@link LoadablePage}.
  */
 public abstract class NavigationWebTask extends BaseWebTask {
 	
