@@ -10,22 +10,22 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-public class UserTest {
+public class WebUserTest {
 
-	private User user;
+	private WebUser user;
 
 	@Before
 	public void before() {
-		this.user = new User();
+		this.user = new WebUser();
 	}
 	
 
 	/**
-	 * Testing post conditions of {@link User#doTask(WebTask)}:
+	 * Testing post conditions of {@link WebUser#doTask(WebTask)}:
 	 * <ol>
 	 * <li>Given a User with no initial page</li>
 	 * <li>When user does a task that lands to some not null page</li>
-	 * <li>Then {@link User#getCurrentPage()} should return not null</li>
+	 * <li>Then {@link WebUser#getCurrentPage()} should return not null</li>
 	 * </ol>
 	 */
 	@Test
@@ -56,11 +56,11 @@ public class UserTest {
 	}
 
 	/**
-	 * Testing post conditions of {@link User#doTask(WebTask)}:
+	 * Testing post conditions of {@link WebUser#doTask(WebTask)}:
 	 * <ol>
 	 * <li>Given a User with no initial page</li>
 	 * <li>When user does a task that lands to some null page</li>
-	 * <li>Then {@link User#getCurrentPage()} should return null</li>
+	 * <li>Then {@link WebUser#getCurrentPage()} should return null</li>
 	 * </ol>
 	 */
 	@Test
@@ -79,10 +79,10 @@ public class UserTest {
 	}
 	
 	/**
-	 * Testing {@link User#User()}:
+	 * Testing {@link WebUser#User()}:
 	 * <ol>
 	 * <li>Given a new user with no initial page</li>
-	 * <li>Then {@link User#getCurrentPage()} should return null</li>
+	 * <li>Then {@link WebUser#getCurrentPage()} should return null</li>
 	 * </ol>
 	 */
 	@Test
@@ -98,13 +98,13 @@ public class UserTest {
 
 	@Test
 	public void equalsToUserWithSameUsername() {
-		User userWithSameUsername = new User().withUsername(user.getUsername());
+		WebUser userWithSameUsername = new WebUser().withUsername(user.getUsername());
 		assertTrue(user.equals(userWithSameUsername));
 	}
 
 	@Test
 	public void equalsToUserWithDifferentUsername() {
-		User userWithNullUsername = new User().withUsername("asdasd");
+		WebUser userWithNullUsername = new WebUser().withUsername("asdasd");
 		// make sure the two usernames are different
 		assertFalse(user.getUsername().equals(userWithNullUsername.getUsername()));
 		assertFalse(user.equals(userWithNullUsername));
@@ -118,7 +118,7 @@ public class UserTest {
 
 	@Test
 	public void equalsToNullUser() {
-		User nullUser = null;
+		WebUser nullUser = null;
 		assertFalse(user.equals(nullUser));
 	}
 

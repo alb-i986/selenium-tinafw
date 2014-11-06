@@ -1,12 +1,12 @@
 package me.alb_i986.selenium.tinafw.tests;
 
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
-import me.alb_i986.selenium.tinafw.domain.User;;
+import me.alb_i986.selenium.tinafw.domain.WebUser;;
 
 /**
  * All a WebTest needs to know is:
  * <ul>
- * <li>who: which {@link User} is about to use the SUT</li>
+ * <li>who: which {@link WebUser} is about to use the SUT</li>
  * <li>what: what {@link WebTask} the user needs to perform in order to test the SUT</li>
  * </ul>
  * <p>

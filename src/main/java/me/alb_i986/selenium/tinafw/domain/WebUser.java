@@ -7,7 +7,7 @@ import me.alb_i986.selenium.tinafw.tasks.WebTask;
 import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 /**
- * User encapsulates Browser, and has two main behaviors:
+ * WebUser encapsulates Browser, and has two main behaviors:
  * <ul>
  * <li>{@link #openBrowser()}: creates an instance of WebDriver, thus opening a real browser</li>
  * <li>{@link #doTask(WebTask)}: performs the given actions against the SUT</li>
@@ -16,8 +16,8 @@ import me.alb_i986.selenium.tinafw.ui.WebPage;
  * A typical use is as follows:
  * <pre>
  * {@code
- * new User()
- *   .openBrowser();
+ * new WebUser()
+ *   .openBrowser()
  *   .doTasks(
  *      new XYTask(),
  *      new YZTask(),
@@ -32,16 +32,16 @@ import me.alb_i986.selenium.tinafw.ui.WebPage;
  * Using {@link #browseTo(String)} instead is not recommended,
  * and it will probably be deprecated/removed.
  * <p>
- * A User may have a username and a password.
- * User may be extended in case more information were required (e.g.: a role).
+ * A WebUser may have a username and a password.
+ * WebUser may be extended in case more information were required (e.g.: a role).
  * Subclasses should just add fields, setters, and getters,
- * and possibly override {@link #equals(User)}.
+ * and possibly override {@link #equals(WebUser)}.
  * 
  */
 @SuppressWarnings("rawtypes")
-public class User<T extends User> {
+public class WebUser<T extends WebUser> {
 
-	protected static final Logger logger = Logger.getLogger(User.class);
+	protected static final Logger logger = Logger.getLogger(WebUser.class);
 	
 	private SupportedBrowser browserType;
 	
@@ -53,31 +53,31 @@ public class User<T extends User> {
 
 
 	/**
-	 * Create a User with a closed {@link Browser}, and no initial page.
+	 * Create a WebUser with a closed {@link Browser}, and no initial page.
 	 */
-	public User() {
+	public WebUser() {
 		this(new Browser());
 	}
 
 	/**
-	 * Create a User with the given Browser (which may be open or closed)
+	 * Create a WebUser with the given Browser (which may be open or closed)
 	 * and no initial page.
 	 * 
 	 * @param browser
 	 */
-	public User(Browser browser) {
+	public WebUser(Browser browser) {
 		this(browser, null);
 	}
 
 	/**
 	 * 
-	 * Create a User with the given Browser (which may be open or closed)
+	 * Create a WebUser with the given Browser (which may be open or closed)
 	 * and the given initial page.
 	 * 
 	 * @param browser
 	 * @param initialPage
 	 */
-	public User(Browser browser, WebPage initialPage) {
+	public WebUser(Browser browser, WebPage initialPage) {
 		this.browser = browser;
 		this.currentPage = initialPage;
 	}
@@ -217,9 +217,9 @@ public class User<T extends User> {
 	
 	@Override
 	public boolean equals(Object o) {
-		if(!(o instanceof User))
+		if(!(o instanceof WebUser))
 			return false;
-		return equals((User)o);
+		return equals((WebUser)o);
 	}
 	
 	/**
