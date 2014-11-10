@@ -4,7 +4,7 @@ selenium-tinafw
 A minimal and effective Selenium framework, not a f*ing wrapper.
 
 For a quick insight, please see the sample provided in the [package _sample_](https://github.com/alb-i986/selenium-tinafw/tree/master/src/main/java/me/alb_i986/selenium/tinafw/sample/), which implements a small test suite showing all of the concepts introduced in this work.
-Start from [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java), down to the WebTasks (i.e. OnMyAboutMePage, WhenSearch, ThenCanCompliment), down to page objects (SearchResultsPage, MyAboutMePage)
+Start from [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java), down to the WebTasks (i.e. [OnMyAboutMePage](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/OnMyAboutMePage.java), [Search](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/Search.java), [CanCompliment](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/CanCompliment.java)), down to page objects ([SearchResultsPage](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResultsPage.java), [SearchResult](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResult.java), etc.)
 
 ## Overview
 
@@ -37,10 +37,10 @@ Some of the services/features we proudly provide/offer:
   E.g. see [how it allows us to solve the problem of handling the certificate error on IE](http://git.io/YQUJfw)
 
 - BDD-style tests are not only supported but also strongly encouraged.
-  Thanks to `WebTask`'s, it is very easy to start writing BDD-style tests with `selenium-tinafw`:
-  all you need to do is wrap your own WebTask's in a `Given` `When` or `Then` task (each of which is a `CompositeWebTask`).
-  See [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
-  as an example of usage.
+  You can write BDD tests by wrapping your own WebTask's in a `given` `when` or `then` task (each of which is a `CompositeWebTask`).
+  See also [WebTasks.BDD](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tasks/WebTasks.java)
+  Please see [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
+  for an example of usage.
   For an introduction to BDD, please see the article [Introducing BDD, by Dan North](http://dannorth.net/introducing-bdd/).
 
 - HTML reports with embedded screenshots for each failing test, thanks to

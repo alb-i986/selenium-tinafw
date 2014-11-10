@@ -4,10 +4,8 @@ import org.junit.Test;
 
 import me.alb_i986.selenium.tinafw.domain.WebUser;
 import me.alb_i986.selenium.tinafw.sample.tasks.*;
-import me.alb_i986.selenium.tinafw.tasks.*;
-import me.alb_i986.selenium.tinafw.tasks.bdd.BDDWebTask;
 import me.alb_i986.selenium.tinafw.tests.JunitWebTest;
-import static me.alb_i986.selenium.tinafw.tasks.bdd.BDDWebTask.*;
+import static me.alb_i986.selenium.tinafw.tasks.WebTasks.BDD.*;
 
 public class SampleWebTest extends JunitWebTest {
 
@@ -24,39 +22,34 @@ public class SampleWebTest extends JunitWebTest {
 
 	@Test
 	public void testSearch() {
-		user.doTask(
-			new BDDWebTask(
-				given(
-					new OnMyAboutMePage()
-				),
-				when(
-					new Search()
-						.forQuery("paolo")
-				),
-				then(
-					new CanCompliment()
-						.theGuy(2)
-						.with("love")
-				)
+		user.doTasks(
+			given(
+				new OnMyAboutMePage()
+			),
+			when(
+				new Search()
+					.forQuery("paolo")
+			),
+			then(
+				new CanCompliment()
+					.theGuy(2)
+					.with("love")
 			)
 		);
 	}
 	
 	@Test
 	public void testMyPage() {
-		user.doTask(
-			new BDDWebTask(
-				given(
-					new OnMyAboutMePage()
-				),
-				null,
-				then(
-					new VerifyBio()
-						.matches(".*Genuinely driven by Passion.*"),
-					new VerifySocialIcons()
-						.isDisplayed("github")
-						.isDisplayed("linkedin")
-				)
+		user.doTasks(
+			when(
+				new OnMyAboutMePage()
+			),
+			then(
+				new VerifyBio()
+					.matches(".*Genuinely driven by Passion.*"),
+				new VerifySocialIcons()
+					.isDisplayed("github")
+					.isDisplayed("linkedin")
 			)
 		);
 	}
