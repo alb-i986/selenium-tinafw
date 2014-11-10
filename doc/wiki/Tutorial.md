@@ -16,7 +16,7 @@ Then, update the POM  as follows:
 		<dependency>
 			<groupId>me.alb-i986.selenium</groupId>
 			<artifactId>selenium-tinafw</artifactId>
-			<version>0.2.2-SNAPSHOT</version>
+			<version>0.3-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	
