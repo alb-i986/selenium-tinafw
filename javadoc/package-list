@@ -1,10 +1,9 @@
 me.alb_i986.selenium.tinafw.domain
-me.alb_i986.selenium.tinafw.pages
-me.alb_i986.selenium.tinafw.sample.pages
 me.alb_i986.selenium.tinafw.sample.tasks
 me.alb_i986.selenium.tinafw.sample.tests
+me.alb_i986.selenium.tinafw.sample.ui
 me.alb_i986.selenium.tinafw.tasks
-me.alb_i986.selenium.tinafw.tasks.bdd
 me.alb_i986.selenium.tinafw.tests
 me.alb_i986.selenium.tinafw.tests.rules
+me.alb_i986.selenium.tinafw.ui
 me.alb_i986.selenium.tinafw.utils
