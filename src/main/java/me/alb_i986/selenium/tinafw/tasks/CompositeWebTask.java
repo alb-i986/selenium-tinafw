@@ -75,5 +75,15 @@ public class CompositeWebTask extends BaseWebTask implements Iterable<WebTask> {
 	public Iterator<WebTask> iterator() {
 		return subtasks.iterator();
 	}
+	
+	/**
+	 * Append the given subtasks to the list of components. 
+	 * @param subtasks
+	 * @return this
+	 */
+	public CompositeWebTask append(WebTask... subtasks) {
+		this.subtasks.addAll(Arrays.asList(subtasks));
+		return this;
+	}
 
 }
