@@ -2,8 +2,6 @@ package me.alb_i986.selenium.tinafw.sample.ui;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,6 +11,10 @@ import me.alb_i986.selenium.tinafw.ui.BaseWebPage;
 import me.alb_i986.selenium.tinafw.ui.WebPage;
 import me.alb_i986.selenium.tinafw.ui.PageHelper;
 
+/**
+ * Model the page with the search results.
+ *
+ */
 public class SearchResultsPage extends BaseWebPage {
 
 	@FindBy(css = "#search-results div")
@@ -25,37 +27,8 @@ public class SearchResultsPage extends BaseWebPage {
 		super(driver, previous);
 	}
 	
-	public String getSearchResultName(int index) {
-		return getSearchResult(index)
-			.findElement(By.cssSelector(".thumb_description a"))
-			.getText();
-	}
-	
-	protected WebElement getSearchResult(int index) {
-		return searchResults.get(index);
-	}
-
-	public SearchResultsPage assertCanCompliment(int searchResultIndex, String compliment) {
-		WebElement searchResult = getSearchResult(searchResultIndex);
-		WebElement complimentBtn = searchResult
-			.findElement(By.cssSelector(".action.compliment"))
-		;
-		complimentBtn.click();
-		complimentWith(compliment);
-		return this;
-	}
-
-	private void complimentWith(String compliment) {
-		try {
-			By complimentBtnLocator = By.cssSelector("div.ui-dialog.compliment-modal li.compliment." + compliment);
-			PageHelper.waitUntil(ExpectedConditions.visibilityOfElementLocated(complimentBtnLocator), driver);
-			WebElement complimentBtn = driver.findElement(
-				complimentBtnLocator )
-			;
-			complimentBtn.click();
-		} finally {
-			PageHelper.hitKeys(driver, Keys.ESCAPE);
-		}
+	public SearchResult getSearchResult(int index) {
+		return new SearchResult(searchResults.get(index), driver, this);
 	}
 
 	@Override
