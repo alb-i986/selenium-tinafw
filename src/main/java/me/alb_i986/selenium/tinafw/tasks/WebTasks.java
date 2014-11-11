@@ -13,6 +13,8 @@ import me.alb_i986.selenium.tinafw.ui.WebPage;
  */
 public class WebTasks {
 
+	public static final NullTask NULL_TASK = new NullTask();
+
 	protected WebTasks() {
 	}
 

@@ -4,6 +4,9 @@ import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 /**
  * Task that does nothing.
+ * <p>
+ * {@link NullTask} is a singleton: to get the instance
+ * please use {@link WebTasks#NULL_TASK}
  */
 public class NullTask extends BaseWebTask {
 
