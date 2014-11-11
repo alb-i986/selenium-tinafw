@@ -42,7 +42,7 @@ public class CompositeWebTask extends BaseWebTask implements Iterable<WebTask> {
 	public CompositeWebTask(List<WebTask> subtasks) {
 		super();
 		Collections.replaceAll(subtasks, null, new NullTask());
-		this.subtasks = subtasks;
+		this.subtasks.addAll(subtasks);
 	}
 
 	/**
