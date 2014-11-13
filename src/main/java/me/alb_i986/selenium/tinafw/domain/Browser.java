@@ -46,8 +46,8 @@ public class Browser {
 	public void open(SupportedBrowser browserType) {
 		if(!isOpen()) {
 			type = browserType;
-			logger.info("Opening browser " + browserType);
-			driver = driverFactory.getWebDriver(browserType);
+			logger.info("Opening browser " + type);
+			driver = driverFactory.getWebDriver(type);
 		}
 	}
 	

@@ -15,6 +15,7 @@ public abstract class ImLoggedInBase extends NavigationWebTask {
 	 * 
 	 * @param noPage this param won't be considered: may be null
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public WebPage run(WebPage noPage) {
 		WebPage loginPage = super.run(noPage);

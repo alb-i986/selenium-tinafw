@@ -15,6 +15,7 @@ public class MyBrowserIsOpen extends BaseWebTask {
 	 * 
 	 * @throws IllegalStateException if user has not been set
 	 */
+	@Override
 	public WebPage run(WebPage noPage) {
 		user.openBrowser();
 		return null;
