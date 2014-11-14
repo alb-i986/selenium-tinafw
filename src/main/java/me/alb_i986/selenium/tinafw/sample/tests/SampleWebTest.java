@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import me.alb_i986.selenium.tinafw.domain.WebUser;
 import me.alb_i986.selenium.tinafw.sample.tasks.*;
+import me.alb_i986.selenium.tinafw.tasks.runnable.RunnableTask;
+import me.alb_i986.selenium.tinafw.tasks.runnable.SingleUserInteraction;
 import me.alb_i986.selenium.tinafw.tests.JunitWebTest;
 import static me.alb_i986.selenium.tinafw.tasks.WebTasks.BDD.*;
 
@@ -17,12 +19,11 @@ public class SampleWebTest extends JunitWebTest {
 		user = new WebUser().withBrowserType(browserType);
 		browserManager.registerBrowsers(user.getBrowser());
 		htmlReporter.setBrowser(user.getBrowser());
-		user.openBrowser();
 	}
 
 	@Test
 	public void testSearch() {
-		user.doTasks(
+		RunnableTask task = new SingleUserInteraction(
 			given(
 				new OnMyAboutMePage()
 			),
@@ -36,11 +37,13 @@ public class SampleWebTest extends JunitWebTest {
 					.with("love")
 			)
 		);
+		task.setUser(user);
+		task.run();
 	}
 	
 	@Test
 	public void testMyPage() {
-		user.doTasks(
+		RunnableTask task = new SingleUserInteraction(
 			when(
 				new OnMyAboutMePage()
 			),
@@ -52,6 +55,8 @@ public class SampleWebTest extends JunitWebTest {
 					.isDisplayed("linkedin")
 			)
 		);
+		task.setUser(user);
+		task.run();
 	}
 	
 }
