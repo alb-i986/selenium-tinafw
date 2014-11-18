@@ -6,6 +6,7 @@ import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 import me.alb_i986.selenium.tinafw.domain.WebUser;
 import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
+import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 /**
  * A fully executable <i>single</i> user interaction with the SUT.
@@ -42,7 +43,9 @@ public class SingleUserInteraction extends CompositeWebTask implements RunnableT
 		try {
 			user.doTask(this);
 		} finally {
-			user.closeBrowser();
+			if(!TinafwPropLoader.getKeepBrowsersOpen()) {
+				user.closeBrowser();
+			}
 		}
 	}
 
