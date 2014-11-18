@@ -21,6 +21,11 @@ public class SampleWebTest extends JunitWebTest {
 		htmlReporter.setBrowser(user.getBrowser());
 	}
 
+	/**
+	 * Given I am on my about.me page,
+	 * When I search for "paolo",
+	 * Then I can compliment the third guy with love.
+	 */
 	@Test
 	public void testSearch() {
 		RunnableTask task = new SingleUserInteraction(
@@ -40,7 +45,12 @@ public class SampleWebTest extends JunitWebTest {
 		task.setUser(user);
 		task.run();
 	}
-	
+
+	/**
+	 * When I am on my about.me page,
+	 * Then verify that bio matches the expected bio,
+	 * And that the social icons for github and linkedin are displayed.
+	 */
 	@Test
 	public void testMyPage() {
 		RunnableTask task = new SingleUserInteraction(
