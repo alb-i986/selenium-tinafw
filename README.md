@@ -121,6 +121,5 @@ Please see the [POM file](https://github.com/alb-i986/selenium-tinafw/blob/maste
 
 ## TODO
 
-- publish the artifact to [Maven Central](http://search.maven.org/)
 - add `PageComponent` hierarchy (soon to be available)
 - make it a data-driven framework
