@@ -58,27 +58,28 @@ if [ $? -ne 0 ] ; then
   exit $?
 fi
 
-read -p " -- Are you sure you want to proceed with the release process? " DEPLOY
-if [[ ! "$DEPLOY" =~ ^[Yy] ]] ; then
-  echo
-  echo "deploy aborted by user"
-  echo
-  exit 0
+# deploy sources
+read -p " -- deploy sources to github? " DEPLOY_GITHUB
+if [[ "$DEPLOY_GITHUB" =~ ^[Yy] ]] ; then
+  git push origin $BRANCH
+else
+  echo -e "\n deploy sources SKIPPED"
 fi
 
-
-# deploy sources to github
-git push origin $BRANCH
-
-read -p "deploy javadoc? " DEPLOY_JAVADOC
+# deploy javadoc
+read -p " -- deploy javadoc? " DEPLOY_JAVADOC
 if [[ "$DEPLOY_JAVADOC" =~ ^[Yy] ]] ; then
   deploy_javadoc
+else
+  echo -e "\n deploy javadoc SKIPPED"
 fi
 
 # deploy to maven central
 read -p " -- deploy to maven central? " DEPLOY_MAVEN
 if [[ "$DEPLOY_MAVEN" =~ ^[Yy] ]] ; then
   mvn deploy
+else
+  echo -e "\n deploy package to maven SKIPPED"
 fi
 
 exit 0
