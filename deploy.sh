@@ -59,7 +59,9 @@ if [ $? -ne 0 ] ; then
 fi
 
 # deploy sources
+echo
 read -p " -- deploy sources to github? " DEPLOY_GITHUB
+echo
 if [[ "$DEPLOY_GITHUB" =~ ^[Yy] ]] ; then
   git push origin $BRANCH
 else
@@ -67,7 +69,9 @@ else
 fi
 
 # deploy javadoc
+echo
 read -p " -- deploy javadoc? " DEPLOY_JAVADOC
+echo
 if [[ "$DEPLOY_JAVADOC" =~ ^[Yy] ]] ; then
   deploy_javadoc
 else
@@ -75,7 +79,9 @@ else
 fi
 
 # deploy to maven central
+echo
 read -p " -- deploy to maven central? " DEPLOY_MAVEN
+echo
 if [[ "$DEPLOY_MAVEN" =~ ^[Yy] ]] ; then
   mvn deploy
 else
