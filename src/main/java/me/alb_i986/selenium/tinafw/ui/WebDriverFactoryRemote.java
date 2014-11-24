@@ -40,30 +40,10 @@ public class WebDriverFactoryRemote implements WebDriverFactory {
 
 	@Override
 	public WebDriver getWebDriver(SupportedBrowser browserType) {
-		DesiredCapabilities capabilities;
-		// set browser capability
-		switch (browserType) {
-			case CHROME:
-				capabilities = DesiredCapabilities.chrome();
-				break;
-			case FIREFOX:
-				capabilities = DesiredCapabilities.firefox();
-				break;
-			case SAFARI:
-				capabilities = DesiredCapabilities.safari();
-				break;
-			case IE:
-				capabilities = DesiredCapabilities.internetExplorer();
-				break;
-			default:
-				throw new IllegalArgumentException("The specified Browser type (" + browserType + ")"
-						+ " is not supported at the moment");
-		}
+		DesiredCapabilities capabilities = browserType.toCapabilities();
 		capabilities.setPlatform(PLATFORM);
 		capabilities.setVersion(BROWSER_VERSION);
 		RemoteWebDriver remoteWebDriver = new RemoteWebDriver(GRID_HUB_URL, capabilities);
-		// LocalFileDetector allows for uploading files from the local machine
-		// running the tests to the selenium node running the browser
 		remoteWebDriver.setFileDetector(new LocalFileDetector());
 		return remoteWebDriver;
 	}
