@@ -15,7 +15,7 @@ public class WebDriverFactoryLocal implements WebDriverFactory {
 	@Override
 	public WebDriver getWebDriver(SupportedBrowser browserType) {
 		try {
-			return (WebDriver) browserType.toClass().newInstance();
+			return browserType.toClass().newInstance();
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException e) {
 			throw new RuntimeException("cannot create a WebDriver instance for " + browserType, e);

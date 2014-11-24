@@ -1,5 +1,6 @@
 package me.alb_i986.selenium.tinafw.domain;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public enum SupportedBrowser {
@@ -33,8 +34,9 @@ public enum SupportedBrowser {
 	 * @return the concrete WebDriver class corresponding to this enum
 	 * @throws ClassNotFoundException
 	 */
-	public Class<?> toClass() throws ClassNotFoundException {
-		return Class.forName(toFullyQualifiedClassName());
+	@SuppressWarnings("unchecked")
+	public Class<WebDriver> toClass() throws ClassNotFoundException {
+		return (Class<WebDriver>) Class.forName(toFullyQualifiedClassName());
 	}
 	
 	/**
