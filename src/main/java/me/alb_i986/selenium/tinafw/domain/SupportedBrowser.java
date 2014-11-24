@@ -1,33 +1,35 @@
 package me.alb_i986.selenium.tinafw.domain;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.safari.SafariDriver;
 
 public enum SupportedBrowser {
 
-	CHROME("chrome", "ChromeDriver", DesiredCapabilities.chrome()),
-	FIREFOX("firefox", "FirefoxDriver", DesiredCapabilities.firefox()),
-	SAFARI("safari", "SafariDriver", DesiredCapabilities.safari()),
-	IE("ie", "InternetExplorerDriver", DesiredCapabilities.internetExplorer()),
-	HTML_UNIT("htmlunit", "HtmlUnitDriver", DesiredCapabilities.htmlUnit()),
+	CHROME(ChromeDriver.class, DesiredCapabilities.chrome()),
+	FIREFOX(FirefoxDriver.class, DesiredCapabilities.firefox()),
+	SAFARI(SafariDriver.class, DesiredCapabilities.safari()),
+	IE(InternetExplorerDriver.class, DesiredCapabilities.internetExplorer()),
+	HTML_UNIT(HtmlUnitDriver.class, DesiredCapabilities.htmlUnit()),
 	;
 
-	private static final String SELENIUM_PACKAGE = "org.openqa.selenium";
-	
-	private String fullyQualifiedClassName;
 	private DesiredCapabilities capabilities;
+	private Class<?> clazz;
 
-	private SupportedBrowser(String subPackage, String className, DesiredCapabilities capabilities) {
-		this.fullyQualifiedClassName = SELENIUM_PACKAGE + "." + subPackage + "." + className;
+	private SupportedBrowser(Class<?> clazz, DesiredCapabilities capabilities) {
+		this.clazz = clazz;
 		this.capabilities = capabilities;
 	}
 	
-	public String toFullyQualifiedClassName() {
-		return fullyQualifiedClassName;
-	}
-
-	public DesiredCapabilities toCapabilities() {
-		return this.capabilities;
+	/**
+	 * @see Class#getName()
+	 */
+	public String toClassName() {
+		return clazz.getName();
 	}
 
 	/**
@@ -36,9 +38,13 @@ public enum SupportedBrowser {
 	 */
 	@SuppressWarnings("unchecked")
 	public Class<WebDriver> toClass() throws ClassNotFoundException {
-		return (Class<WebDriver>) Class.forName(toFullyQualifiedClassName());
+		return (Class<WebDriver>) Class.forName(toClassName());
 	}
-	
+
+	public DesiredCapabilities toCapabilities() {
+		return this.capabilities;
+	}
+
 	/**
 	 * @return the lower cased name of the enum constant
 	 */
