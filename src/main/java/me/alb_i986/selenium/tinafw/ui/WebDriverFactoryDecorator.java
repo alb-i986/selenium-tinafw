@@ -6,15 +6,17 @@ import org.openqa.selenium.WebDriver;
 
 public abstract class WebDriverFactoryDecorator implements WebDriverFactory {
 	
-	private WebDriverFactory decoratingFactory;
+	private WebDriverFactory baseFactory;
 	
-	public WebDriverFactoryDecorator(WebDriverFactory decoratingFactory) {
-		this.decoratingFactory = decoratingFactory;
+	public WebDriverFactoryDecorator(WebDriverFactory baseFactory) {
+		if(baseFactory == null)
+			throw new IllegalArgumentException("The base factory cannot be null.");
+		this.baseFactory = baseFactory;
 	}
 
 	@Override
 	public WebDriver getWebDriver(SupportedBrowser browserType) {
-		return decoratingFactory.getWebDriver(browserType);
+		return baseFactory.getWebDriver(browserType);
 	}
 	
 }

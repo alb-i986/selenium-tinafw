@@ -3,49 +3,69 @@ package me.alb_i986.selenium.tinafw.ui;
 import java.net.URL;
 
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
-import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
-import org.openqa.selenium.Platform;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 /**
- * Create instances of {@link RemoteWebDriver} with the given
- * {@link #PLATFORM}, {@link #BROWSER_VERSION}, as per config.
+ * Create instances of {@link WebDriver} (specifically, {@link RemoteWebDriver})
+ * which can drive a browser on a remote machine, part of a
+ * <a href="https://code.google.com/p/selenium/wiki/Grid2">Selenium Grid</a>.
  * <p>
- * Also, set {@link LocalFileDetector} which allows for uploading files
- * from the local machine that runs the tests to the selenium node running
- * the browser.
+ * Such a factory needs to know the URL of the hub.
+ * Clients may also specify a set of
+ * <a href="https://code.google.com/p/selenium/wiki/DesiredCapabilities">desired capabilities</a>.
+ * <p>
+ * The instances of {@link WebDriver}s will also feature a {@link LocalFileDetector},
+ * which handles the upload of files from the local machine running the tests
+ * to the selenium node running the browser.
  */
 public class WebDriverFactoryRemote implements WebDriverFactory {
 
-	/**
-	 * @see TinafwPropLoader#getGridPlatform()
-	 */
-	public static final Platform PLATFORM = TinafwPropLoader.getGridPlatform();
+	private URL gridHubURL;
+	private DesiredCapabilities desiredCapabilities;
 
 	/**
-	 * @see TinafwPropLoader#getGridBrowserVersion()
+	 * A factory creating {@link WebDriver}s matching the given set of extra,
+	 * desired capabilities
+	 * (see also {@link RemoteWebDriver#RemoteWebDriver(URL, Capabilities, Capabilities)}).
+	 * 
+	 * @param hubURL
+	 * @param desiredCapabilities
+	 * 
+	 * @throws IllegalArgumentException if the desired capabilities specify
+	 *         a {@link CapabilityType#BROWSER_NAME}
 	 */
-	public static final String BROWSER_VERSION =
-			TinafwPropLoader.getGridBrowserVersion();
+	public WebDriverFactoryRemote(URL hubURL, DesiredCapabilities desiredCapabilities) {
+		this(hubURL);
+		if(browserNameIsSpecifiedIn(desiredCapabilities))
+			throw new IllegalArgumentException("Desired capabilities cannot specify a browser name");
+		this.desiredCapabilities = desiredCapabilities;
+	}
 
 	/**
-	 * @see TinafwPropLoader#getGridHubUrl()
+	 * A factory creating {@link WebDriver}s against the given hub.
+	 * 
+	 * @param hubURL
 	 */
-	public static final URL GRID_HUB_URL = TinafwPropLoader.getGridHubUrl();
-
+	public WebDriverFactoryRemote(URL hubURL) {
+		this.gridHubURL = hubURL;
+	}
 
 	@Override
 	public WebDriver getWebDriver(SupportedBrowser browserType) {
-		DesiredCapabilities capabilities = browserType.toCapabilities();
-		capabilities.setPlatform(PLATFORM);
-		capabilities.setVersion(BROWSER_VERSION);
-		RemoteWebDriver remoteWebDriver = new RemoteWebDriver(GRID_HUB_URL, capabilities);
-		remoteWebDriver.setFileDetector(new LocalFileDetector());
-		return remoteWebDriver;
+		RemoteWebDriver remoteDriver = new RemoteWebDriver(gridHubURL,
+				desiredCapabilities, browserType.toCapabilities());
+		remoteDriver.setFileDetector(new LocalFileDetector());
+		return remoteDriver;
+	}
+	
+	private boolean browserNameIsSpecifiedIn(Capabilities capabilities) {
+		return capabilities.getCapability(CapabilityType.BROWSER_NAME) != null;
 	}
 
 }

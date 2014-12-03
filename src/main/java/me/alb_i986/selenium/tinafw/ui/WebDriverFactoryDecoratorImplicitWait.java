@@ -3,24 +3,21 @@ package me.alb_i986.selenium.tinafw.ui;
 import java.util.concurrent.TimeUnit;
 
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
-import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 import org.openqa.selenium.WebDriver;
 
 /**
- * Decorate a WebDriver by setting an implicit wait of
- * {@link #IMPLICIT_WAIT_TIMEOUT_SECONDS} seconds.
+ * Decorate the instantiated WebDriver with an 
+ * <a href="http://docs.seleniumhq.org/docs/04_webdriver_advanced.jsp#implicit-waits">
+ * implicit wait</a> of the given number of seconds.
  */
 public class WebDriverFactoryDecoratorImplicitWait extends WebDriverFactoryDecorator {
 
-	/**
-	 * @see TinafwPropLoader#getImplicitWait()
-	 */
-	public static final int IMPLICIT_WAIT_TIMEOUT_SECONDS = 
-			TinafwPropLoader.getImplicitWait();
+	private long seconds;
 
-	public WebDriverFactoryDecoratorImplicitWait(WebDriverFactory decoratingFactory) {
-		super(decoratingFactory);
+	public WebDriverFactoryDecoratorImplicitWait(long seconds, WebDriverFactory baseFactory) {
+		super(baseFactory);
+		this.seconds = seconds;
 	}
 
 	@Override
@@ -29,8 +26,7 @@ public class WebDriverFactoryDecoratorImplicitWait extends WebDriverFactoryDecor
 	}
 	
 	private WebDriver setImplicitWait(WebDriver driver) {
-		driver.manage().timeouts().implicitlyWait(
-				IMPLICIT_WAIT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
 		return driver;
 	}
 }
