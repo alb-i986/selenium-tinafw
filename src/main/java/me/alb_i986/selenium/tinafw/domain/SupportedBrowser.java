@@ -8,6 +8,15 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 
+/**
+ * A browser supported by <a href="http://seleniumhq.org">Selenium</a>.
+ * <p>
+ * This enum provides a couple of useful conversion methods:
+ * <ul>
+ * <li>{@link #toClass()}, to get the corresponding concrete {@link WebDriver} class,
+ * <li>{@link #toCapabilities()}, to get the corresponding {@link DesiredCapabilities}.
+ * </ul>
+ */
 public enum SupportedBrowser {
 
 	CHROME(ChromeDriver.class, DesiredCapabilities.chrome()),
@@ -18,27 +27,20 @@ public enum SupportedBrowser {
 	;
 
 	private DesiredCapabilities capabilities;
-	private Class<?> clazz;
+	private Class<? extends WebDriver> concreteWebDriverClass;
 
-	private SupportedBrowser(Class<?> clazz, DesiredCapabilities capabilities) {
-		this.clazz = clazz;
+	private SupportedBrowser(Class<? extends WebDriver> clazz, DesiredCapabilities capabilities) {
+		this.concreteWebDriverClass = clazz;
 		this.capabilities = capabilities;
 	}
 	
-	/**
-	 * @see Class#getName()
-	 */
-	public String toClassName() {
-		return clazz.getName();
-	}
-
 	/**
 	 * @return the concrete WebDriver class corresponding to this enum
 	 * @throws ClassNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
 	public Class<WebDriver> toClass() throws ClassNotFoundException {
-		return (Class<WebDriver>) Class.forName(toClassName());
+		return (Class<WebDriver>) Class.forName(concreteWebDriverClass.getName());
 	}
 
 	public DesiredCapabilities toCapabilities() {
@@ -46,7 +48,7 @@ public enum SupportedBrowser {
 	}
 
 	/**
-	 * @return the lower cased name of the enum constant
+	 * @return the lower cased name of this enum constant
 	 */
 	@Override
 	public String toString() {
