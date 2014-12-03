@@ -6,30 +6,41 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 /**
- * A Browser has a type, one of {@link SupportedBrowser}. 
- * A Browser may be opened and closed, and may be used to
- * browse to some page.
+ * A Browser can be opened and closed, and can be used to browse to some page.
+ * It is backed by a {@link WebDriver}: by opening a Browser, a WebDriver is instantiated.
  * <p>
- * It is backed by a WebDriver: by opening a Browser, a WebDriver is instantiated.
- * 
+ * It relies on a {@link WebDriverFactory} for instantiating {@link WebDriver}s.
+ * The factory may be injected in the constructor.
+ * See {@link #Browser()} for details on the default factory.
+ * <p>
+ * A Browser has a type, one of {@link SupportedBrowser}.
+ * The type is not bound to an instance of Browser: it is chosen when opening the browser.
+ * Thus, a Browser instance, during its life, may represent many different types
+ * of browsers (one for each pair of calls to {@link #open(SupportedBrowser)}
+ * and {@link #close()}).
  */
 public class Browser {
 
 	protected static final Logger logger = Logger.getLogger(Browser.class);
 
 	private WebDriverFactory driverFactory;
+
 	private WebDriver driver;
 	private SupportedBrowser type;
 
 	/**
-	 * By default inject a {@link WebDriverFactoryLocal} decorated by
-	 * {@link WebDriverFactoryDecoratorImplicitWait}.
+	 * Inject the default {@link WebDriverFactory}, which is
+	 * {@link WebDriverFactoryProvider#fromConfig}
 	 */
 	public Browser() {
-		this.driverFactory = new WebDriverFactoryDecoratorImplicitWait(
-				new WebDriverFactoryLocal());
+		this(WebDriverFactoryProvider.fromConfig);
 	}
 	
+	/**
+	 * Create a Browser and inject the given {@link WebDriverFactory}.
+	 * 
+	 * @param driverFactory
+	 */
 	public Browser(WebDriverFactory driverFactory) {
 		if(driverFactory == null)
 			throw new IllegalArgumentException("The arg cannot be null");
@@ -37,21 +48,24 @@ public class Browser {
 	}
 
 	/**
-	 * Open a browser according to the given parameter.
-	 * Create an instance of WebDriver, thus open a real browser.
-	 * Does nothing if this browser had already been opened.
+	 * Open a browser according to the given parameter,
+	 * by instantiating a {@link WebDriver}.
+	 * Do nothing if this browser was already open.
 	 * 
 	 * @see WebDriverFactory#getWebDriver(SupportedBrowser)
 	 */
 	public void open(SupportedBrowser browserType) {
 		if(!isOpen()) {
-			type = browserType;
-			logger.info("Opening browser " + type);
-			driver = driverFactory.getWebDriver(type);
+			logger.info("Opening browser " + browserType);
+			this.driver = driverFactory.getWebDriver(browserType);
+			this.type = browserType;
 		}
 	}
 	
 	/**
+	 * Close the browser by quitting the underlying {@link WebDriver}.
+	 * Do nothing if this browser was not open.
+	 * 
 	 * @see WebDriver#quit()
 	 */
 	public void close() {
@@ -71,14 +85,15 @@ public class Browser {
 	}
 
 	/**
-	 * Browse to the given LoadablePage, and return its page object instance.
+	 * Browse to the given {@link LoadablePage}, and return its instance.
 	 * 
-	 * @return the requested LoadablePage
+	 * @return the requested {@link LoadablePage}
 	 * 
 	 * @see LoadablePage#load(Class, WebDriver)
 	 */
-	public <T extends LoadablePage> T browseTo(Class<T> c) {
-		return LoadablePage.load(c, driver);
+	public <T extends LoadablePage> T browseTo(Class<T> loadablePageClass) {
+		assertIsOpen();
+		return LoadablePage.load(loadablePageClass, driver);
 	}
 	
 	/**
@@ -115,7 +130,7 @@ public class Browser {
 	/**
 	 * Supposed to be used only by unit tests.
 	 */
-	public void setDriver(WebDriver driver) {
+	void setDriver(WebDriver driver) {
 		this.driver = driver;
 	}
 

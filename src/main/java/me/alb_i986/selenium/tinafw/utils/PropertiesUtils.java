@@ -2,6 +2,10 @@ package me.alb_i986.selenium.tinafw.utils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 
 public class PropertiesUtils {
 
@@ -36,7 +40,7 @@ public class PropertiesUtils {
 		try {
 			return new URL(url);
 		} catch (MalformedURLException e) {
-			throw new ConfigException(url + " cannot be converted to a URL", e);
+			throw new ConfigException(url + " cannot be converted to a URL object", e);
 		}
 	}
 
@@ -44,9 +48,22 @@ public class PropertiesUtils {
 	 * @throws ConfigException if value is an empty string
 	 */
 	public static boolean toBoolean(String value) {
-		if(value.equals(""))
+		if(value.isEmpty())
 			throw new ConfigException("empty string");
 		return Boolean.parseBoolean(value);
+	}
+
+	/**
+	 * Convert an array of names of browsers, to a List of {@link SupportedBrowser}s. 
+	 */
+	public static List<SupportedBrowser> toSupportedBrowsers(String[] browserNames) {
+		List<SupportedBrowser> browsers = new ArrayList<>();
+		for (String browserName : browserNames) {
+			SupportedBrowser browser = SupportedBrowser.valueOf(browserName.toUpperCase());
+			if(!browsers.contains(browser))
+				browsers.add(browser);
+		}
+		return browsers;
 	}
 
 }

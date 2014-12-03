@@ -1,106 +1,35 @@
 package me.alb_i986.selenium.tinafw.utils;
 
-import org.apache.log4j.Logger;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 /**
- * Read properties from the known sources, i.e.:
- * <ul>
- * <li>command line arguments</li>
- * <li>properties files
- *   <ul>
- *     <li>default properties file</li>
- *     <li>custom properties file</li>
- *   </ul>
- * </li>
- * </ul>
+ * Abstract class capable of reading properties from a certain source.
+ * <p>
+ * Each concrete implementor should be focused on a specific source.
+ * Sources may be for example files, or environment variables, DBs, and so on.
  */
-public class PropertyLoader {
-
-	private static final Logger logger = Logger.getLogger(PropertyLoader.class);
-
-	private Properties customProps;
-	private Properties defaultProps;
-
-	public PropertyLoader(String defaultPropsResource, String customPropsResource) {
-		defaultProps = loadPropsFromResource(defaultPropsResource, true);
-		customProps = loadPropsFromResource(customPropsResource, false);
-	}
-
+public abstract class PropertyLoader {
 
 	/**
-	 * @param namespace e.g. "my.namespace" (with no starting/ending periods)
-	 * @param propName the name of the property, after the namespace
-	 * @return the value of the required property
+	 * @param key the name of the property
 	 * 
-	 * @see #getProperty(String)
+	 * @return the value of the given property;
+	 *         null if the property is not defined
 	 */
-	public String getProperty(String namespace, String propName) {
-		return getProperty(namespace + "." + propName);
-	}
+	public abstract String getProperty(String key);
 	
 	/**
-	 * Load the given property from one of the known sources.
-	 * The order of precedence is as follows:
-	 * <ol>
-	 * <li>command line arguments</li>
-	 * <li>custom properties file</li>
-	 * <li>defaults properties file</li>
-	 * </ol>
-	 * 
-	 * @param key the name of the wanted property, <b>namespace included</b>
-	 * @return the value of the wanted property
-	 * @throws ConfigException if the property cannot be found
+	 * @return true if the given property is defined in the source.
 	 */
-	public String getProperty(String key) {
-		String propFromCmdLine = System.getProperty(key);
-		if(propFromCmdLine != null)
-			return propFromCmdLine.trim();
-		String customPropFromFile = customProps.getProperty(key);
-		if(customPropFromFile != null)
-			return customPropFromFile.trim();
-		String defaultPropFromFile = defaultProps.getProperty(key);
-		if(defaultPropFromFile != null)
-			return defaultPropFromFile.trim();
-		throw new ConfigException("The property " + key +
-				" is not defined in any known sources.");
+	public boolean isPropertyDefined(String key) {
+		return getProperty(key) != null;
 	}
-	
+
 	/**
-	 * Load properties from a resource.
-	 * 
-	 * @param resourceName
-	 * @param failOnResourceNotFoundOrNotLoaded when true, a ConfigException
-	 *        is raised if the resource cannot be found or loaded
-	 * @return a {@link Properties} with the properties loaded from the resource
-	 * @throws ConfigException if the resource cannot be found or loaded,
-	 *         and failOnResourceNotFound is true
+	 * @return true if the given property is not defined or it is an empty string
 	 */
-	private Properties loadPropsFromResource(String resourceName, boolean failOnResourceNotFoundOrNotLoaded) {
-		Properties props = new Properties();
-		InputStream resource = PropertyLoader.class.getResourceAsStream(resourceName);
-		boolean resourceNotFound = (resource == null);
-		if(resourceNotFound) {
-			if(failOnResourceNotFoundOrNotLoaded) {
-				throw new ConfigException("resource " + resourceName + " not found");
-			} else {
-				// if the resource is not found, return an empty Properties
-				logger.warn("Skipping resource " + resourceName + ": file not found.");
-				return props;
-			}
-		}
-		try {
-			props.load(resource);
-		} catch (IOException e) {
-			if(failOnResourceNotFoundOrNotLoaded)
-				throw new ConfigException("Cannot load properties from " + resourceName, e);
-			else
-				logger.warn("Cannot load properties from " + resourceName + ". " + e.getMessage());
-		}
-		return props;
+	public boolean isPropertyEmpty(String key) {
+		if(!isPropertyDefined(key))
+			return true;
+		return getProperty(key).isEmpty();
 	}
 
 }
