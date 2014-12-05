@@ -233,4 +233,11 @@ public class WebUser<T extends WebUser> {
 		return username.equals(user.getUsername());
 	}
 
+	/**
+	 * Supposed to be used by unit tests only.
+	 */
+	void setCurrentPage(WebPage page) {
+		this.currentPage = page;
+	}
+
 }
