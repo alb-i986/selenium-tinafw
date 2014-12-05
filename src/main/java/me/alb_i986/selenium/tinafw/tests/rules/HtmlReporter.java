@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
+import me.alb_i986.selenium.tinafw.config.Config;
 import me.alb_i986.selenium.tinafw.domain.Browser;
 import me.alb_i986.selenium.tinafw.tests.HtmlReportBuilder;
 import me.alb_i986.selenium.tinafw.tests.TestHelper;
@@ -29,9 +29,9 @@ import org.openqa.selenium.WebDriverException;
 public class HtmlReporter extends TestWatcher {
 
 	/**
-	 * @see TinafwPropLoader#getReportsDir()
+	 * @see Config#getReportsDir()
 	 */
-	private static final String REPORTS_DIR = TinafwPropLoader.getReportsDir();
+	private static final String REPORTS_DIR = Config.getReportsDir();
 
 	protected static final Logger logger = Logger.getLogger(HtmlReporter.class);
 	

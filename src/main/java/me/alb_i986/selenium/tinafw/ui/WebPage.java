@@ -2,7 +2,7 @@ package me.alb_i986.selenium.tinafw.ui;
 
 import org.openqa.selenium.WebDriver;
 
-import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
+import me.alb_i986.selenium.tinafw.config.Config;
 
 /**
  * Interface representing a generic page.
@@ -13,9 +13,9 @@ import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
 public interface WebPage {
 
 	/**
-	 * @see TinafwPropLoader#getBaseUrl()
+	 * @see Config#getBaseUrl()
 	 */
-	public final static String BASE_URL = TinafwPropLoader.getBaseUrl();
+	public final static String BASE_URL = Config.getBaseUrl();
 	
 
 	/**

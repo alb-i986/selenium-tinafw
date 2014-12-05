@@ -48,7 +48,7 @@ import org.openqa.selenium.Platform;
  *     {@link #propLoader}</li>
  * </ul>
  */
-public class TinafwPropLoader {
+public class Config {
 
 	public static final String NAMESPACE = "tinafw";
 	
@@ -77,7 +77,7 @@ public class TinafwPropLoader {
 	/**
 	 * This is a static class: as such, it cannot be instantiated.
 	 */
-	protected TinafwPropLoader() {}
+	protected Config() {}
 	
 
 	/**

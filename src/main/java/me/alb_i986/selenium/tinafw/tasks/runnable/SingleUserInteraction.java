@@ -2,7 +2,7 @@ package me.alb_i986.selenium.tinafw.tasks.runnable;
 
 import java.util.List;
 
-import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
+import me.alb_i986.selenium.tinafw.config.Config;
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 import me.alb_i986.selenium.tinafw.domain.WebUser;
 import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
@@ -43,7 +43,7 @@ public class SingleUserInteraction extends CompositeWebTask implements RunnableT
 		try {
 			user.doTask(this);
 		} finally {
-			if(!TinafwPropLoader.getKeepBrowsersOpen()) {
+			if(!Config.getKeepBrowsersOpen()) {
 				user.closeBrowser();
 			}
 		}

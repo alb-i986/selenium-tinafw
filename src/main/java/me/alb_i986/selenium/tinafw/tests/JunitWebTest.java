@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
+import me.alb_i986.selenium.tinafw.config.Config;
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 import me.alb_i986.selenium.tinafw.tests.rules.BrowserManager;
 import me.alb_i986.selenium.tinafw.tests.rules.HtmlReporter;
@@ -51,9 +51,9 @@ import org.junit.runners.Parameterized.Parameters;
 public abstract class JunitWebTest implements WebTest {
 	
 	/**
-	 * @see TinafwPropLoader#getMaxExecutions()
+	 * @see Config#getMaxExecutions()
 	 */
-	public static final int MAX_EXECUTIONS = TinafwPropLoader.getMaxExecutions();
+	public static final int MAX_EXECUTIONS = Config.getMaxExecutions();
 	
 	protected static final Logger logger = Logger.getLogger(JunitWebTest.class);
     
@@ -78,12 +78,12 @@ public abstract class JunitWebTest implements WebTest {
 	 * Provides the test parameters,
 	 * i.e. the browsers to run the tests with.
 	 * 
-	 * @see TinafwPropLoader#getBrowsers()
+	 * @see Config#getBrowsers()
 	 */
 	@Parameters
 	public static Collection<Object[]> browsers() {
 		List<Object[]> data = new ArrayList<>();
-		for (SupportedBrowser browser : TinafwPropLoader.getBrowsers()) {
+		for (SupportedBrowser browser : Config.getBrowsers()) {
 			data.add(new Object[] {browser});
 		}
 		return data;
