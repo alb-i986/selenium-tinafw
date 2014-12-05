@@ -121,6 +121,7 @@ public class WebUser<T extends WebUser> {
 	 */
 	public void closeBrowser() {
 		browser.close();
+		currentPage = null;
 	}
 
 	/**
