@@ -34,7 +34,7 @@ public class PageHelper {
 	 *  
 	 * @param expectedCondition
 	 * @param driver
-	 * @return 
+	 * @return whatever WebDriverWait#until returns
 	 * 
 	 * @see #waitUntil(ExpectedCondition, WebDriver, long)
 	 */

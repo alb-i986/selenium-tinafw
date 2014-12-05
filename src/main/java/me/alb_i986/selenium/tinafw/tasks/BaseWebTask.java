@@ -34,7 +34,7 @@ public abstract class BaseWebTask implements WebTask {
 
 
 	/**
-	 * Convenience method for retrieving the underlying {@link Browser}.
+	 * Convenience method for retrieving the underlying {@link Browser}
 	 * associated to the user this task runs as.
 	 * 
 	 * @return the underlying {@link Browser}

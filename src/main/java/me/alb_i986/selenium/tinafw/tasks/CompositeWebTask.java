@@ -22,7 +22,7 @@ import static me.alb_i986.selenium.tinafw.tasks.WebTasks.*;
  * <i>With CompositeWebTask you may even get rid of page objects (!)</i>,
  * and have WebTask's talk directly to PageComponent's.
  * <p>
- * CompositeWebTask exploits the
+ * Exploiting the
  * <a href="http://en.wikipedia.org/wiki/Composite_pattern">
  * Composite design pattern</a>.
  */

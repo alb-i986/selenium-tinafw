@@ -12,15 +12,15 @@ import me.alb_i986.selenium.tinafw.domain.WebUser;;
  * <p>
  * Therefore, a basic test involving only one user interacting with
  * the SUT can be written simply as:
- * {@code
  * <pre>
+ * {@code
  * User user;
  * WebTask task;
  * user.openBrowser();
  * user.doTask(task);
  * user.closeBrowser();
- * </pre>
  * }
+ * </pre>
  * 
  */
 public interface WebTest {

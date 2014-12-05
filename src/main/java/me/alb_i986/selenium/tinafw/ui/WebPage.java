@@ -8,7 +8,7 @@ import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
  * Interface representing a generic page.
  * <p>
  * The constant {@link #BASE_URL} stores the base URL of the SUT,
- * and it is loaded from the config file.
+ * and it is loaded from the config.
  */
 public interface WebPage {
 

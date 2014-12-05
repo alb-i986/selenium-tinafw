@@ -16,10 +16,9 @@ import me.alb_i986.selenium.tinafw.ui.LoadablePage;
 import me.alb_i986.selenium.tinafw.ui.WebPage;
 import me.alb_i986.selenium.tinafw.ui.PageHelper;
 
-
 /**
- * Models the page at http://about.me/alb_i986
- * (which happens to be the default value of {@link WebPage#BASE_URL}).
+ * Models any profile page on about.me, e.g.
+ * <a href="http://about.me/alb_i986">http://about.me/alb_i986</a>.
  */
 public class MyAboutMePage extends BaseWebPage implements LoadablePage {
 

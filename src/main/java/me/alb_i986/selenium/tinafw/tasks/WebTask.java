@@ -56,13 +56,15 @@ public interface WebTask {
 	 * this task and the given alternative task.
 	 * This method can be "recursively" chained in order to define
 	 * a multi-member OR, e.g.:
+	 * <pre>
 	 * {@code
 	 * new MyTask()
-	 *    .or(new Alternative1())
-	 *    .or(new Alternative2())
-	 *    .or(new Alternative3())
+	 *    .or(new AlternativeTask1())
+	 *    .or(new AlternativeTask2())
+	 *    .or(new AlternativeTask3())
 	 * ;
 	 * }
+	 * </pre>
 	 * 
 	 * @param alternativeTask the task to run if this task fails
 	 * @return an {@link OrWebTask} made up of (in order)
