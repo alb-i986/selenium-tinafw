@@ -1,7 +1,10 @@
-package me.alb_i986.selenium.tinafw.utils;
+package me.alb_i986.selenium.tinafw.config;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
+import me.alb_i986.selenium.tinafw.config.ConfigException;
+import me.alb_i986.selenium.tinafw.config.PropertyLoader;
+import me.alb_i986.selenium.tinafw.config.PropertyLoaderFromResource;
 
 import org.junit.Test;
 

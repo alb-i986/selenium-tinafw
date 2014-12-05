@@ -2,7 +2,7 @@ package me.alb_i986.selenium.tinafw.ui;
 
 import org.openqa.selenium.WebDriver;
 
-import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
+import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
 
 /**
  * Interface representing a generic page.

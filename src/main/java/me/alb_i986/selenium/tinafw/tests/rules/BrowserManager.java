@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
 import me.alb_i986.selenium.tinafw.domain.Browser;
-import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 import org.apache.log4j.Logger;
 import org.junit.rules.ExternalResource;

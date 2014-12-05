@@ -2,11 +2,11 @@ package me.alb_i986.selenium.tinafw.tasks.runnable;
 
 import java.util.List;
 
+import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 import me.alb_i986.selenium.tinafw.domain.WebUser;
 import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
-import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 /**
  * A fully executable <i>single</i> user interaction with the SUT.

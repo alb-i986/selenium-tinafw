@@ -1,4 +1,4 @@
-package me.alb_i986.selenium.tinafw.utils;
+package me.alb_i986.selenium.tinafw.config;
 
 import java.net.MalformedURLException;
 import java.net.URL;

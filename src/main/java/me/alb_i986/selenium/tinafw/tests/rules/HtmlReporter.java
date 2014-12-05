@@ -8,10 +8,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
 import me.alb_i986.selenium.tinafw.domain.Browser;
 import me.alb_i986.selenium.tinafw.tests.HtmlReportBuilder;
 import me.alb_i986.selenium.tinafw.tests.TestHelper;
-import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 import org.apache.log4j.Logger;
 import org.junit.rules.TestWatcher;

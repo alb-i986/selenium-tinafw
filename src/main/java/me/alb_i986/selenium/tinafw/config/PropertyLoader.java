@@ -1,4 +1,4 @@
-package me.alb_i986.selenium.tinafw.utils;
+package me.alb_i986.selenium.tinafw.config;
 
 /**
  * Abstract class capable of reading properties from a certain source.

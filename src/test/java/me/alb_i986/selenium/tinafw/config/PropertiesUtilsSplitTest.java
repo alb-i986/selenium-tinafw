@@ -1,6 +1,7 @@
-package me.alb_i986.selenium.tinafw.utils;
+package me.alb_i986.selenium.tinafw.config;
 
 import static org.junit.Assert.*;
+import me.alb_i986.selenium.tinafw.config.PropertiesUtils;
 
 import org.junit.Test;
 

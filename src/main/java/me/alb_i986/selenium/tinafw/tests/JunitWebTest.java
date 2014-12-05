@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 import me.alb_i986.selenium.tinafw.tests.rules.BrowserManager;
 import me.alb_i986.selenium.tinafw.tests.rules.HtmlReporter;
 import me.alb_i986.selenium.tinafw.tests.rules.TestLogger;
 import me.alb_i986.selenium.tinafw.tests.rules.TestRetrier;
-import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
 
 import org.apache.log4j.Logger;
 import org.junit.After;

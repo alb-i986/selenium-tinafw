@@ -1,6 +1,6 @@
 package me.alb_i986.selenium.tinafw.ui;
 
-import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
+import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;

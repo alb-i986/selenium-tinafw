@@ -2,7 +2,7 @@ package me.alb_i986.selenium.tinafw.ui;
 
 import java.net.URL;
 
-import me.alb_i986.selenium.tinafw.utils.TinafwPropLoader;
+import me.alb_i986.selenium.tinafw.config.TinafwPropLoader;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
