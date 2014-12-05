@@ -7,7 +7,7 @@ import me.alb_i986.selenium.tinafw.sample.tasks.*;
 import me.alb_i986.selenium.tinafw.tasks.runnable.RunnableTask;
 import me.alb_i986.selenium.tinafw.tasks.runnable.SingleUserInteraction;
 import me.alb_i986.selenium.tinafw.tests.JunitWebTest;
-import static me.alb_i986.selenium.tinafw.tasks.WebTasks.BDD.*;
+import static me.alb_i986.selenium.tinafw.tasks.WebTasks.*;
 
 public class SampleWebTest extends JunitWebTest {
 
