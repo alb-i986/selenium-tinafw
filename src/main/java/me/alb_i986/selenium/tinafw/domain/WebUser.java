@@ -219,14 +219,14 @@ public class WebUser<T extends WebUser> {
 	public boolean equals(Object o) {
 		if(!(o instanceof WebUser))
 			return false;
-		return equals((WebUser)o);
+		return equals((WebUser) o);
 	}
 	
 	/**
 	 * @param user
 	 * @return true if the two users have the same username 
 	 */
-	public boolean equals(T user) {
+	public boolean equals(WebUser user) {
 		if(username == null || user == null)
 			return false;
 		return username.equals(user.getUsername());
