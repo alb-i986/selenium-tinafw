@@ -1,6 +1,8 @@
 package me.alb_i986.selenium.tinafw.domain;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
+
 import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
 import me.alb_i986.selenium.tinafw.ui.WebPage;
@@ -12,11 +14,24 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class WebUserTest {
 
+	private WebPage stubPage;
 	private WebUser user;
 
 	@Before
 	public void before() {
 		this.user = new WebUser();
+		this.stubPage = new WebPage() {
+			
+			@Override
+			public String getTitle() {
+				return "stub";
+			}
+			
+			@Override
+			public String getCurrentUrl() {
+				return "stub";
+			}
+		};
 	}
 	
 
@@ -37,22 +52,12 @@ public class WebUserTest {
 			
 			@Override
 			public WebPage run(WebPage initialPage) {
-				return new WebPage() {
-					
-					@Override
-					public String getTitle() {
-						return "stub";
-					}
-					
-					@Override
-					public String getCurrentUrl() {
-						return "stub";
-					}
-				};
+				return stubPage;
 			}
 		};
 		user.doTask(taskThatReturnsANotNullPage);
 		assertNotNull(user.getCurrentPage());
+		assertSame(stubPage, user.getCurrentPage());
 	}
 
 	/**
@@ -79,7 +84,9 @@ public class WebUserTest {
 	}
 	
 	/**
-	 * Testing {@link WebUser#User()}:
+	 * Testing the state of {@code currentPage} after instantiating a {@code new}
+	 * {@link WebUser#WebUser()}.
+	 * <p>
 	 * <ol>
 	 * <li>Given a new user with no initial page</li>
 	 * <li>Then {@link WebUser#getCurrentPage()} should return null</li>
@@ -90,36 +97,65 @@ public class WebUserTest {
 		assertNull(user.getCurrentPage());
 	}
 
+	/**
+	 * Testing the state of {@code currentPage} after {@link WebUser#closeBrowser()}.
+	 * <p>
+	 * <ol>
+	 * <li>Given a user with a not null current page</li>
+	 * <li>When {@link WebUser#closeBrowser()}</li>
+	 * <li>Then {@link WebUser#getCurrentPage()} should be null</li>
+	 * </ol>
+	 */
+	@Test
+	public void whenCloseBrowserThenCurrentPageShouldBeNull() {
+		user.setCurrentPage(stubPage);
+		assertNotNull(user.getCurrentPage());
+		user.closeBrowser();
+		assertNull(user.getCurrentPage());
+	}
+
 	@Test
 	public void equalsToNonUser() {
 		Object o = new Object();
 		assertFalse(user.equals(o));
 	}
 
+	/**
+	 * Testing {@link WebUser#equals(Object)}.
+	 */
 	@Test
 	public void equalsToUserWithSameUsername() {
 		WebUser userWithSameUsername = new WebUser().withUsername(user.getUsername());
-		assertTrue(user.equals(userWithSameUsername));
+		assertEquals(userWithSameUsername, user);
 	}
 
+	/**
+	 * Testing {@link WebUser#equals(Object)}.
+	 */
 	@Test
 	public void equalsToUserWithDifferentUsername() {
-		WebUser userWithNullUsername = new WebUser().withUsername("asdasd");
+		WebUser userWithDifferentUsername = new WebUser().withUsername("asdasd");
 		// make sure the two usernames are different
-		assertFalse(user.getUsername().equals(userWithNullUsername.getUsername()));
-		assertFalse(user.equals(userWithNullUsername));
+		assertNotEquals(user.getUsername(), userWithDifferentUsername.getUsername());
+		assertNotEquals(user, userWithDifferentUsername);
 	}
 
+	/**
+	 * Testing {@link WebUser#equals(Object)}.
+	 */
 	@Test
 	public void equalsToNullObject() {
 		Object nullObject = null;
-		assertFalse(user.equals(nullObject));
+		assertNotEquals(user, nullObject);
 	}
 
+	/**
+	 * Testing {@link WebUser#equals(Object)}.
+	 */
 	@Test
 	public void equalsToNullUser() {
 		WebUser nullUser = null;
-		assertFalse(user.equals(nullUser));
+		assertNotEquals(user, nullUser);
 	}
 
 
