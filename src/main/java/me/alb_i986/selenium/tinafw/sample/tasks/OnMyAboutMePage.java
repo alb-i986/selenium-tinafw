@@ -11,7 +11,7 @@ public class OnMyAboutMePage extends NavigationWebTask {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T extends LoadablePage> Class<T> getPageClassToLoad() {
+	public <T extends LoadablePage> Class<T> pageToLoadClass() {
 		return (Class<T>) MyAboutMePage.class;
 	}
 
