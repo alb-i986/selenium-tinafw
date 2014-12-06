@@ -19,16 +19,37 @@ import me.alb_i986.selenium.tinafw.ui.WebPage;
  */
 public class WebTasks {
 
-	public static final WebTask NULL_TASK = new NullTask();
+	/**
+	 * Constant that makes {@link #nullTask()} a singleton.
+	 * <p>
+	 * Though such a task has a state (mainly a user), its state is never used,
+	 * therefore it should be safe to make it a singleton.
+	 * Tests using it concurrently should be working fine.
+	 */
+	private static final WebTask NULL_TASK = new BaseWebTask() {
+			
+			@Override
+			public WebPage run(WebPage initialPage) {
+				return initialPage;
+			}
+		};
 
 	protected WebTasks() {
 	}
 
 	/**
-	 * @return a {@link NullTask} that sleeps for the given number of seconds.
+	 * Task that does nothing, and "finally" returns the very initial page.
+	 */
+	public static WebTask nullTask() {
+		return NULL_TASK;
+	}
+	
+	/**
+	 * Task that sleeps for the given number of seconds,
+	 * and finally returns the very initial page.
 	 */
 	public static WebTask sleepFor(int seconds) {
-		return new NullTask() {
+		return new BaseWebTask() {
 
 			@Override
 			public WebPage run(WebPage initialPage) {
@@ -37,7 +58,7 @@ public class WebTasks {
 				} catch (InterruptedException e) {
 					logger.warn("sleep interrupted");
 				}
-				return super.run(initialPage);
+				return initialPage;
 			}
 		};
 	}

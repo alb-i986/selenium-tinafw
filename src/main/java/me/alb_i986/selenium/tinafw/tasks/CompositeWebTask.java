@@ -8,8 +8,6 @@ import java.util.List;
 
 import me.alb_i986.selenium.tinafw.ui.WebPage;
 
-import static me.alb_i986.selenium.tinafw.tasks.WebTasks.*;
-
 /**
  * A WebTask made up of many supposedly small (sub-)tasks,
  * which in turn may be CompositeWebTask's too.
@@ -39,11 +37,11 @@ public class CompositeWebTask extends BaseWebTask implements Iterable<WebTask> {
 
 	/**
 	 * Set the given list as the list of components of this composite.
-     * Replace any null subtask with a {@link NullTask}.
+     * Replace any null subtask with a {@link WebTasks#nullTask()}.
 	 */
 	public CompositeWebTask(List<WebTask> subtasks) {
 		super();
-		Collections.replaceAll(subtasks, null, NULL_TASK);
+		Collections.replaceAll(subtasks, null, WebTasks.nullTask());
 		this.subtasks.addAll(subtasks);
 	}
 

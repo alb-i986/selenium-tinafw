@@ -4,8 +4,6 @@ import java.util.List;
 
 import me.alb_i986.selenium.tinafw.ui.WebPage;
 
-import static me.alb_i986.selenium.tinafw.tasks.WebTasks.*;
-
 /**
  * A {@link CompositeWebTask} which chains subtasks in a logical OR.
  * It allows to handle situations where it is not known exactly what
@@ -43,12 +41,12 @@ import static me.alb_i986.selenium.tinafw.tasks.WebTasks.*;
  * </ul> 
  * <p>
  * In the basic form, in other words by default, the "restorer"
- * is a {@link NullTask}.
+ * is a {@link WebTasks#nullTask()}.
  * It can be changed with {@link #withRestorer(WebTask)}.
  */
 public class OrWebTask extends CompositeWebTask {
 	
-	private WebTask restorer = NULL_TASK;
+	private WebTask restorer = WebTasks.nullTask();
 
 	public OrWebTask(List<WebTask> subtasks) {
 		super(subtasks);
