@@ -50,10 +50,12 @@ public class CompositeWebTask extends BaseWebTask implements Iterable<WebTask> {
 	 * page that the last task was visiting.
 	 * Each subtask will run with the same user as the composite.
 	 * 
-	 * @throws AssertionError if the user set in this composite is null
+	 * @throws IllegalStateException if the user set in this composite is null
 	 */
 	@Override
 	public WebPage run(WebPage initialPage) {
+		if(getUser() == null)
+			throw new IllegalStateException("the user set is null");
 		WebPage currentPage = initialPage;
 		for(WebTask task : this) {
 			logger.info("BEGIN subtask " + task.getClass().getSimpleName());

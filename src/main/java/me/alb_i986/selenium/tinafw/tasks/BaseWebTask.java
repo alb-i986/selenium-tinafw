@@ -40,6 +40,8 @@ public abstract class BaseWebTask implements WebTask {
 	 * @return the underlying {@link Browser}
 	 */
 	protected Browser browser() {
+		if(user == null)
+			throw new IllegalStateException("User is null");
 		return user.getBrowser();
 	}
 
@@ -50,6 +52,8 @@ public abstract class BaseWebTask implements WebTask {
 	 * @return the underlying {@link WebDriver}
 	 */
 	protected WebDriver driver() {
+		if(browser() == null)
+			throw new IllegalStateException("Browser is null");
 		return browser().getWebDriver();
 	}
 

@@ -43,7 +43,7 @@ public class Browser {
 	 */
 	public Browser(WebDriverFactory driverFactory) {
 		if(driverFactory == null)
-			throw new IllegalArgumentException("The arg cannot be null");
+			throw new IllegalArgumentException("The WebDriverFactory is null");
 		this.driverFactory = driverFactory;
 	}
 
