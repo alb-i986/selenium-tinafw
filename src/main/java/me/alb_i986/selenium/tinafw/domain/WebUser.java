@@ -38,8 +38,7 @@ import me.alb_i986.selenium.tinafw.ui.WebPage;
  * and possibly override {@link #equals(WebUser)}.
  * 
  */
-@SuppressWarnings("rawtypes")
-public class WebUser<T extends WebUser> {
+public class WebUser<T extends WebUser<?>> {
 
 	protected static final Logger logger = Logger.getLogger(WebUser.class);
 	
@@ -220,14 +219,14 @@ public class WebUser<T extends WebUser> {
 	public boolean equals(Object o) {
 		if(!(o instanceof WebUser))
 			return false;
-		return equals((WebUser) o);
+		return equals((WebUser<?>) o);
 	}
 	
 	/**
 	 * @param user
 	 * @return true if the two users have the same username 
 	 */
-	public boolean equals(WebUser user) {
+	public boolean equals(WebUser<?> user) {
 		if(username == null || user == null)
 			return false;
 		return username.equals(user.getUsername());
