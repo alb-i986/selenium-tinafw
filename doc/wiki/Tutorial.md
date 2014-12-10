@@ -12,35 +12,35 @@ Then, update the POM  as follows:
 
 ```
 
-	<dependencies>
-		<dependency>
-			<groupId>me.alb-i986.selenium</groupId>
-			<artifactId>selenium-tinafw</artifactId>
-			<version>0.3.2-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
-	
-	<repositories>
-		<repository>
-			<id>snapshots-repo</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+  <dependencies>
+    <dependency>
+      <groupId>me.alb-i986.selenium</groupId>
+      <artifactId>selenium-tinafw</artifactId>
+      <version>0.3.2-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+  
+  <repositories>
+    <repository>
+      <id>snapshots-repo</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 ```
 
 ### Package layout
 First of all we recommend to create the following directory structure aka package layout:
 
+- config
 - tests
 - domain
 - ui
-- utils
 
 
 ### Configuration
@@ -49,7 +49,7 @@ The framework can be configured in two non-exclusive ways:
 - config files (`config.default.properties`, `config.custom.properties`)
 
 A system property takes precedence over what is specified in the config files.
-For more info, please see [PropertyLoader](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/utils/PropertyLoader.java).
+For more info, please see [Config](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/config/Config.java).
 
 Copy [config.default.properties](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/resources/config.default.properties) to your project, under `src/test/resources`, and configure it as per your needs. You should also add it to your VCS.
 Besides, you can have another config file, which you must name `config.custom.properties`, supposed _not_ to be versioned,
@@ -66,59 +66,60 @@ it may turn useful.
 
 ```
 public abstract class MyBasePage extends BasePage {
-	
-	public TopNavBar topNavBar;
-	
-	public MyBasePage(WebDriver driver, Page previous) {
-		super(driver, previous);
-		topNavBar = new TopNavBar(driver, this);
-	}
+  
+  public TopNavBar topNavBar;
+  
+  public MyBasePage(WebDriver driver, Page previous) {
+    super(driver, previous);
+    topNavBar = new TopNavBar(driver, this);
+  }
 }
 
 public class MyPage extends MyBasePage {
-	
-	public MyPage(WebDriver driver, Page previous) {
-		super(driver, previous);
-	}
-	
-	[..]
+  
+  public MyPage(WebDriver driver, Page previous) {
+    super(driver, previous);
+  }
+  
+  [..]
 }
 ```
 
-### Extend TinafwPropLoader
-If you need extra config properties, you should also extend TinafwPropLoader,
+### Extend Config
+If you need extra config properties, you should also extend the static class [Config](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/config/Config.java),
 and define a static method for each of your custom configurable properties.
 
 ```
-public class MyPropLoader extends TinafwPropLoader {
-	
-	public static final String NAMESPACE = "my.namespace";
+public class MyPropLoader extends Config {
+  
+  public static final String NAMESPACE = "my.namespace";
+  private static final String PREFIX = NAMESPACE + ".";
+  public static final String PROP1 = PREFIX + "prop1";
+  public static final String PROP2 = PREFIX + "prop2";
 
-	public static String getMyProp1() {
-		return getMyConfig("prop1");
-	}
-	
-	public static String[] getMyProp2() {
-		return PropertiesUtils.split(getMyConfig("prop2"));
-	}
 
-	private static String getMyConfig(String propName) {
-		return propLoader.getProperty(NAMESPACE, propName);
-	}
+  public static String getMyProp1() {
+    return getRequiredProperty(PROP1);
+  }
+  
+  public static String[] getMyProp2() {
+    return PropertiesUtils.split(getOptionalProperty(PROP2));
+  }
+
 }
 ```
 
 With this class in place, you can then specify in your config file
 the following properties:
 
-	my.namespace.prop1 = whatever
-	my.namespace.prop2 = value1, value2, value3
+  my.namespace.prop1 = whatever
+  my.namespace.prop2 = value1, value2, value3
 
 Then, in your classes, whenever you need to load a property, you can call
 
-	MyPropLoader.getMyPropN()
+  MyPropLoader.getMyPropN()
 
-Please also see `TinafwPropLoader`'s javadoc for more details.
+Please see also `Config`'s javadoc for more details.
 
 
 
@@ -143,20 +144,21 @@ After you click submit, a dialog pops up asking the user to confirm.
 ```
 submitBtn.click() // after submitting, a confirmation dialog will pop up
 new ConfirmDialog(driver, this) // the constructor implicitly waits until the page object is displayed
-	.confirm() // click the 'yes' button 
+  .confirm() // click the 'yes' button 
 ;
 ```
 
 ```
-public class ConfirmDialog extends BasePage {
-	@FindBy(id = "confirm")
-	private WebElement confirmBtn;
-	
-	[..]
-	
-	public void confirm() {
-		confirmBtn.click();
-	}
+public class ConfirmDialog extends BaseWebPage {
+
+  @FindBy(id = "confirm")
+  private WebElement confirmBtn;
+  
+  [..]
+  
+  public void confirm() {
+    confirmBtn.click();
+  }
 }
 ```
 
@@ -166,9 +168,13 @@ Please note that `ConfirmDialog#confirm` returns void: in fact, after confirming
 ### Tasks
 
 Each of your custom tasks should extend
-[BaseWebTask](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tasks/BaseWebTask.java) or
+[BaseWebTask](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tasks/BaseWebTask.java), or
 [NavigationWebTask](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tasks/NavigationWebTask.java).
+The latter is for tasks that perform a navigation step, i.e. browsing to some page.
 
+If your SUT provides a login functionality, you should define a class `ImLoggedIn`, to extend
+[ImLoggedInBase](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tasks/ImLoggedInBase.java),
+and define an implementation for `#loginPageClass`.
 
 
 ### Tests
@@ -176,7 +182,7 @@ Each of your custom tasks should extend
 `selenium-tinafw` fully supports and encourages to use JUnit as the testing framework.
 
 TestNG is not recommended because it encourages bad practices like defining dependencies among tests,
-and also for not being very clean, from a design point of view (in our opinion).
+and also for not being very clean, from a design point of view (in my opinion).
 However, you are free to use whichever you prefer.
 
 If you choose JUnit, you get for free a few nice features:
@@ -201,13 +207,13 @@ For each user involved in a test:
 
 You may define all of these steps in a fixture, aka a `Before` method.
 
-	@Override
-	public void before() {
-		user = new User().withBrowserType(browserType);
-		browserManager.registerBrowsers(user.getBrowser());
-		htmlReporter.setBrowser(user.getBrowser());
-		user.openBrowser();
-	}
+  @Override
+  public void before() {
+    user = new User().withBrowserType(browserType);
+    browserManager.registerBrowsers(user.getBrowser());
+    htmlReporter.setBrowser(user.getBrowser());
+    user.openBrowser();
+  }
 
 See also [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java).
 
@@ -217,4 +223,3 @@ We recommend developing
 [outside-in](http://en.wikipedia.org/wiki/Outside%E2%80%93in_software_development).
 That is, start from writing the test method, and let the IDE help you making
 your way through tasks to pages.
-
