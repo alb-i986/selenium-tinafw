@@ -8,7 +8,7 @@ BRANCH=master
 
 # stash pop only if we did run a `git stash` previously
 stash_back() {
-  if [ "$STASHED" -eq "1" ] ; then
+  if [ "$STASHED" = "1" ] ; then
     echo "Finally, Stash back"
     git stash pop
     STASHED=0
