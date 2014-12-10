@@ -119,12 +119,12 @@ public class MyPropLoader extends Config {
 With this class in place, you can then specify in your config file
 the following properties:
 
-  my.namespace.prop1 = whatever
-  my.namespace.prop2 = value1, value2, value3
+    my.namespace.prop1 = whatever
+    my.namespace.prop2 = value1, value2, value3
 
 Then, in your classes, whenever you need to load a property, you can call
 
-  MyPropLoader.getMyPropN()
+    MyPropLoader.getMyPropN()
 
 Please see also `Config`'s javadoc for more details.
 
@@ -214,6 +214,7 @@ For each user involved in a test:
 
 You may define all of these steps in a fixture, aka a `Before` method.
 
+```
   @Override
   public void before() {
     user = new User().withBrowserType(browserType);
@@ -221,6 +222,7 @@ You may define all of these steps in a fixture, aka a `Before` method.
     htmlReporter.setBrowser(user.getBrowser());
     user.openBrowser();
   }
+```
 
 See also [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java).
 
