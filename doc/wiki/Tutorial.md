@@ -96,15 +96,22 @@ public class MyPropLoader extends Config {
   private static final String PREFIX = NAMESPACE + ".";
   public static final String PROP1 = PREFIX + "prop1";
   public static final String PROP2 = PREFIX + "prop2";
+  public static final String PROP3 = PREFIX + "prop3";
 
 
-  public static String getMyProp1() {
-    return getRequiredProperty(PROP1);
+  public static String getMyProp1(boolean required) {
+    return getProperty(PROP1, required);
   }
   
-  public static String[] getMyProp2() {
-    return PropertiesUtils.split(getOptionalProperty(PROP2));
+  public static String[] getMyProp2(boolean required) {
+    String value = getProperty(PROP2, required);
+    return (value == null) ? null : PropertiesUtils.split(value);
   }
+  
+  public static String[] getMyRequiredProp3() {
+    return PropertiesUtils.split(getRequiredProperty(PROP3));
+  }
+  
 
 }
 ```

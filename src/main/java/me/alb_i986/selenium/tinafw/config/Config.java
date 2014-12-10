@@ -42,7 +42,9 @@ import org.openqa.selenium.Platform;
  * </li>
  * <li>define a public static method for each new configurable setting,
  *     implementing the retrieval of that setting, which should delegate to
- *     {@link #getOptionalProperty(String)} or {@link #getRequiredProperty(String)}
+ *     {@link #getOptionalProperty(String)} or {@link #getRequiredProperty(String)},
+ *     or to the more generic {@link #getProperty(String, boolean)}, for those properties
+ *     that are required by some tasks, but may not be so for some other task.
  *     </li>
  * <li>optionally, change the logic of how to retrieve properties by redefining
  *     {@link #propLoader}</li>
@@ -184,6 +186,20 @@ public class Config {
 		return (value == null) ? null : PropertiesUtils.toURL(value);
 	}
 
+
+	/**
+	 * @return {@link #getRequiredProperty(String)} if {@code required} is true;
+	 *         {@link #getOptionalProperty(String)} otherwise.
+	 */
+	protected static String getProperty(String propertyName, boolean required) {
+		String value;
+		if(required) {
+			value = getRequiredProperty(propertyName);
+		} else {
+			value = getOptionalProperty(propertyName);
+		}
+		return value;
+	}
 	
 	/**
 	 * @param propertyName the name of the property
