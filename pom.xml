@@ -4,7 +4,7 @@
 
 	<groupId>me.alb-i986.selenium</groupId>
 	<artifactId>selenium-tinafw</artifactId>
-	<version>0.3.2-SNAPSHOT</version>
+	<version>0.3.2</version>
 	<packaging>jar</packaging>
 
 	<name>selenium-tinafw</name>
