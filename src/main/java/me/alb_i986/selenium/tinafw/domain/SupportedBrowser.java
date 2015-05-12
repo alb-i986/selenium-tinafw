@@ -35,12 +35,10 @@ public enum SupportedBrowser {
 	}
 	
 	/**
-	 * @return the concrete WebDriver class corresponding to this enum
-	 * @throws ClassNotFoundException
+	 * @return the concrete WebDriver class corresponding to this SupportedBrowser
 	 */
-	@SuppressWarnings("unchecked")
-	public Class<WebDriver> toClass() throws ClassNotFoundException {
-		return (Class<WebDriver>) Class.forName(concreteWebDriverClass.getName());
+	public Class<? extends WebDriver> toClass() {
+		return this.concreteWebDriverClass;
 	}
 
 	public DesiredCapabilities toCapabilities() {

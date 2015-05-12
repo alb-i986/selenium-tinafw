@@ -21,8 +21,7 @@ public class WebDriverFactoryLocal implements WebDriverFactory {
 	public WebDriver getWebDriver(SupportedBrowser browserType) {
 		try {
 			return browserType.toClass().newInstance();
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
+		} catch (InstantiationException | IllegalAccessException e) {
 			throw new WebDriverFactoryException(
 					"cannot create a WebDriver instance for " + browserType, e);
 		}
