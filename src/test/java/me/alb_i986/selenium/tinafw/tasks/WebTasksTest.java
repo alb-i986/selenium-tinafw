@@ -4,30 +4,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import me.alb_i986.selenium.tinafw.ui.WebPage;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class WebTasksTest {
 
+	@Mock
 	private WebPage stubPage;
 	
-	@Before
-	public void before() {
-		stubPage = new WebPage() {
-			
-			@Override
-			public String getTitle() {
-				return "title";
-			}
-			
-			@Override
-			public String getCurrentUrl() {
-				return "current url";
-			}
-		};
-	}
-	
-
 	/**
 	 * Testing {@link WebTasks#nullTask()}.
 	 * <p>

@@ -5,10 +5,16 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BrowserTest {
+
+	@Mock private WebDriver mockedDriver;
 
 	private Browser browser;
 
@@ -79,7 +85,7 @@ public class BrowserTest {
 	 */
 	@Test
 	public void givenNotNullDriverWhenCloseThenBrowserShouldBeClosed() {
-		browser.setDriver(new HtmlUnitDriver());
+		browser.setDriver(mockedDriver);
 		browser.close();
 		assertFalse(browser.isOpen());
 		assertNull(browser.getWebDriver());

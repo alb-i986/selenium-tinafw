@@ -2,6 +2,7 @@ package me.alb_i986.selenium.tinafw.domain;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
@@ -10,28 +11,25 @@ import me.alb_i986.selenium.tinafw.ui.WebPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+@RunWith(MockitoJUnitRunner.class)
 public class WebUserTest {
 
-	private WebPage stubPage;
+	@Mock private WebPage stubPage;
+	@Mock private WebDriver mockedDriver;
+
 	private WebUser user;
 
 	@Before
 	public void before() {
 		this.user = new WebUser();
-		this.stubPage = new WebPage() {
-			
-			@Override
-			public String getTitle() {
-				return "stub";
-			}
-			
-			@Override
-			public String getCurrentUrl() {
-				return "stub";
-			}
-		};
 	}
 	
 
@@ -46,15 +44,10 @@ public class WebUserTest {
 	@Test
 	public void doTask_landingToNotNullPage() {
 		// open a browser by injecting a WebDriver in the Browser instance
-		user.getBrowser().setDriver(new HtmlUnitDriver());
+		user.getBrowser().setDriver(mockedDriver);
 		assertNull(user.getCurrentPage());
-		WebTask taskThatReturnsANotNullPage = new BaseWebTask() {
-			
-			@Override
-			public WebPage run(WebPage initialPage) {
-				return stubPage;
-			}
-		};
+		WebTask taskThatReturnsANotNullPage = mock(WebTask.class);
+		when(taskThatReturnsANotNullPage.run(null)).thenReturn(stubPage);
 		user.doTask(taskThatReturnsANotNullPage);
 		assertNotNull(user.getCurrentPage());
 		assertSame(stubPage, user.getCurrentPage());
@@ -71,14 +64,9 @@ public class WebUserTest {
 	@Test
 	public void doTask_landingToNullPage() {
 		// open a browser by injecting a WebDriver in the Browser instance
-		user.getBrowser().setDriver(new HtmlUnitDriver());
-		WebTask taskThatReturnsANullPage = new BaseWebTask() {
-			
-			@Override
-			public WebPage run(WebPage initialPage) {
-				return null;
-			}
-		};
+		user.getBrowser().setDriver(mockedDriver);
+		WebTask taskThatReturnsANullPage = mock(WebTask.class);
+		when(taskThatReturnsANullPage.run(null)).thenReturn(null);
 		user.doTask(taskThatReturnsANullPage);
 		assertNull(user.getCurrentPage());
 	}
@@ -137,6 +125,7 @@ public class WebUserTest {
 		WebUser userWithDifferentUsername = new WebUser().withUsername("asdasd");
 		// make sure the two usernames are different
 		assertNotEquals(user.getUsername(), userWithDifferentUsername.getUsername());
+
 		assertNotEquals(user, userWithDifferentUsername);
 	}
 
