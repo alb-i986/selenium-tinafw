@@ -3,13 +3,13 @@
 
 # the branch to deploy from
 BRANCH=master
-
+PROJECT_NAME=selenium-tinafw
 
 
 # stash pop only if we did run a `git stash` previously
 stash_back() {
   if [ "$STASHED" = "1" ] ; then
-    echo "Finally, Stash back"
+    echo "Finally, stash-pop back"
     git stash pop
     STASHED=0
   fi
@@ -17,20 +17,22 @@ stash_back() {
 
 # deploy javadoc to Github Pages
 deploy_javadoc() {
-  TMP_DIR=/tmp/apidocs
+  TMP_DIR=/tmp/$(mktemp -d /tmp/${PROJECT_NAME}.XXXXX)
   rm -rf $TMP_DIR
-  mv target/apidocs/ /tmp/
-  git co gh-pages
-  git pull
-  rm -rf javadoc/
-  mv $TMP_DIR javadoc
-  git status
-  git add --all javadoc/
-  git commit -m "update javadoc"
-  git push origin gh-pages
+  mkdir -p $TMP_DIR &&
+  mv target/apidocs/ $TMP_DIR &&
+  git co gh-pages &&
+  git pull &&
+  rm -rf javadoc/ &&
+  mv $TMP_DIR/apidocs javadoc &&
+  git status &&
+  git add --all javadoc/ &&
+  git commit -m "update javadoc" &&
+  git push origin gh-pages &&
   # finally delete the *local* branch gh-pages
-  git co $BRANCH
-  git branch -d gh-pages
+  git co $BRANCH &&
+  git branch -D gh-pages &&
+  rm -rf $TMP_DIR
 }
 
 
@@ -39,7 +41,7 @@ git co $BRANCH
 
 # first, stash 'em all, unless there is nothing to stash
 if [ "$( git status | grep -F 'nothing to commit' )" = "" ] ; then
-  git stash -u --keep-index
+  git stash -u
   if [ $? -eq 0 ] ; then
     STASHED=1
   else
@@ -53,10 +55,10 @@ fi
 trap stash_back SIGINT SIGTERM EXIT
 
 # assert that the build is good
-mvn clean install
-if [ $? -ne 0 ] ; then
+mvn clean install || {
+  echo "The build is not good. Exiting"
   exit $?
-fi
+}
 
 # deploy sources
 echo
