@@ -36,6 +36,8 @@ public class WebDriverFactoryTest {
 		driver = factory.getWebDriver(SupportedBrowser.HTML_UNIT);
 		assertNotNull(driver);
 		assertTrue(driver instanceof HtmlUnitDriver);
+
+		// tear down
 		driver.quit();
 	}
 
