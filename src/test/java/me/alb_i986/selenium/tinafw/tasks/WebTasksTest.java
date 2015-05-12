@@ -45,19 +45,19 @@ public class WebTasksTest {
 	 * Testing {@link WebTasks#sleepFor(int)}.
 	 * <p>
 	 * Given an initial page,
-	 * When sleepFor 2 seconds,
-	 * Then the method should return after 2 seconds (let's say between 1 and 3 seconds),
+	 * When sleepFor 1 seconds,
+	 * Then the method should return after 1 seconds (let's say between 1 and 2 seconds),
 	 * And the returned page should be the same as the initial page.
 	 */
 	@Test
 	public void sleepFor() {
 		long startTimeMillis = System.currentTimeMillis();
-		WebPage finalPage = WebTasks.sleepFor(2).run(stubPage);
+		WebPage finalPage = WebTasks.sleepFor(1).run(stubPage);
 		long endTimeMillis = System.currentTimeMillis();
 		assertThat(endTimeMillis - startTimeMillis,
 				allOf(
 					greaterThanOrEqualTo(1000L),
-					lessThanOrEqualTo(3000L)
+					lessThanOrEqualTo(2000L)
 				)
 		);
 		assertSame(stubPage, finalPage);
