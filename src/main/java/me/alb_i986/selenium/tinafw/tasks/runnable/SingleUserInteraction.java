@@ -40,13 +40,7 @@ public class SingleUserInteraction extends CompositeWebTask implements RunnableT
 		if(user == null)
 			throw new IllegalStateException("user is null");
 		user.openBrowser();
-		try {
-			user.doTask(this);
-		} finally {
-			if(!Config.getKeepBrowsersOpen()) {
-				user.closeBrowser();
-			}
-		}
+		user.doTask(this);
 	}
 
 }
