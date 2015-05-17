@@ -7,6 +7,8 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import me.alb_i986.selenium.tinafw.config.Config;
 import me.alb_i986.selenium.tinafw.domain.Browser;
@@ -16,8 +18,6 @@ import me.alb_i986.selenium.tinafw.tests.TestHelper;
 import org.apache.log4j.Logger;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 
 /**
  * TestRule for generating an HTML report with embedded screenshots
@@ -72,7 +72,7 @@ public class HtmlReporter extends TestWatcher {
 							.withPageSource(TestHelper.getPageSource(this.browser.getWebDriver()))
 							.build();
 		}
-		try(PrintWriter writer = createHtmlFile(description.getClassName(), description.getMethodName())) {
+		try(PrintWriter writer = createHtmlFile(description)) {
 			writer.println(htmlReport);
 		} catch (IOException ioEx) {
 			logger.error("Cannot generate the HTML report", ioEx);
@@ -84,12 +84,16 @@ public class HtmlReporter extends TestWatcher {
 		this.browser = browser;
 	}
 
-	private PrintWriter createHtmlFile(String testClassName, String testMethodName) throws IOException {
-		Path file = Paths.get(REPORTS_DIR, testClassName + "_" + testMethodName + ".html");
+	private PrintWriter createHtmlFile(Description description) throws IOException {
+		String testClassName = description.getClassName();
+		String testMethodName = description.getMethodName();
 		try {
 			Files.createDirectory(Paths.get(REPORTS_DIR));
-		} catch (FileAlreadyExistsException alreadyEx) {
+		} catch (FileAlreadyExistsException ignored) {
+			// ignored
 		}
+		Path file = Paths.get(REPORTS_DIR,
+				testClassName + "_" + testMethodName + "_" + new SimpleDateFormat("yyyy-MM-dd_HHmmss").format(new Date()) + ".html");
 		return new PrintWriter(Files.newBufferedWriter(file, Charset.forName("UTF-8")));
 	}
 
