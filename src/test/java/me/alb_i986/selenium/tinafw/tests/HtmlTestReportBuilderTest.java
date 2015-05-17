@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-public class TableHtmlReportBuilderTest {
+public class HtmlTestReportBuilderTest {
 
     private static final String EXPECTED_HEADER = "<html>\n" +
             "<head>\n" +
@@ -17,11 +17,11 @@ public class TableHtmlReportBuilderTest {
 
     private static final String EXPECTED_FOOTER = "</tbody></table></body></html>";
 
-    private TableHtmlReportBuilderForTest out;
+    private HtmlTestReportBuilderForTest out;
 
     @Before
     public void before() {
-        out = new TableHtmlReportBuilderForTest();
+        out = new HtmlTestReportBuilderForTest();
     }
 
     @Test
@@ -144,7 +144,7 @@ public class TableHtmlReportBuilderTest {
     /**
      * http://xunitpatterns.com/Test-Specific%20Subclass.html
      */
-    static class TableHtmlReportBuilderForTest extends TableHtmlReportBuilder {
+    static class HtmlTestReportBuilderForTest extends HtmlTestReportBuilder {
         StringBuilder getStringBuilder() {
             return builder;
         }

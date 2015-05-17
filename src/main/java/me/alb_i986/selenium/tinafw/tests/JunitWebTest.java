@@ -12,7 +12,7 @@ import me.alb_i986.selenium.tinafw.config.TinafwGuiceModule;
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 import me.alb_i986.selenium.tinafw.domain.WebUser;
 import me.alb_i986.selenium.tinafw.tests.rules.BrowserManager;
-import me.alb_i986.selenium.tinafw.tests.rules.HtmlReporter;
+import me.alb_i986.selenium.tinafw.tests.rules.TestReporter;
 import me.alb_i986.selenium.tinafw.tests.rules.TestLogger;
 import me.alb_i986.selenium.tinafw.tests.rules.TestRetrier;
 
@@ -41,7 +41,7 @@ import static me.alb_i986.selenium.tinafw.tests.rules.BrowserManager.*;
  * <ul>
  * <li>{@link TestRetrier}: retries a failing test</li>
  * <li>{@link BrowserManager}: closes the registered browsers as soon as a test finishes</li>
- * <li>{@link HtmlReporter}: generates an HTML report with screenshots</li>
+ * <li>{@link TestReporter}: generates a report with screenshots</li>
  * <li>{@link TestWatcher}: logs the state of the running test (e.g.: "passed", "failed")</li>
  * </ul>
  *
@@ -86,7 +86,7 @@ public abstract class JunitWebTest implements WebTest {
     
     protected TestRetrier retryRule = new TestRetrier(MAX_EXECUTIONS);
     protected BrowserManager browserManager = new BrowserManager(Config.getBrowserManagerMode());
-    protected HtmlReporter htmlReporter = new HtmlReporter(new TableHtmlReportBuilder());
+    protected TestReporter testReporter = new TestReporter(new HtmlTestReportBuilder());
 	protected TestWatcher testLogger = new TestLogger();
 
 	@Rule
@@ -94,7 +94,7 @@ public abstract class JunitWebTest implements WebTest {
 		RuleChain
 			.outerRule(testLogger)
 			.around(browserManager)
-			.around(htmlReporter)
+			.around(testReporter)
 			.around(retryRule)
 		;
 	

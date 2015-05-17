@@ -12,7 +12,7 @@ import java.util.Date;
 
 import me.alb_i986.selenium.tinafw.config.Config;
 import me.alb_i986.selenium.tinafw.domain.Browser;
-import me.alb_i986.selenium.tinafw.tests.HtmlReportBuilder;
+import me.alb_i986.selenium.tinafw.tests.TestReportBuilder;
 import me.alb_i986.selenium.tinafw.tests.TestHelper;
 
 import org.apache.log4j.Logger;
@@ -23,48 +23,48 @@ import org.junit.runner.Description;
  * TestRule for generating an HTML report with embedded screenshots
  * and page sources for each failure.
  * 
- * @see HtmlReportBuilder
+ * @see TestReportBuilder
  *
  */
-public class HtmlReporter extends TestWatcher {
+public class TestReporter extends TestWatcher {
 
 	/**
 	 * @see Config#getReportsDir()
 	 */
 	private static final String REPORTS_DIR = Config.getReportsDir();
 
-	protected static final Logger logger = Logger.getLogger(HtmlReporter.class);
+	protected static final Logger logger = Logger.getLogger(TestReporter.class);
 	
 	private Browser browser;
-	private HtmlReportBuilder htmlReportBuilder;
+	private TestReportBuilder testReportBuilder;
 
-	public HtmlReporter(HtmlReportBuilder htmlReportBuilder) {
-		this.htmlReportBuilder = htmlReportBuilder;
+	public TestReporter(TestReportBuilder testReportBuilder) {
+		this.testReportBuilder = testReportBuilder;
 	}
 
 	@Override
 	protected void failed(Throwable e, Description description) {
-		htmlReportBuilder
+		testReportBuilder
 				.reset()
 				.withTitle(description.getDisplayName())
 				.withStackTrace(e);
 		if(browser == null) {
 			logger.warn("Cannot generate the HTML report: no Browser has been set. "
 					+ "Please check that your test sets it by calling "
-					+ "`htmlReporter.setBrowser(user.getBrowser())`");
-			htmlReportBuilder
-					.withText("ERROR. The Browser has not been set in HtmlReporter." +
+					+ "`testReporter.setBrowser(user.getBrowser())`");
+			testReportBuilder
+					.withText("ERROR. The Browser has not been set in TestReporter." +
 							" Please make sure that your test sets it." +
 							" See SampleWebTest#before.");
 		} else {
-			htmlReportBuilder
+			testReportBuilder
 					.withProperty("Browser",
 							this.browser.isOpen() ? this.browser.getType().toString() : "N/A")
 					.withScreenshot(TestHelper.getScreenshotAsBase64(this.browser.getWebDriver()))
 					.withPageSource(TestHelper.getPageSource(this.browser.getWebDriver()));
 		}
 		try(PrintWriter writer = createHtmlFile(description)) {
-			writer.println(htmlReportBuilder.build());
+			writer.println(testReportBuilder.build());
 		} catch (IOException ioEx) {
 			logger.error("Cannot generate the HTML report", ioEx);
 			return;

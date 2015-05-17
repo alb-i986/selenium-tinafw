@@ -1,23 +1,22 @@
 package me.alb_i986.selenium.tinafw.tests;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.TakesScreenshot;
 
 /**
- * An HtmlReportBuilder that uses HTML tables.
- * Each {@code with} method appends a table row.
+ * A {@link TestReportBuilder} that generates HTML reports.
+ * Each {@code with} method appends a new line (a table row) to the report.
  * <p>
- * It also features syntax highlighting (e.g. for page sources), provided by
+ * It features syntax highlighting (e.g. for page sources), provided by
  * <a href="https://code.google.com/p/google-code-prettify/" target="new">google-code-prettify</a>.
  */
-public class TableHtmlReportBuilder implements HtmlReportBuilder {
+public class HtmlTestReportBuilder implements TestReportBuilder {
 
 	protected StringBuilder builder;
 	protected boolean built;
 
-	public TableHtmlReportBuilder() {
+	public HtmlTestReportBuilder() {
 		reset();
 	}
 
@@ -27,7 +26,7 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 	 * @return this
 	 */
 	@Override
-	public HtmlReportBuilder reset() {
+	public TestReportBuilder reset() {
 		builder = new StringBuilder();
 		built = false;
 		appendHeader();
@@ -58,7 +57,7 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 	 * @return this
 	 */
 	@Override
-	public HtmlReportBuilder withTitle(String title) {
+	public TestReportBuilder withTitle(String title) {
 		if(title == null) {
 			trWithErrMsg("Title N/A");
 		} else {
@@ -75,7 +74,7 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 	 * @return this
 	 */
 	@Override
-	public HtmlReportBuilder withPageSource(String pageSource) {
+	public TestReportBuilder withPageSource(String pageSource) {
 		if(pageSource == null) {
 			trWithErrMsg("Page source not available. Probably the browser was closed.");
 		} else {
@@ -95,7 +94,7 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 	 * @see <a href="http://en.wikipedia.org/wiki/Data_URI_scheme#HTML">Data_URI_scheme @ Wikipedia</a>
 	 */
 	@Override
-	public HtmlReportBuilder withScreenshot(String screenshotAsBase64) {
+	public TestReportBuilder withScreenshot(String screenshotAsBase64) {
 		if(screenshotAsBase64 == null) {
 			trWithErrMsg("Screenshot not available. Probably the browser was closed.");
 		} else {
@@ -113,13 +112,13 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 	 * @return this
 	 */
 	@Override
-	public HtmlReportBuilder withProperty(String key, String value) {
+	public TestReportBuilder withProperty(String key, String value) {
 		tr(key != null ? key : "", value != null ? value : "");
 		return this;
 	}
 
 	@Override
-	public HtmlReportBuilder withStackTrace(Throwable e) {
+	public TestReportBuilder withStackTrace(Throwable e) {
 		if(e == null) {
 			trWithErrMsg("Null throwable");
 		} else {
@@ -129,7 +128,7 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 	}
 
 	@Override
-	public HtmlReportBuilder withText(String text) {
+	public TestReportBuilder withText(String text) {
 		tr(text != null ? text : "");
 		return this;
 	}
