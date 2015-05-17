@@ -1,138 +1,84 @@
 package me.alb_i986.selenium.tinafw.tests;
 
-import java.io.PrintWriter;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-import org.openqa.selenium.TakesScreenshot;
-
 /**
- * Encapsulates the logic for generating the HTML of a report.
- * HtmlReportBuilder is designed with a fluent interface to allow clients
- * to build a report by chaining the different parts of the report in
- * <i>any</i> order (e.g.: title, info, screenshot, page source).
- * There is one constrain, though:
- * <ul>
- * <li>{@link #beginReport()} must be called first (and never again)</li>
- * <li>{@link #endReport()} must be called last</li>
- * </ul>
+ * An object capable of generating the HTML report for a single test.
  * <p>
- * It provides syntax highlighting (e.g. for page sources) thanks to
- * <a href="https://code.google.com/p/google-code-prettify/" target="new">
- * google-code-prettify</a>.
- *
+ * It is designed with a fluent interface allowing clients
+ * to build a report with the information they want.
+ * <p>
+ * A typical usage may be e.g.:
+ * <pre>{@code
+ * String htmlReport =
+ *   htmlReporterBuilder
+ *     .reset()
+ *     .withTitle("Login Test")
+ *     .withProperty("Browser", "Chrome")
+ *     .withScreenshot(((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64))
+ *     .withPageSource(driver.getPageSource())
+ *     .build();
+ * }</pre>
  */
-public class HtmlReportBuilder {
+public interface HtmlReportBuilder {
 
-	protected static final Logger logger = Logger.getLogger(HtmlReportBuilder.class);
-	
-	private PrintWriter writer;
-	
-	public HtmlReportBuilder(PrintWriter writer) {
-		if(writer == null)
-			throw new IllegalArgumentException("writer cannot be null");
-		this.writer = writer;
-	}
+    /**
+     * Re-initialize this builder, preparing it to build a new report.
+     *
+     * @return this
+     */
+    HtmlReportBuilder reset();
 
 	/**
-	 * Begin the report by opening the tags html, head, body, table.
-	 * 
-	 * @return this
+	 * Finalize the report and return the String with the whole HTML built.
+	 * <p>
+	 * Any subsequent call to this method should return the same String previously built,
+     * until this builder is {@link #reset()}.
+	 *
+	 * @return the HTML report built
 	 */
-	public HtmlReportBuilder beginReport() {
-	    writer.println("<html><head>");
-	    writer.println("<script src=\"https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js\"></script>");
-	    writer.println("</head><body>");
-	    writer.println("<table border=\"1\"><tbody>");
-		return this;
-	}
+	String build();
 
 	/**
-	 * End the report by closing the tags table, body, html.
-	 */
-	public void endReport() {
-		writer.println("</tbody></table></body></html>");
-		writer.close();
-	}
-
-	/**
-	 * Print the title of the report.
-	 * If the given title is null, write an error message in place of the title.
-	 * 
+     * Add the given title to the report.
+     * Typically, it will be the name of the test.
+	 *
 	 * @param title
 	 * @return this
 	 */
-	public HtmlReportBuilder title(String title) {
-		writer.println("<tr><td>");
-		writer.println(title != null ? title : "NO TITLE GIVEN");
-		writer.println("</td></tr>");
-		return this;
-	}
+	HtmlReportBuilder withTitle(String title);
 
 	/**
-	 * Print the given page source with pretty syntax highlighting.
-	 * If the arg is null, then print an error message in the report.
-	 * 
+	 * Add the given page source to the report.
+	 *
 	 * @param pageSource
 	 * @return this
 	 */
-	public HtmlReportBuilder pageSource(String pageSource) {
-		writer.println("<tr><td>");
-		if(pageSource == null) {
-			writer.println("<span style=\"color: red\">The page source is not available."
-					+ " Probably the driver was already closed.</span>");
-		} else {
-			writer.println("<pre class=\"prettyprint\">");
-			writer.println(
-					StringUtils.replaceEach(pageSource,
-							new String[]{"&", "<", ">", "\"", "'", "/"},
-							new String[]{"&amp;", "&lt;", "&gt;", "&quot;", "&#x27;", "&#x2F;"})
-					);
-			writer.println("</pre>");
-		}
-		writer.println("</td></tr>");
-		return this;
-	}
-	
-	/**
-	 * Prints a table row containing an img with the screenshot embedded in base64 format.
-	 * If the argument is null, an error message will be printed.
-	 * 
-	 * @param screenshotAsBase64 the screenshot as returned by
-	 *        {@link TakesScreenshot#getScreenshotAs(org.openqa.selenium.OutputType)}
-	 * 
-	 * @see <a href="http://en.wikipedia.org/wiki/Data_URI_scheme#HTML">Data_URI_scheme @ Wikipedia</a>
-	 */
-	public HtmlReportBuilder screenshot(String screenshotAsBase64) {
-		writer.println("<tr><td>");
-		if(screenshotAsBase64 == null) {
-			writer.println("<span style=\"color: red\">The screenshot is not available."
-					+ " Probably the driver was already closed.</span>");
-		} else {
-			writer.println("<img width=\"400\" height=\"300\" src=\"data:image/png;base64,"
-					+ screenshotAsBase64 + "\" />");
-		}
-		writer.println("</td></tr>");
-		return this;
-	}
+	HtmlReportBuilder withPageSource(String pageSource);
 
 	/**
-	 * Print the given &lt;key, value&gt; pair in its own line.
-	 * 
+     * Add the given screenshot (encoded in base64 format) to the report.
+	 *
+	 * @param screenshotAsBase64 the screenshot as returned by
+	 *        {@link org.openqa.selenium.TakesScreenshot#getScreenshotAs(org.openqa.selenium.OutputType)}
+	 *
+	 * @see <a href="http://en.wikipedia.org/wiki/Data_URI_scheme#HTML">Data_URI_scheme @ Wikipedia</a>
+	 */
+	HtmlReportBuilder withScreenshot(String screenshotAsBase64);
+
+	/**
+     * Add the given &lt;key, value&gt; pair to the report.
+	 *
 	 * @param key
 	 * @param value
 	 * @return this
 	 */
-	public HtmlReportBuilder info(String key, String value) {
-		writer.println("<tr><td>");
-		writer.println("<table>");
-		writer.println("<tr>");
-		writer.println("<td>" + key + ":</td>");
-		writer.println("<td>" + value + "</td>");
-		writer.println("</tr>");
-		writer.println("</table>");
-		writer.println("</td></tr>");
-		return this;
-	}
-	
+    HtmlReportBuilder withProperty(String key, String value);
+
+    /**
+     * Add the given text to the report.
+     *
+     * @param text
+     * @return this
+     */
+    HtmlReportBuilder withText(String text);
+
 }

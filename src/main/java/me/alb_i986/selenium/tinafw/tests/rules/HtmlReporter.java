@@ -36,8 +36,12 @@ public class HtmlReporter extends TestWatcher {
 	protected static final Logger logger = Logger.getLogger(HtmlReporter.class);
 	
 	private Browser browser;
-	private PrintWriter writer;
-	
+	private HtmlReportBuilder htmlReportBuilder;
+
+	public HtmlReporter(HtmlReportBuilder htmlReportBuilder) {
+		this.htmlReportBuilder = htmlReportBuilder;
+	}
+
 	@Override
 	protected void failed(Throwable e, Description description) {
 		if(browser == null) {
@@ -50,18 +54,19 @@ public class HtmlReporter extends TestWatcher {
 			logger.warn("Cannot generate the HTML report: the browser has already been closed");
 			return;
 		}
-		try {
-			writer = createHtmlFile(description.getClassName(), description.getMethodName());
-			new HtmlReportBuilder(writer)
-				.beginReport()
-				.title(description.getDisplayName())
-				.info("Browser", browser.getType().toString())
-				.screenshot(TestHelper.getScreenshotAsBase64(browser.getWebDriver()))
-				.pageSource(getPageSource(browser.getWebDriver()))
-				.endReport()
-			;
+		try(PrintWriter writer = createHtmlFile(description.getClassName(), description.getMethodName())) {
+			String htmlReport =
+					htmlReportBuilder
+						.reset()
+						.withTitle(description.getDisplayName())
+						.withProperty("Browser", this.browser.getType().toString())
+						.withScreenshot(TestHelper.getScreenshotAsBase64(this.browser.getWebDriver()))
+						.withPageSource(getPageSource(this.browser.getWebDriver()))
+						.build();
+			writer.println(htmlReport);
 		} catch (IOException ioEx) {
 			logger.error("Cannot generate the HTML report", ioEx);
+			return;
 		}
 	}
 

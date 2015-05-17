@@ -86,7 +86,7 @@ public abstract class JunitWebTest implements WebTest {
     
     protected TestRetrier retryRule = new TestRetrier(MAX_EXECUTIONS);
     protected BrowserManager browserManager = new BrowserManager(Config.getBrowserManagerMode());
-    protected HtmlReporter htmlReporter = new HtmlReporter();
+    protected HtmlReporter htmlReporter = new HtmlReporter(new TableHtmlReportBuilder());
 	protected TestWatcher testLogger = new TestLogger();
 
 	@Rule
