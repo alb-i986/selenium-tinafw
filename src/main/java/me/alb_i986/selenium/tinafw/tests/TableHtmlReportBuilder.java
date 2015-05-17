@@ -2,6 +2,7 @@ package me.alb_i986.selenium.tinafw.tests;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.TakesScreenshot;
 
 /**
@@ -120,6 +121,12 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 	@Override
 	public HtmlReportBuilder withProperty(String key, String value) {
 		tr(key != null ? key : "", value != null ? value : "");
+		return this;
+	}
+
+	@Override
+	public HtmlReportBuilder withStackTrace(Throwable e) {
+		tr(StringEscapeUtils.escapeHtml4(ExceptionUtils.getStackTrace(e)));
 		return this;
 	}
 

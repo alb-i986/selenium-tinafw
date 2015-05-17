@@ -127,6 +127,20 @@ public class TableHtmlReportBuilderTest {
         assertEquals(expectedHtml, actualHtml);
     }
 
+    @Test
+    public void withStackTrace() {
+        // given reset
+        out.reset();
+
+        // when build with exception
+        Throwable e = new RuntimeException("outer", new RuntimeException("inner"));
+        String actualHtml = out.withStackTrace(e).build();
+
+        //then
+        String partialExpectedHtml = "<tr><td><table><tr><td>java.lang.RuntimeException: outer\n";
+        assertThat(actualHtml, containsString(partialExpectedHtml));
+    }
+
     /**
      * http://xunitpatterns.com/Test-Specific%20Subclass.html
      */

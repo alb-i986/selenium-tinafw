@@ -54,6 +54,7 @@ public class HtmlReporter extends TestWatcher {
 					htmlReportBuilder
 							.reset()
 							.withTitle(description.getDisplayName())
+							.withStackTrace(e)
 							.withProperty("Browser", "N/A")
 							.withText("ERROR: the Browser has not been set in HtmlReporter." +
 									" Please make sure that your test sets it." +

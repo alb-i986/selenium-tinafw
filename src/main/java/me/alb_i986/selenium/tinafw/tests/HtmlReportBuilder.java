@@ -74,6 +74,12 @@ public interface HtmlReportBuilder {
     HtmlReportBuilder withProperty(String key, String value);
 
     /**
+     * @param e the exception that caused the test to fail.
+     * @return this
+     */
+    HtmlReportBuilder withStackTrace(Throwable e);
+
+    /**
      * Add the given text to the report.
      *
      * @param text
