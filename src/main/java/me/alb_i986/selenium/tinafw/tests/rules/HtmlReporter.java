@@ -44,25 +44,34 @@ public class HtmlReporter extends TestWatcher {
 
 	@Override
 	protected void failed(Throwable e, Description description) {
+		String htmlReport;
 		if(browser == null) {
 			logger.warn("Cannot generate the HTML report: no Browser has been set. "
 					+ "Please set it in your test by calling "
 					+ "`htmlReporter.setBrowser(user.getBrowser())`");
-			return;
-		}
-		if(!browser.isOpen()) {
-			logger.warn("Cannot generate the HTML report: the browser has already been closed");
-			return;
+
+			htmlReport =
+					htmlReportBuilder
+							.reset()
+							.withTitle(description.getDisplayName())
+							.withProperty("Browser", "N/A")
+							.withText("ERROR: the Browser has not been set in HtmlReporter." +
+									" Please make sure that your test sets it." +
+									" See SampleWebTest#before.")
+							.build();
+		} else {
+			htmlReport =
+					htmlReportBuilder
+							.reset()
+							.withTitle(description.getDisplayName())
+							.withStackTrace(e)
+							.withProperty("Browser",
+									this.browser.isOpen() ? this.browser.getType().toString() : "N/A")
+							.withScreenshot(TestHelper.getScreenshotAsBase64(this.browser.getWebDriver()))
+							.withPageSource(getPageSource(this.browser.getWebDriver()))
+							.build();
 		}
 		try(PrintWriter writer = createHtmlFile(description.getClassName(), description.getMethodName())) {
-			String htmlReport =
-					htmlReportBuilder
-						.reset()
-						.withTitle(description.getDisplayName())
-						.withProperty("Browser", this.browser.getType().toString())
-						.withScreenshot(TestHelper.getScreenshotAsBase64(this.browser.getWebDriver()))
-						.withPageSource(getPageSource(this.browser.getWebDriver()))
-						.build();
 			writer.println(htmlReport);
 		} catch (IOException ioEx) {
 			logger.error("Cannot generate the HTML report", ioEx);
