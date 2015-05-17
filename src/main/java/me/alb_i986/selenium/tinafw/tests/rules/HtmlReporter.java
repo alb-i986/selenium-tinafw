@@ -44,36 +44,27 @@ public class HtmlReporter extends TestWatcher {
 
 	@Override
 	protected void failed(Throwable e, Description description) {
-		String htmlReport;
+		htmlReportBuilder
+				.reset()
+				.withTitle(description.getDisplayName())
+				.withStackTrace(e);
 		if(browser == null) {
 			logger.warn("Cannot generate the HTML report: no Browser has been set. "
-					+ "Please set it in your test by calling "
+					+ "Please check that your test sets it by calling "
 					+ "`htmlReporter.setBrowser(user.getBrowser())`");
-
-			htmlReport =
-					htmlReportBuilder
-							.reset()
-							.withTitle(description.getDisplayName())
-							.withStackTrace(e)
-							.withProperty("Browser", "N/A")
-							.withText("ERROR: the Browser has not been set in HtmlReporter." +
-									" Please make sure that your test sets it." +
-									" See SampleWebTest#before.")
-							.build();
+			htmlReportBuilder
+					.withText("ERROR. The Browser has not been set in HtmlReporter." +
+							" Please make sure that your test sets it." +
+							" See SampleWebTest#before.");
 		} else {
-			htmlReport =
-					htmlReportBuilder
-							.reset()
-							.withTitle(description.getDisplayName())
-							.withStackTrace(e)
-							.withProperty("Browser",
-									this.browser.isOpen() ? this.browser.getType().toString() : "N/A")
-							.withScreenshot(TestHelper.getScreenshotAsBase64(this.browser.getWebDriver()))
-							.withPageSource(TestHelper.getPageSource(this.browser.getWebDriver()))
-							.build();
+			htmlReportBuilder
+					.withProperty("Browser",
+							this.browser.isOpen() ? this.browser.getType().toString() : "N/A")
+					.withScreenshot(TestHelper.getScreenshotAsBase64(this.browser.getWebDriver()))
+					.withPageSource(TestHelper.getPageSource(this.browser.getWebDriver()));
 		}
 		try(PrintWriter writer = createHtmlFile(description)) {
-			writer.println(htmlReport);
+			writer.println(htmlReportBuilder.build());
 		} catch (IOException ioEx) {
 			logger.error("Cannot generate the HTML report", ioEx);
 			return;
