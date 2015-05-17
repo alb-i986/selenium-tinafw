@@ -68,7 +68,7 @@ public class HtmlReporter extends TestWatcher {
 							.withProperty("Browser",
 									this.browser.isOpen() ? this.browser.getType().toString() : "N/A")
 							.withScreenshot(TestHelper.getScreenshotAsBase64(this.browser.getWebDriver()))
-							.withPageSource(getPageSource(this.browser.getWebDriver()))
+							.withPageSource(TestHelper.getPageSource(this.browser.getWebDriver()))
 							.build();
 		}
 		try(PrintWriter writer = createHtmlFile(description.getClassName(), description.getMethodName())) {
@@ -81,22 +81,6 @@ public class HtmlReporter extends TestWatcher {
 
 	public void setBrowser(Browser browser) {
 		this.browser = browser;
-	}
-
-	/**
-	 * @param driver
-	 * @return a String with the page source;
-	 *         null if a WebDriverException were thrown, or the arg is null
-	 */
-	private String getPageSource(WebDriver driver) {
-		if(driver == null)
-			return null;
-		try {
-			return driver.getPageSource();
-		} catch(WebDriverException e) {
-			logger.warn("WebDriver#getPageSource failed: " + e.getMessage());
-			return null;
-		}
 	}
 
 	private PrintWriter createHtmlFile(String testClassName, String testMethodName) throws IOException {

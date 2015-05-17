@@ -26,4 +26,20 @@ public class TestHelper {
 			return e.getMessage();
 		}
 	}
+
+	/**
+	 * @param driver
+	 * @return a String with the page source;
+	 *         if WebDriverException is thrown, return the error message;
+	 *         or null, if the arg is null
+	 */
+	public static String getPageSource(WebDriver driver) {
+		if(driver == null)
+			return null;
+		try {
+			return driver.getPageSource();
+		} catch(WebDriverException e) {
+			return e.getMessage();
+		}
+	}
 }
