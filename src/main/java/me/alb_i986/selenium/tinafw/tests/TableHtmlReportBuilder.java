@@ -59,7 +59,11 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 	 */
 	@Override
 	public HtmlReportBuilder withTitle(String title) {
-		tr(title != null ? title : "N/A");
+		if(title == null) {
+			trWithErrMsg("Title N/A");
+		} else {
+			tr("<h1>" + title + "</h1>");
+		}
 		return this;
 	}
 
@@ -72,20 +76,15 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 	 */
 	@Override
 	public HtmlReportBuilder withPageSource(String pageSource) {
-		String html;
 		if(pageSource == null) {
-			html = "<span style=\"color: red\">" +
-					"The page source is not available. Probably the driver was already closed." +
-					"</span>";
+			trWithErrMsg("Page source not available. Probably the browser was closed.");
 		} else {
-			html = "<pre class=\"prettyprint\">" +
-					StringEscapeUtils.escapeHtml4(pageSource) +
-					"</pre>";
+			tr("<pre class=\"prettyprint\">" + StringEscapeUtils.escapeHtml4(pageSource) +
+					"</pre>");
 		}
-		tr(html);
 		return this;
 	}
-	
+
 	/**
 	 * Add a table row containing an img with the given screenshot embedded.
 	 * If the argument is null, a {@code span} with an error message will be appended instead.
@@ -97,17 +96,12 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 	 */
 	@Override
 	public HtmlReportBuilder withScreenshot(String screenshotAsBase64) {
-		String html;
 		if(screenshotAsBase64 == null) {
-			html = "<span style=\"color: red\">" +
-					"The screenshot is not available. Probably the driver was already closed." +
-					"</span>";
+			trWithErrMsg("Screenshot not available. Probably the browser was closed.");
 		} else {
-			html = "<img width=\"400\" height=\"300\" src=\"data:image/png;base64," +
-					screenshotAsBase64 +
-					"\" />";
+			tr("<img width=\"400\" height=\"300\" src=\"data:image/png;base64," +
+					screenshotAsBase64 + "\" />");
 		}
-		tr(html);
 		return this;
 	}
 
@@ -126,13 +120,17 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 
 	@Override
 	public HtmlReportBuilder withStackTrace(Throwable e) {
-		tr(StringEscapeUtils.escapeHtml4(ExceptionUtils.getStackTrace(e)));
+		if(e == null) {
+			trWithErrMsg("Null throwable");
+		} else {
+			tr(StringEscapeUtils.escapeHtml4(ExceptionUtils.getStackTrace(e)));
+		}
 		return this;
 	}
 
 	@Override
 	public HtmlReportBuilder withText(String text) {
-		tr(text);
+		tr(text != null ? text : "");
 		return this;
 	}
 
@@ -150,6 +148,10 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 		builder.append("</tr></table>");
 		builder.append("</td></tr>");
 		builder.append("\n");
+	}
+
+	private void trWithErrMsg(String msg) {
+		tr("<span style=\"color: red\">" + msg + "</span>");
 	}
 
 	private void appendHeader() {

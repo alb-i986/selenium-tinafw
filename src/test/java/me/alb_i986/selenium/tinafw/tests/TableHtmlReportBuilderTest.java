@@ -62,7 +62,7 @@ public class TableHtmlReportBuilderTest {
 
         //then
         String expectedHtml = EXPECTED_HEADER +
-                "<tr><td><table><tr><td>my test</td></tr></table></td></tr>\n" +
+                "<tr><td><table><tr><td><h1>my test</h1></td></tr></table></td></tr>\n" +
                 EXPECTED_FOOTER;
         assertEquals(expectedHtml, actualHtml);
     }
