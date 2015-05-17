@@ -92,7 +92,7 @@ public class TableHtmlReportBuilderTest {
 
         //then
         String expectedHtml = EXPECTED_HEADER +
-                "<tr><td><table><tr><td><pre class=\"prettyprint\">&lt;html&gt;&lt;body&gt;&lt;a href=&quot;http:&#x2F;&#x2F;www.google.com&quot;&gt;link to google&lt;&#x2F;a&gt;&lt;&#x2F;body&gt;</pre></td></tr></table></td></tr>\n" +
+                "<tr><td><table><tr><td><pre class=\"prettyprint\">&lt;html&gt;&lt;body&gt;&lt;a href=&quot;http://www.google.com&quot;&gt;link to google&lt;/a&gt;&lt;/body&gt;</pre></td></tr></table></td></tr>\n" +
                 EXPECTED_FOOTER;
         assertEquals(expectedHtml, actualHtml);
     }

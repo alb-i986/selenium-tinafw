@@ -1,5 +1,6 @@
 package me.alb_i986.selenium.tinafw.tests;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -77,9 +78,7 @@ public class TableHtmlReportBuilder implements HtmlReportBuilder {
 					"</span>";
 		} else {
 			html = "<pre class=\"prettyprint\">" +
-					StringUtils.replaceEach(pageSource,
-							new String[]{"&", "<", ">", "\"", "'", "/"},
-							new String[]{"&amp;", "&lt;", "&gt;", "&quot;", "&#x27;", "&#x2F;"}) +
+					StringEscapeUtils.escapeHtml4(pageSource) +
 					"</pre>";
 		}
 		tr(html);
