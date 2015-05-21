@@ -22,7 +22,6 @@ public class TestLogger extends TestWatcher {
 
 	@Override
 	protected void starting(Description description) {
-		super.starting(description);
 		logger.info("BEGIN test " + description.getDisplayName());
 	}
 
