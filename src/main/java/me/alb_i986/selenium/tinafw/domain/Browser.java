@@ -1,5 +1,6 @@
 package me.alb_i986.selenium.tinafw.domain;
 
+import com.google.inject.Inject;
 import me.alb_i986.selenium.tinafw.ui.*;
 
 import org.apache.log4j.Logger;
@@ -41,6 +42,7 @@ public class Browser {
 	 * 
 	 * @param driverFactory
 	 */
+	@Inject
 	public Browser(WebDriverFactory driverFactory) {
 		if(driverFactory == null)
 			throw new IllegalArgumentException("The WebDriverFactory is null");

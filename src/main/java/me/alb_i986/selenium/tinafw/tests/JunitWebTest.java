@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Stage;
 import me.alb_i986.selenium.tinafw.config.Config;
+import me.alb_i986.selenium.tinafw.config.TinafwGuiceModule;
 import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
+import me.alb_i986.selenium.tinafw.domain.WebUser;
 import me.alb_i986.selenium.tinafw.tests.rules.BrowserManager;
 import me.alb_i986.selenium.tinafw.tests.rules.HtmlReporter;
 import me.alb_i986.selenium.tinafw.tests.rules.TestLogger;
@@ -56,6 +61,8 @@ public abstract class JunitWebTest implements WebTest {
 	public static final int MAX_EXECUTIONS = Config.getMaxExecutions();
 	
 	protected static final Logger logger = Logger.getLogger(JunitWebTest.class);
+	private static final Injector INJECTOR = Guice.createInjector(Stage.PRODUCTION,
+			new TinafwGuiceModule());
     
     protected TestRetrier retryRule = new TestRetrier(MAX_EXECUTIONS);
     protected BrowserManager browserManager = new BrowserManager();
@@ -83,6 +90,13 @@ public abstract class JunitWebTest implements WebTest {
 	@Parameters(name = "{0}")
 	public static Iterable<? extends Object> browsers() {
 		return Config.getBrowsers();
+	}
+
+	/**
+	 * @return a new instance of WebUser, as returned by Guice's {@link Injector}.
+	 */
+	protected static WebUser newUser() {
+		return INJECTOR.getInstance(WebUser.class);
 	}
     
 	/**

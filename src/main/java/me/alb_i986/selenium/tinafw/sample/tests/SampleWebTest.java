@@ -14,7 +14,7 @@ public class SampleWebTest extends JunitWebTest {
 	@Override
 	public void before() {
 		super.before();
-		user = new WebUser().withBrowserType(browserType);
+		user = newUser().withBrowserType(browserType);
 		browserManager.registerBrowsers(user.getBrowser());
 		htmlReporter.setBrowser(user.getBrowser());
 	}

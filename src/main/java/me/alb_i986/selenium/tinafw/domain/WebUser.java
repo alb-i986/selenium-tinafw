@@ -1,5 +1,6 @@
 package me.alb_i986.selenium.tinafw.domain;
 
+import com.google.inject.Inject;
 import org.apache.log4j.Logger;
 
 import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
@@ -59,11 +60,11 @@ public class WebUser<T extends WebUser<?>> {
 	}
 
 	/**
-	 * Create a WebUser with the given Browser (which may be open or closed)
-	 * and no initial page.
+	 * Create a WebUser with the given Browser and no initial page.
 	 * 
 	 * @param browser
 	 */
+	@Inject
 	public WebUser(Browser browser) {
 		this(browser, null);
 	}
