@@ -1,7 +1,9 @@
 package me.alb_i986.selenium.tinafw.domain;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
+import me.alb_i986.selenium.tinafw.ui.WebDriverFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,18 +11,18 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BrowserTest {
 
 	@Mock private WebDriver mockedDriver;
+	@Mock private WebDriverFactory mockedDriverFactory;
 
 	private Browser browser;
 
 	@Before
 	public void before() {
-		this.browser = new Browser();
+		this.browser = new Browser(mockedDriverFactory);
 	}
 	
 	
@@ -35,6 +37,7 @@ public class BrowserTest {
 	 */
 	@Test
 	public void givenNullDriverWhenOpenBrowserThenDriverIsNotNull() {
+		when(mockedDriverFactory.getWebDriver(SupportedBrowser.HTML_UNIT)).thenReturn(mockedDriver);
 		browser.setDriver(null);
 		browser.open(SupportedBrowser.HTML_UNIT);
 		assertNotNull(browser.getWebDriver());
@@ -42,7 +45,7 @@ public class BrowserTest {
 	}
 
 	/**
-	 * Testing post conditions of {@link Browser#Browser()}:
+	 * Testing post conditions of {@link Browser#Browser(WebDriverFactory)}:
 	 * <ol>
 	 * <li>When I instantiate Browser</li>
 	 * <li>Then {@link Browser#getWebDriver()} should be null</li>
@@ -51,7 +54,7 @@ public class BrowserTest {
 	 */
 	@Test
 	public void whenNewBrowserThenDriverShouldBeNull() {
-		browser = new Browser();
+		browser = new Browser(mockedDriverFactory);
 		assertNull(browser.getWebDriver());
 		assertFalse(browser.isOpen());
 	}

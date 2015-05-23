@@ -53,13 +53,6 @@ public class WebUser<T extends WebUser<?>> {
 
 
 	/**
-	 * Create a WebUser with a closed {@link Browser}, and no initial page.
-	 */
-	public WebUser() {
-		this(new Browser());
-	}
-
-	/**
 	 * Create a WebUser with the given Browser and no initial page.
 	 * 
 	 * @param browser

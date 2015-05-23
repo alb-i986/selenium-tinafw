@@ -10,9 +10,8 @@ import org.openqa.selenium.WebDriver;
  * A Browser can be opened and closed, and can be used to browse to some page.
  * It is backed by a {@link WebDriver}: by opening a Browser, a WebDriver is instantiated.
  * <p>
- * It relies on a {@link WebDriverFactory} for instantiating {@link WebDriver}s.
- * The factory may be injected in the constructor.
- * See {@link #Browser()} for details on the default factory.
+ * It relies on a {@link WebDriverFactory} for actually instantiating
+ * {@link WebDriver}s.
  * <p>
  * A Browser has a type, one of {@link SupportedBrowser}.
  * The type is not bound to an instance of Browser: it is chosen when opening the browser.
@@ -29,14 +28,6 @@ public class Browser {
 	private WebDriver driver;
 	private SupportedBrowser type;
 
-	/**
-	 * Inject the default {@link WebDriverFactory}, which is
-	 * {@link WebDriverFactoryProvider#fromConfig}
-	 */
-	public Browser() {
-		this(WebDriverFactoryProvider.fromConfig);
-	}
-	
 	/**
 	 * Create a Browser and inject the given {@link WebDriverFactory}.
 	 * 

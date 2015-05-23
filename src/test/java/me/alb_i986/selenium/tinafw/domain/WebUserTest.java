@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import me.alb_i986.selenium.tinafw.tasks.BaseWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
+import me.alb_i986.selenium.tinafw.ui.WebDriverFactory;
 import me.alb_i986.selenium.tinafw.ui.WebPage;
 
 import org.junit.After;
@@ -24,12 +25,13 @@ public class WebUserTest {
 
 	@Mock private WebPage stubPage;
 	@Mock private WebDriver mockedDriver;
+	@Mock private Browser browser;
 
 	private WebUser user;
 
 	@Before
 	public void before() {
-		this.user = new WebUser();
+		this.user = new WebUser(browser);
 	}
 	
 
@@ -113,7 +115,8 @@ public class WebUserTest {
 	 */
 	@Test
 	public void equalsToUserWithSameUsername() {
-		WebUser userWithSameUsername = new WebUser().withUsername(user.getUsername());
+		WebUser userWithSameUsername = new WebUser(browser)
+				.withUsername(user.getUsername());
 		assertEquals(userWithSameUsername, user);
 	}
 
@@ -122,7 +125,7 @@ public class WebUserTest {
 	 */
 	@Test
 	public void equalsToUserWithDifferentUsername() {
-		WebUser userWithDifferentUsername = new WebUser().withUsername("asdasd");
+		WebUser userWithDifferentUsername = new WebUser(browser).withUsername("asdasd");
 		// make sure the two usernames are different
 		assertNotEquals(user.getUsername(), userWithDifferentUsername.getUsername());
 
