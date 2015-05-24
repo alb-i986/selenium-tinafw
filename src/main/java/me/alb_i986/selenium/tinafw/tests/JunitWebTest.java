@@ -81,12 +81,8 @@ public abstract class JunitWebTest implements WebTest {
 	 * @see Config#getBrowsers()
 	 */
 	@Parameters(name = "{0}")
-	public static Collection<Object[]> browsers() {
-		List<Object[]> data = new ArrayList<>();
-		for (SupportedBrowser browser : Config.getBrowsers()) {
-			data.add(new Object[] {browser});
-		}
-		return data;
+	public static Iterable<? extends Object> browsers() {
+		return Config.getBrowsers();
 	}
     
 	/**
