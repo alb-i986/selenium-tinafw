@@ -35,19 +35,18 @@ public class HtmlTestReportBuilder implements TestReportBuilder {
 
 	/**
 	 * End a report by closing the tags table, body, html,
-	 * and finally return the String with the whole HTML built.
-	 * <p>
-	 * Any subsequent call to this method will return the same String previously built.
+	 * and finally return the TestReport with the whole HTML built.
 	 *
-	 * @return the HTML report built
+	 * @return the TestReport built
 	 */
 	@Override
-	public String build() {
+	public TestReport build(String testName) {
 		if(!built) {
 			appendFooter();
 			built = true;
 		}
-		return builder.toString();
+		return new TestReport(testName, builder.toString())
+				.withFormat("HTML");
 	}
 
 	/**

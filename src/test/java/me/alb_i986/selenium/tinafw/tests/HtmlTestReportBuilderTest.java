@@ -44,12 +44,13 @@ public class HtmlTestReportBuilderTest {
         out.reset();
 
         // when build
-        String htmlReport = out.build();
+        String testName = "SomeTest";
+        TestReport report = out.build(testName);
 
         //then
-        assertThat(htmlReport, allOf(startsWith("<html>"), endsWith("</html>")));
+        assertThat(report.getReport(), allOf(startsWith("<html>"), endsWith("</html>")));
         assertTrue(out.isBuilt());
-        assertEquals(htmlReport, out.build());
+        assertEquals(report.getReport(), out.build(null).getReport());
     }
 
     @Test
@@ -58,7 +59,8 @@ public class HtmlTestReportBuilderTest {
         out.reset();
 
         // when build with title
-        String actualHtml = out.withTitle("my test").build();
+        TestReport report = out.withTitle("my test").build(null);
+        String actualHtml = report.getReport();
 
         //then
         String expectedHtml = EXPECTED_HEADER +
@@ -73,7 +75,8 @@ public class HtmlTestReportBuilderTest {
         out.reset();
 
         // when build with prop
-        String actualHtml = out.withProperty("Browser", "Chrome").build();
+        TestReport report = out.withProperty("Browser", "Chrome").build(null);
+        String actualHtml = report.getReport();
 
         //then
         String expectedHtml = EXPECTED_HEADER +
@@ -88,7 +91,8 @@ public class HtmlTestReportBuilderTest {
         out.reset();
 
         // when build with page source
-        String actualHtml = out.withPageSource("<html><body><a href=\"http://www.google.com\">link to google</a></body>").build();
+        TestReport report = out.withPageSource("<html><body><a href=\"http://www.google.com\">link to google</a></body>").build(null);
+        String actualHtml = report.getReport();
 
         //then
         String expectedHtml = EXPECTED_HEADER +
@@ -103,7 +107,8 @@ public class HtmlTestReportBuilderTest {
         out.reset();
 
         // when build with screenshot
-        String actualHtml = out.withScreenshot("AsDaSd").build();
+        TestReport report = out.withScreenshot("AsDaSd").build(null);
+        String actualHtml = report.getReport();
 
         //then
         String expectedHtml = EXPECTED_HEADER +
@@ -118,7 +123,8 @@ public class HtmlTestReportBuilderTest {
         out.reset();
 
         // when build with text
-        String actualHtml = out.withText("asd asd asd").build();
+        TestReport report = out.withText("asd asd asd").build(null);
+        String actualHtml = report.getReport();
 
         //then
         String expectedHtml = EXPECTED_HEADER +
@@ -134,7 +140,8 @@ public class HtmlTestReportBuilderTest {
 
         // when build with exception
         Throwable e = new RuntimeException("outer", new RuntimeException("inner"));
-        String actualHtml = out.withStackTrace(e).build();
+        TestReport report = out.withStackTrace(e).build(null);
+        String actualHtml = report.getReport();
 
         //then
         String partialExpectedHtml = "<tr><td><table><tr><td>java.lang.RuntimeException: outer\n";

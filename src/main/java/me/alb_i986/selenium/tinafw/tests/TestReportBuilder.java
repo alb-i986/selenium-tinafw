@@ -9,7 +9,7 @@ package me.alb_i986.selenium.tinafw.tests;
  *
  * <h3>Example</h3>
  * <pre>{@code
- * String testReport =
+ * TestReport report =
  *   testReportBuilder
  *     .reset()
  *     .withTitle("Login Test")
@@ -34,14 +34,12 @@ public interface TestReportBuilder {
     TestReportBuilder reset();
 
 	/**
-	 * Finalize the report and return the String with the whole report built.
-	 * <p>
-	 * Any subsequent call to this method should return the same String previously built,
-     * until this builder is {@link #reset()}.
+	 * Finalize and return the {@link TestReport} built.
 	 *
-	 * @return the report built
+	 * @param testName
+	 * @return the {@link TestReport} built
 	 */
-	String build();
+	TestReport build(String testName);
 
 	/**
      * Add the given title to the report.
