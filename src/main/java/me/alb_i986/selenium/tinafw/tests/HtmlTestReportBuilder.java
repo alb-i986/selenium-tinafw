@@ -67,7 +67,7 @@ public class HtmlTestReportBuilder implements TestReportBuilder {
 
 	/**
 	 * Add a table row with the given page source to the report,
-	 * with syntax highlighting.
+	 * scrollable, and with syntax highlighting.
 	 *
 	 * @param pageSource
 	 * @return this
@@ -77,8 +77,11 @@ public class HtmlTestReportBuilder implements TestReportBuilder {
 		if(pageSource == null) {
 			trWithErrMsg("Page source not available. Probably the browser was closed.");
 		} else {
-			tr("<pre class=\"prettyprint\">" + StringEscapeUtils.escapeHtml4(pageSource) +
-					"</pre>");
+			tr("<div style=\"overflow: auto; height: 500px\">" +
+					"<pre class=\"prettyprint\">" +
+					StringEscapeUtils.escapeHtml4(pageSource) +
+					"</pre></div>"
+			);
 		}
 		return this;
 	}

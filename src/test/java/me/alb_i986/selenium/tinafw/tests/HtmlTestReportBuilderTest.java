@@ -96,7 +96,7 @@ public class HtmlTestReportBuilderTest {
 
         //then
         String expectedHtml = EXPECTED_HEADER +
-                "<tr><td><table><tr><td><pre class=\"prettyprint\">&lt;html&gt;&lt;body&gt;&lt;a href=&quot;http://www.google.com&quot;&gt;link to google&lt;/a&gt;&lt;/body&gt;</pre></td></tr></table></td></tr>\n" +
+                "<tr><td><table><tr><td><div style=\"overflow: auto; height: 500px\"><pre class=\"prettyprint\">&lt;html&gt;&lt;body&gt;&lt;a href=&quot;http://www.google.com&quot;&gt;link to google&lt;/a&gt;&lt;/body&gt;</pre></div></td></tr></table></td></tr>\n" +
                 EXPECTED_FOOTER;
         assertEquals(expectedHtml, actualHtml);
     }
