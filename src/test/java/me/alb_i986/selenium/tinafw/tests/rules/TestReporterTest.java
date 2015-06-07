@@ -10,63 +10,70 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+import static org.mockito.BDDMockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestReporterTest {
 
-    private MockedTestReportBuilder mockedReportBuilder;
     @Mock private TestReportWriter mockedReportWriter;
     @Mock private Browser mockedBrowser;
 
     private TestReporter out;
 
     @Test
-    public void givenNullBrowser_whenFailed() {
+    public void failed_givenNullBrowser() {
         // given
-        String testName = "Dummy Test";
-        String reportContent = "<html>dummy report content</html>";
-        TestReport testReport = new TestReport(testName, reportContent);
-        mockedReportBuilder = new MockedTestReportBuilder(testReport);
-        out = new TestReporter(mockedReportBuilder, mockedReportWriter);
+        TestReportBuilderStub reportBuilderStub = new TestReportBuilderStub(createDummyTestReport());
+        out = new TestReporter(reportBuilderStub, mockedReportWriter);
         out.setBrowser(null);
 
         // when
         Throwable dummyThrowable = new Throwable("dummy throwable");
-        Description dummyDesc = Description.createTestDescription(DummyTestClass.class, testName);
+        Description dummyDesc = Description.createTestDescription(DummyTestClass.class, "");
         out.failed(dummyThrowable, dummyDesc);
 
         // then
-        verify(mockedReportWriter).write(testReport);
+        verify(mockedReportWriter).write(reportBuilderStub.report);
     }
 
     @Test
-    public void givenNonNullBrowser_whenFailed() {
+    public void failed_givenNonNullBrowser() {
         // given
-        String testName = "Dummy Test";
-        String reportContent = "<html>dummy report content</html>";
-        TestReport testReport = new TestReport(testName, reportContent);
-        mockedReportBuilder = new MockedTestReportBuilder(testReport);
-        out = new TestReporter(mockedReportBuilder, mockedReportWriter);
+        TestReportBuilderStub reportBuilderStub = new TestReportBuilderStub(createDummyTestReport());
+        out = new TestReporter(reportBuilderStub, mockedReportWriter);
+        assertNotNull(mockedBrowser);
         out.setBrowser(mockedBrowser);
 
         // when
         Throwable dummyThrowable = new Throwable("dummy throwable");
-        Description dummyDesc = Description.createTestDescription(DummyTestClass.class, testName);
+        Description dummyDesc = Description.createTestDescription(DummyTestClass.class,
+                reportBuilderStub.report.getTestName());
         out.failed(dummyThrowable, dummyDesc);
 
         // then
-        verify(mockedReportWriter).write(testReport);
+        verify(mockedReportWriter).write(reportBuilderStub.report);
     }
 
+    private static TestReport createDummyTestReport() {
+        String testName = "Dummy Test";
+        String reportContent = "<html>dummy report content</html>";
+        return new TestReport(testName, reportContent);
+    }
 
     private static class DummyTestClass {}
 
-    private static class MockedTestReportBuilder implements TestReportBuilder {
+    /**
+     * A TestReportBuilder whose {@link #build(String)} returns the given TestReport.
+     * All other methods do nothing but return a self instance.
+     *
+     * We are not mocking this with Mockito because of the fluent interface it features.
+     */
+    private static class TestReportBuilderStub implements TestReportBuilder {
 
-        private TestReport report;
+        TestReport report;
 
-        public MockedTestReportBuilder(TestReport reportToBuild) {
+        public TestReportBuilderStub(TestReport reportToBuild) {
             this.report = reportToBuild;
         }
 
