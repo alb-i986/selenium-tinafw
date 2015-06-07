@@ -1,21 +1,23 @@
 package me.alb_i986.selenium.tinafw.tests.rules;
 
 import me.alb_i986.selenium.tinafw.domain.Browser;
-import me.alb_i986.selenium.tinafw.tests.TestReport;
 import me.alb_i986.selenium.tinafw.tests.TestReportBuilder;
-import me.alb_i986.selenium.tinafw.tests.TestHelper;
 
 import me.alb_i986.selenium.tinafw.tests.TestReportWriter;
 import org.apache.log4j.Logger;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 
 /**
- * TestRule for generating an HTML report with embedded screenshots
+ * {@link org.junit.rules.TestRule} for generating a test report with embedded screenshots
  * and page sources for each failure.
- * 
- * @see TestReportBuilder
- *
+ * <p>
+ * It relies on {@link TestReportBuilder} to generate a test report,
+ * and on {@link TestReportWriter} to actually write it.
  */
 public class TestReporter extends TestWatcher {
 
@@ -48,8 +50,8 @@ public class TestReporter extends TestWatcher {
 			reportBuilder
 					.withProperty("Browser",
 							this.browser.isOpen() ? this.browser.getType().toString() : "N/A")
-					.withScreenshot(TestHelper.getScreenshotAsBase64(this.browser.getWebDriver()))
-					.withPageSource(TestHelper.getPageSource(this.browser.getWebDriver()));
+					.withScreenshot(getScreenshotAsBase64())
+					.withPageSource(getPageSource());
 		}
 		String testName = description.getClassName() + "_" + description.getMethodName();
 		reportWriter.write(reportBuilder.build(testName));
@@ -59,4 +61,38 @@ public class TestReporter extends TestWatcher {
 		this.browser = browser;
 	}
 
+
+	/**
+	 * @return the screenshot;
+	 *         if WebDriverException is thrown, return the error message;
+	 *         or null, if the driver is null
+	 * @see TakesScreenshot#getScreenshotAs(OutputType)
+	 */
+	protected String getScreenshotAsBase64() {
+		WebDriver driver = browser.getWebDriver();
+		if(driver == null) {
+			return null;
+		}
+		try {
+			return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
+		} catch(WebDriverException e) {
+			return e.getMessage();
+		}
+	}
+
+	/**
+	 * @return a String with the page source;
+	 *         if WebDriverException is thrown, return the error message;
+	 *         or null, if the driver is null
+	 */
+	protected String getPageSource() {
+		WebDriver driver = browser.getWebDriver();
+		if(driver == null)
+			return null;
+		try {
+			return driver.getPageSource();
+		} catch(WebDriverException e) {
+			return e.getMessage();
+		}
+	}
 }
