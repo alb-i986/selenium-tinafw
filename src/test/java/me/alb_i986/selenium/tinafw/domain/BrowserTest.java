@@ -1,7 +1,7 @@
 package me.alb_i986.selenium.tinafw.domain;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
 
 import me.alb_i986.selenium.tinafw.ui.WebDriverFactory;
 import org.junit.After;
@@ -16,13 +16,13 @@ import org.openqa.selenium.WebDriver;
 public class BrowserTest {
 
 	@Mock private WebDriver mockedDriver;
-	@Mock private WebDriverFactory mockedDriverFactory;
+	@Mock private WebDriverFactory driverFactoryStub;
 
 	private Browser browser;
 
 	@Before
 	public void before() {
-		this.browser = new Browser(mockedDriverFactory);
+		this.browser = new Browser(driverFactoryStub);
 	}
 	
 	
@@ -37,9 +37,12 @@ public class BrowserTest {
 	 */
 	@Test
 	public void givenNullDriverWhenOpenBrowserThenDriverIsNotNull() {
-		when(mockedDriverFactory.getWebDriver(SupportedBrowser.HTML_UNIT)).thenReturn(mockedDriver);
+		given(driverFactoryStub.getWebDriver(any())).willReturn(mockedDriver);
 		browser.setDriver(null);
+
+		// when
 		browser.open(SupportedBrowser.HTML_UNIT);
+
 		assertNotNull(browser.getWebDriver());
 		assertTrue(browser.isOpen());
 	}
@@ -53,13 +56,11 @@ public class BrowserTest {
 	 * </ol>
 	 */
 	@Test
-	public void whenNewBrowserThenDriverShouldBeNull() {
-		browser = new Browser(mockedDriverFactory);
-		assertNull(browser.getWebDriver());
-		assertFalse(browser.isOpen());
+	public void whenNewBrowserThenBrowserShouldBeClosed() {
+		// then
+		assertBrowserIsClosed();
 	}
 
-	
 	/**
 	 * Testing post conditions of {@link Browser#close()}:
 	 * <ol>
@@ -72,9 +73,12 @@ public class BrowserTest {
 	@Test
 	public void givenNullDriverWhenCloseThenBrowserShouldBeClosed() {
 		browser.setDriver(null);
+
+		// when
 		browser.close();
-		assertFalse(browser.isOpen());
-		assertNull(browser.getWebDriver());
+
+		// then
+		assertBrowserIsClosed();
 	}
 
 	/**
@@ -89,9 +93,12 @@ public class BrowserTest {
 	@Test
 	public void givenNotNullDriverWhenCloseThenBrowserShouldBeClosed() {
 		browser.setDriver(mockedDriver);
+
+		// when
 		browser.close();
-		assertFalse(browser.isOpen());
-		assertNull(browser.getWebDriver());
+
+		// then
+		assertBrowserIsClosed();
 	}
 
 
@@ -106,5 +113,11 @@ public class BrowserTest {
 		if(driver!=null)
 			driver.quit();
 	}
+
+	private void assertBrowserIsClosed() {
+		assertNull(browser.getWebDriver());
+		assertFalse(browser.isOpen());
+	}
+
 	
 }
