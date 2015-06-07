@@ -24,13 +24,13 @@ public class MyAboutMePage extends BaseWebPage implements LoadablePage {
 
 	private static final String DOTALL_EMBEDDED_FLAG = "(?s)";
 
-	@FindBy(css = "#profile_box h1.name")
+	@FindBy(css = "h1.name")
 	private WebElement nameTitle;
 	
-	@FindBy(css = "#profile_box div.bio")
+	@FindBy(css = "div.bio")
 	private WebElement biography;
 
-	@FindBy(css = "#service-icons li.service-icon")
+	@FindBy(css = "#app-icons li.app-icon")
 	private List<WebElement> socialIcons;
 
 	@FindBy(id = "terms")
