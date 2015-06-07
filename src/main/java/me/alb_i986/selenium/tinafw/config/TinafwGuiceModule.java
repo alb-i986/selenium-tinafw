@@ -4,6 +4,10 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
+import me.alb_i986.selenium.tinafw.tests.FileTestReportWriter;
+import me.alb_i986.selenium.tinafw.tests.HtmlTestReportBuilder;
+import me.alb_i986.selenium.tinafw.tests.TestReportBuilder;
+import me.alb_i986.selenium.tinafw.tests.TestReportWriter;
 import me.alb_i986.selenium.tinafw.ui.WebDriverFactory;
 import me.alb_i986.selenium.tinafw.ui.WebDriverFactoryDecoratorImplicitWait;
 import me.alb_i986.selenium.tinafw.ui.WebDriverFactoryLocal;
@@ -16,6 +20,8 @@ public class TinafwGuiceModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(TestReportBuilder.class).to(HtmlTestReportBuilder.class);
+        bind(TestReportWriter.class).to(FileTestReportWriter.class);
     }
 
     /**

@@ -1,5 +1,6 @@
 package me.alb_i986.selenium.tinafw.tests.rules;
 
+import com.google.inject.Inject;
 import me.alb_i986.selenium.tinafw.domain.Browser;
 import me.alb_i986.selenium.tinafw.tests.TestReportBuilder;
 
@@ -27,6 +28,7 @@ public class TestReporter extends TestWatcher {
 	private final TestReportWriter reportWriter;
 	private final TestReportBuilder reportBuilder;
 
+	@Inject
 	public TestReporter(TestReportBuilder reportBuilder, TestReportWriter reportWriter) {
 		this.reportBuilder = reportBuilder;
 		this.reportWriter = reportWriter;
