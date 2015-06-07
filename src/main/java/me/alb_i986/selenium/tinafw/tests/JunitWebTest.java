@@ -29,28 +29,46 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * JunitWebTest provides a few useful JUnit Rules out of the box:
+ * JunitWebTest is supposed to be the base class for client's test classes.
+ * It provides some services allowing clients to focus on the business,
+ * i.e. writing test logic.
+ *
+ * <h2>Services provided</h2>
+ *
+ * <h3>JUnit rules</h3>
  * <ul>
  * <li>{@link TestRetrier}: retries a failing test</li>
  * <li>{@link BrowserManager}: closes the registered browsers as soon as a test finishes</li>
- * <li>{@link HtmlReporter}: generated an HTML report with screenshots</li>
+ * <li>{@link HtmlReporter}: generates an HTML report with screenshots</li>
  * <li>{@link TestWatcher}: logs the state of the running test (e.g.: "passed", "failed")</li>
  * </ul>
- * <p>
- * In order for BrowserManager to do its job, each test must
- * register every Browser it opens to the BrowserManager. E.g.:
- * <pre>
- * {@code
+ *
+ * <h3>Parametrized</h3>
+ * JunitWebTest leverages JUnit's {@link Parameterized} runner to provide the ability
+ * to run each test on many different browsers.
+ * These parameters are taken from the config (see {@link Config#getBrowsers()}).
+ *
+ * <h2>Usage</h2>
+ *
+ * <h3>Register browsers to BrowserManager</h3>
+ * Concrete test classes need to register to BrowserManager every Browser
+ * that is used by a test.
+ * For example, in a Before method:
+ * <pre>{@code
+ * &#064;Before
  * public void before() {
- * 	super.before();
- * 	user = new User();
+ * 	user = newUser();
  * 	browserManager.registerBrowsers(user.getBrowser());
  * }
- * }
- * </pre>
+ * }</pre>
+ * Here, we are assuming that each test needs only one user.
+ *
+ * <h3>Creating users</h3>
+ * In order to create a WebUser, you should use {@link #newUser()},
+ * unless you want a user with a custom Browser injected.
  * <p>
- * Also, JunitWebTest leverages JUnit's {@link Parameterized} runner to provide the ability
- * to run each test on many different browsers, which can be specified in the config file.
+ * {@link #newUser()} relies on Guice to inject a Browser.
+ * It's a nicer form than writing {@code INJECTOR.createInstance(...)}.
  */
 @RunWith(Parameterized.class)
 public abstract class JunitWebTest implements WebTest {
@@ -88,7 +106,7 @@ public abstract class JunitWebTest implements WebTest {
 	 * @see Config#getBrowsers()
 	 */
 	@Parameters(name = "{0}")
-	public static Iterable<? extends Object> browsers() {
+	public static Iterable<? extends Object> parameters() {
 		return Config.getBrowsers();
 	}
 
