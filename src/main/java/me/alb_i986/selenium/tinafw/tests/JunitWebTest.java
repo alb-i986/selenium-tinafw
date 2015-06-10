@@ -28,6 +28,8 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+import static me.alb_i986.selenium.tinafw.tests.rules.BrowserManager.*;
+
 /**
  * JunitWebTest is supposed to be the base class for client's test classes.
  * It provides some services allowing clients to focus on the business,
@@ -83,7 +85,7 @@ public abstract class JunitWebTest implements WebTest {
 			new TinafwGuiceModule());
     
     protected TestRetrier retryRule = new TestRetrier(MAX_EXECUTIONS);
-    protected BrowserManager browserManager = new BrowserManager();
+    protected BrowserManager browserManager = new BrowserManager(Config.getBrowserManagerMode());
     protected HtmlReporter htmlReporter = new HtmlReporter();
 	protected TestWatcher testLogger = new TestLogger();
 

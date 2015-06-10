@@ -5,6 +5,7 @@ import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
 import java.net.URL;
 import java.util.*;
 
+import me.alb_i986.selenium.tinafw.tests.rules.BrowserManager;
 import org.openqa.selenium.Platform;
 
 /**
@@ -119,6 +120,15 @@ public class Config {
 	 */
 	public static boolean getKeepBrowsersOpen() {
 		return Boolean.parseBoolean(getRequiredProperty(PROP_KEEP_BROWSERS_OPEN));
+	}
+
+	/**
+	 * @return the mode of the BrowserManager, based on the property {@value #PROP_KEEP_BROWSERS_OPEN}
+	 * 
+	 * @see #getKeepBrowsersOpen()
+	 */
+	public static BrowserManager.Mode getBrowserManagerMode() {
+		return getKeepBrowsersOpen() ? BrowserManager.Mode.DO_NOT_CLOSE_BROWSERS : BrowserManager.Mode.DEFAULT;
 	}
 
 	/**
