@@ -1,8 +1,6 @@
 package me.alb_i986.selenium.tinafw.tests.rules;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import me.alb_i986.selenium.tinafw.config.Config;
 import me.alb_i986.selenium.tinafw.domain.Browser;
@@ -29,7 +27,7 @@ public class BrowserManager extends ExternalResource {
 
 	protected static final Logger logger = Logger.getLogger(BrowserManager.class);
 	
-	private List<Browser> registeredBrowsers = new ArrayList<>();
+	private Set<Browser> registeredBrowsers = new HashSet<>();
 	
 	@Override
 	protected void after() {
