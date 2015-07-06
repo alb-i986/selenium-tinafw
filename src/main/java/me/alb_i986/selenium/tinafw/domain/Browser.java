@@ -21,110 +21,223 @@ import org.openqa.selenium.WebDriver;
  */
 public class Browser {
 
-	protected static final Logger logger = Logger.getLogger(Browser.class);
+	private static final Logger logger = Logger.getLogger(Browser.class);
 
 	private WebDriverFactory driverFactory;
-
-	private WebDriver driver;
-	private SupportedBrowser type;
+	private BrowserState state;
+    private SupportedBrowser type;
 
 	/**
 	 * Create a Browser and inject the given {@link WebDriverFactory}.
-	 * 
-	 * @param driverFactory
+     *
+     * @throws IllegalArgumentException if the given driverFactory is null
 	 */
 	@Inject
 	public Browser(WebDriverFactory driverFactory) {
-		if(driverFactory == null)
+		if(driverFactory == null) {
 			throw new IllegalArgumentException("The WebDriverFactory is null");
+		}
 		this.driverFactory = driverFactory;
+		state = new ClosedBrowser();
 	}
 
 	/**
 	 * Open a browser according to the given parameter,
 	 * by instantiating a {@link WebDriver}.
-	 * Do nothing if this browser was already open.
+	 * Do nothing if this browser is already open.
 	 * 
 	 * @see WebDriverFactory#getWebDriver(SupportedBrowser)
 	 */
 	public void open(SupportedBrowser browserType) {
-		if(!isOpen()) {
-			logger.info("Opening browser " + browserType);
-			this.driver = driverFactory.getWebDriver(browserType);
-			this.type = browserType;
-		}
+		state.open(browserType);
 	}
 	
 	/**
 	 * Close the browser by quitting the underlying {@link WebDriver}.
-	 * Do nothing if this browser was not open.
+	 * Do nothing if this browser is closed.
 	 * 
 	 * @see WebDriver#quit()
 	 */
 	public void close() {
-		if(isOpen()) {
-			driver.quit();
-			driver = null;
-			type = null;
-		}
+		state.close();
 	}
 	
 	/**
+     * @throws IllegalStateException in case this browser is currently closed
+     *
 	 * @see PageHelper.Navigation#browseTo(String, WebDriver)
 	 */
 	public void browseTo(String relativeUrl) {
-		assertIsOpen();
-		PageHelper.Navigation.browseTo(relativeUrl, driver);
+		state.browseTo(relativeUrl);
 	}
 
 	/**
 	 * Browse to the given {@link LoadablePage}, and return its instance.
 	 * 
 	 * @return the requested {@link LoadablePage}
-	 * 
+     *
+     * @throws IllegalStateException in case this browser is currently closed
+     *
 	 * @see LoadablePage#load(Class, WebDriver)
 	 */
 	public <T extends LoadablePage> T browseTo(Class<T> loadablePageClass) {
-		assertIsOpen();
-		return LoadablePage.load(loadablePageClass, driver);
+		return state.browseTo(loadablePageClass);
 	}
 	
 	/**
+     * @throws IllegalStateException in case this browser is currently closed
+     *
 	 * @see PageHelper.Navigation#browseBack(WebDriver)
 	 */
 	public void browseBack() {
-		assertIsOpen();
-		PageHelper.Navigation.browseBack(driver);
+		state.browseBack();
 	}
 
 	/**
-	 * @return true if driver is not null.
+	 * @return true if the underlying driver is not null.
 	 */
 	public boolean isOpen() {
-		return driver != null;
+		return state.isOpen();
 	}
-	
+
+    /**
+     * @return the underlying driver; null if this browser is currently closed.
+     */
 	public WebDriver getWebDriver() {
-		return driver;
-	}
-	
-	public SupportedBrowser getType() {
-		return type;
-	}
-	
-	/**
-	 * @throws IllegalStateException if this browser is not open
-	 */
-	private void assertIsOpen() {
-		if(!isOpen())
-			throw new IllegalStateException("The browser is not open");
+		return state.getWebDriver();
 	}
 
-	/**
-	 * Supposed to be used only by unit tests.
+    public SupportedBrowser getType() {
+        return type;
+    }
+
+    /**
+	 * State pattern
 	 */
-	void setDriver(WebDriver driver) {
-		this.driver = driver;
+	interface BrowserState {
+
+		void open(SupportedBrowser browserType);
+		void close();
+		void browseTo(String relativeUrl);
+		<T extends LoadablePage> T browseTo(Class<T> loadablePageClass);
+		void browseBack();
+		boolean isOpen();
+		WebDriver getWebDriver();
 	}
 
+	class OpenBrowser implements BrowserState {
+
+        private final WebDriver driver;
+
+        public OpenBrowser(WebDriver driver) {
+            if (driver == null) {
+                throw new IllegalArgumentException(
+                        "An open browser cannot be initialized with a null driver." +
+                        " This is likely to be a bug.");
+            }
+            this.driver = driver;
+        }
+
+        /**
+         * NOP
+         */
+        @Override
+        public void open(SupportedBrowser browserType) {
+            return;
+        }
+
+        @Override
+        public void close() {
+            driver.quit();
+            state = new ClosedBrowser();
+            type = null;
+        }
+
+        /**
+         * @see PageHelper.Navigation#browseTo(String, WebDriver)
+         */
+        @Override
+        public void browseTo(String relativeUrl) {
+            PageHelper.Navigation.browseTo(relativeUrl, driver);
+        }
+
+        /**
+         * Browse to the given {@link LoadablePage}, and return its instance.
+         *
+         * @return the requested {@link LoadablePage}
+         *
+         * @see LoadablePage#load(Class, WebDriver)
+         */
+        @Override
+        public <T extends LoadablePage> T browseTo(Class<T> loadablePageClass) {
+            return LoadablePage.load(loadablePageClass, driver);
+        }
+
+        /**
+         * @see PageHelper.Navigation#browseBack(WebDriver)
+         */
+        @Override
+        public void browseBack() {
+            PageHelper.Navigation.browseBack(driver);
+        }
+
+        /**
+         * @return true
+         */
+        @Override
+        public boolean isOpen() {
+            return true;
+        }
+
+        @Override
+        public WebDriver getWebDriver() {
+            return driver;
+        }
+    }
+
+	class ClosedBrowser implements BrowserState {
+
+        private static final String ILLEGAL_STATE_ERR_MESSAGE = "The browser is closed";
+
+        @Override
+        public void open(SupportedBrowser browserType) {
+            logger.info("Opening browser " + browserType);
+            WebDriver driver = driverFactory.getWebDriver(browserType);
+            state = new OpenBrowser(driver);
+            type = browserType;
+        }
+
+        /**
+         * No-op.
+         */
+        @Override
+        public void close() {
+            return;
+        }
+
+        @Override
+        public void browseTo(String relativeUrl) {
+            throw new IllegalStateException(ILLEGAL_STATE_ERR_MESSAGE);
+        }
+
+        @Override
+        public <T extends LoadablePage> T browseTo(Class<T> loadablePageClass) {
+            throw new IllegalStateException(ILLEGAL_STATE_ERR_MESSAGE);
+        }
+
+        @Override
+        public void browseBack() {
+            throw new IllegalStateException(ILLEGAL_STATE_ERR_MESSAGE);
+        }
+
+        @Override
+        public boolean isOpen() {
+            return false;
+        }
+
+        @Override
+        public WebDriver getWebDriver() {
+            return null;
+        }
+    }
 }

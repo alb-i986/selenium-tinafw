@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.*;
 
 import me.alb_i986.selenium.tinafw.ui.WebDriverFactory;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,58 +20,34 @@ public class BrowserTest {
 	private Browser browser;
 
 	@Before
-	public void before() {
-		this.browser = new Browser(driverFactoryStub);
-	}
-	
-	
-	/**
-	 * Testing post conditions of {@link Browser#open(SupportedBrowser)}:
-	 * <ol>
-	 * <li>Given a Browser with a null WebDriver</li>
-	 * <li>When I open {@link SupportedBrowser#HTML_UNIT}</li>
-	 * <li>Then {@link Browser#getWebDriver()} should be not null</li>
-	 * <li>And {@link Browser#isOpen()} should return true</li>
-	 * </ol>
-	 */
-	@Test
-	public void givenNullDriverWhenOpenBrowserThenDriverIsNotNull() {
+	public void setupMocks() {
 		given(driverFactoryStub.getWebDriver(any())).willReturn(mockedDriver);
-		browser.setDriver(null);
+		browser = new Browser(driverFactoryStub);
+	}
 
+	@Test
+	public void open_givenNewBrowser() {
 		// when
 		browser.open(SupportedBrowser.HTML_UNIT);
 
+		// then
 		assertNotNull(browser.getWebDriver());
 		assertTrue(browser.isOpen());
 	}
 
-	/**
-	 * Testing post conditions of {@link Browser#Browser(WebDriverFactory)}:
-	 * <ol>
-	 * <li>When I instantiate Browser</li>
-	 * <li>Then {@link Browser#getWebDriver()} should be null</li>
-	 * <li>And {@link Browser#isOpen()} should return false</li>
-	 * </ol>
-	 */
 	@Test
-	public void whenNewBrowserThenBrowserShouldBeClosed() {
+	public void close_givenClosedBrowser() {
+		// when
+		browser.close();
+
 		// then
 		assertBrowserIsClosed();
 	}
 
-	/**
-	 * Testing post conditions of {@link Browser#close()}:
-	 * <ol>
-	 * <li>Given a fresh new instance of Browser</li>
-	 * <li>When I close the browser</li>
-	 * <li>Then {@link Browser#isOpen()} should return false</li>
-	 * <li>And {@link Browser#getWebDriver()} should return null</li>
-	 * </ol>
-	 */
 	@Test
-	public void givenNullDriverWhenCloseThenBrowserShouldBeClosed() {
-		browser.setDriver(null);
+	public void close_givenOpenBrowser() {
+		// given
+		browser.open(SupportedBrowser.HTML_UNIT);
 
 		// when
 		browser.close();
@@ -81,43 +56,21 @@ public class BrowserTest {
 		assertBrowserIsClosed();
 	}
 
-	/**
-	 * Testing post conditions of {@link Browser#close()}:
-	 * <ol>
-	 * <li>Given a Browser with an initial not null WebDriver</li>
-	 * <li>When I close the browser</li>
-	 * <li>Then {@link Browser#isOpen()} should return false</li>
-	 * <li>And {@link Browser#getWebDriver()} should return null</li>
-	 * </ol>
-	 */
-	@Test
-	public void givenNotNullDriverWhenCloseThenBrowserShouldBeClosed() {
-		browser.setDriver(mockedDriver);
-
+	@Test(expected = IllegalStateException.class)
+	public void browseTo_givenClosedBrowser() {
 		// when
-		browser.close();
+		browser.browseTo("http://www.google.com");
 
-		// then
-		assertBrowserIsClosed();
+		// then exception is thrown
 	}
 
-
-	/**
-	 * Trusts (?!) {@link Browser#getWebDriver()} to return the
-	 * correct underlying WebDriver, in order to tear down
-	 * the test by quitting the driver.
-	 */
-	@After
-	public void after() {
-		WebDriver driver = this.browser.getWebDriver();
-		if(driver!=null)
-			driver.quit();
+	@Test
+	public void whenNewBrowser() {
+		assertBrowserIsClosed();
 	}
 
 	private void assertBrowserIsClosed() {
 		assertNull(browser.getWebDriver());
 		assertFalse(browser.isOpen());
 	}
-
-	
 }
