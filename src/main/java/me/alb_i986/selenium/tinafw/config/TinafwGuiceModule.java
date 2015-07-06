@@ -2,6 +2,8 @@ package me.alb_i986.selenium.tinafw.config;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
+
 import me.alb_i986.selenium.tinafw.ui.WebDriverFactory;
 import me.alb_i986.selenium.tinafw.ui.WebDriverFactoryDecoratorImplicitWait;
 import me.alb_i986.selenium.tinafw.ui.WebDriverFactoryLocal;
@@ -27,6 +29,7 @@ public class TinafwGuiceModule extends AbstractModule {
      * </ul>
      */
     @Provides
+    @Singleton
     WebDriverFactory webDriverFactoryProvider() {
         WebDriverFactory tmpFactoryFromConfig;
         URL hubURL = Config.getGridHubUrl();
