@@ -11,12 +11,12 @@ The goal is two-fold:
   - a mechanism to retry flaky tests
   - test reports with screenshots attached
 
-## Usage
-Please see the [Tutorial](https://github.com/alb-i986/selenium-tinafw/wiki/Try-it-out) on the wiki.
-
 In order to get an idea of how tests look like by using this framework, please see the [sample provided](src/main/java/me/alb_i986/selenium/tinafw/sample/).
 Start from [SampleWebTest](src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java), down to the WebTasks ([OnMyAboutMePage](src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/OnMyAboutMePage.java), [Search](src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/Search.java), [CanCompliment](src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/CanCompliment.java)), down to page objects ([SearchResultsPage](src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResultsPage.java), [SearchResult](src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResult.java), etc.)
 
+
+## Usage
+Please see the [Tutorial](https://github.com/alb-i986/selenium-tinafw/wiki/Try-it-out) on the wiki.
 
 
 ## Features
