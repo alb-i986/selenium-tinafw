@@ -36,33 +36,43 @@
 
 <p>A minimal and effective Selenium framework, not a wrapper.</p>
 
-<p>For a quick insight, please see the sample provided in the <a href="https://github.com/alb-i986/selenium-tinafw/tree/master/src/main/java/me/alb_i986/selenium/tinafw/sample/">package <em>sample</em></a>, which implements a small test suite showing all of the concepts introduced in this work.
-Start from <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java">SampleWebTest</a>, down to the WebTasks (i.e. <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/OnMyAboutMePage.java">OnMyAboutMePage</a>, <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/Search.java">Search</a>, <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/CanCompliment.java">CanCompliment</a>), down to page objects (<a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResultsPage.java">SearchResultsPage</a>, <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResult.java">SearchResult</a>, etc.)</p>
+<p>The goal is two-fold:</p>
+
+<ul>
+<li>helping manage the mess inherent in a large test suite, by providing a well-defined structure for test code (see <a href="http://alb-i986.github.io/selenium-tinafw/javadoc/me/alb_i986/selenium/tinafw/tasks/WebTask.html">WebTask</a>)</li>
+<li>helping bootstrap a test suite by providing some basic services such as:
+
+<ul>
+<li>a factory of WebDriver instances, representing either a local browser or one on a Grid, based on settings in a property file</li>
+<li>an automatic mechanism to close browsers as soon as a test terminates</li>
+<li>a mechanism to retry flaky tests</li>
+<li>test reports with screenshots attached</li>
+</ul>
+</li>
+</ul>
+
+<p>In order to get an idea of how tests look like by using this framework, please see the <a href="src/main/java/me/alb_i986/selenium/tinafw/sample/">sample provided</a>.
+Start from <a href="src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java">SampleWebTest</a>, down to the WebTasks (<a href="src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/OnMyAboutMePage.java">OnMyAboutMePage</a>, <a href="src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/Search.java">Search</a>, <a href="src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/CanCompliment.java">CanCompliment</a>), down to page objects (<a href="src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResultsPage.java">SearchResultsPage</a>, <a href="src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResult.java">SearchResult</a>, etc.)</p>
 
 <h2>
-<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p><code>selenium-tinafw</code> aspires to serve as a basis for <em>any</em> test suite/framework using <a href="http://seleniumhq.org">Selenium WebDriver</a> (Java bindings only).</p>
-
-<p>It sits on top of Selenium WebDriver and provides a number of abstractions that encourage you to write better, more focused, more maintainable, more readable code, in a structured, organized way.</p>
-
-<p>Wraps without wrapping.
-Selenium WebDriver's API is not hidden in any way.
-You could virtually access a WebDriver instance from a test class (although you are encouraged not to do so, unless you want to break cohesion).
-<em>We believe that WebDriver is such a beautiful API that it's a shame to hide it</em>.</p>
+<p>Please see the <a href="https://github.com/alb-i986/selenium-tinafw/wiki/Try-it-out">Tutorial</a> on the wiki.</p>
 
 <h2>
 <a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
 
-<p>Some of the services/features we proudly provide/offer:</p>
-
 <ul>
+<li><p>Wraps without wrapping.
+Selenium WebDriver's API is not hidden in any way.
+You could virtually access a WebDriver instance from a test class (although you are encouraged not to do so, unless you want to break cohesion).
+The idea is that <em>Selenium WebDriver has such a beautiful API that it's a shame to hide it</em>.</p></li>
 <li>
 <p><code>WebTask</code> hierarchy, the orchestrators of page objects:</p>
 
 <ul>
 <li>helps keeping your code organized: each concrete WebTask is supposed to be a <a href="http://martinfowler.com/bliki/GivenWhenThen.html">Given/When/Then step</a>)</li>
-<li>and highly readable (<a href="http://www.martinfowler.com/bliki/FluentInterface.html">fluent interface</a>): see e.g. <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java">SampleWebTest</a>
+<li>and highly readable (<a href="http://www.martinfowler.com/bliki/FluentInterface.html">fluent interface</a>): see e.g. <a href="src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java">SampleWebTest</a>
 </li>
 <li>
 <p>solves the following problem in an elegant way:</p>
@@ -80,19 +90,17 @@ How can the second task know which was the last page the first task was visiting
 creating instances of WebDriver, modeled using the decorator design pattern.</p></li>
 <li><p>BDD-style tests are not only supported but also strongly encouraged.
 You can write BDD tests by wrapping your own WebTask's in a <code>given</code> <code>when</code> or <code>then</code> task (each of which is a <code>CompositeWebTask</code>).
-See also <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tasks/WebTasks.java">WebTasks.BDD</a>
-Please see <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java">SampleWebTest</a>
+See also <a href="src/main/java/me/alb_i986/selenium/tinafw/tasks/WebTasks.java">WebTasks.BDD</a>
+Please see <a href="src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java">SampleWebTest</a>
 for an example of usage.
 For an introduction to BDD, please see the article <a href="http://dannorth.net/introducing-bdd/">Introducing BDD, by Dan North</a>.</p></li>
 <li><p>HTML reports with embedded screenshots for each failing test, thanks to
-<a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/HtmlReporter.java">HtmlReporter</a></p></li>
+<a href="src/main/java/me/alb_i986/selenium/tinafw/tests/rules/HtmlReporter.java">HtmlReporter</a></p></li>
 <li><p>the ability to run each test on many different browsers (or just one)
-by simply setting the property <code>tinafw.browsers = chrome, firefox</code></p></li>
-<li><p>the ability to retry a failed test for a given number of times (configurable).
-See <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/TestRetrier.java">TestRetrier</a></p></li>
+by simply setting a property in a file: <code>tinafw.browsers = chrome, firefox</code></p></li>
+<li><p>the ability to retry a failed test for a given number of times: see <a href="src/main/java/me/alb_i986/selenium/tinafw/tests/rules/TestRetrier.java">TestRetrier</a></p></li>
 <li><p>an automatic mechanism for closing browsers as soon as a test finishes,
-as well as the option to disable such a mechanism by setting a property.
-See <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/BrowserManager.java">BrowserManager</a></p></li>
+as well as the option to disable such a mechanism by setting a property: see <a href="src/main/java/me/alb_i986/selenium/tinafw/tests/rules/BrowserManager.java">BrowserManager</a></p></li>
 <li>
 <p>a clean directory structure, aka multilayered architecture, with:</p>
 
@@ -133,12 +141,7 @@ INFO  CompositeWebTask - END subtask Then
 </ul>
 
 <h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
-
-<p>Please see the <a href="https://github.com/alb-i986/selenium-tinafw/wiki/Getting-started">Getting started page</a> on the wiki.</p>
-
-<h2>
-<a id="a-glimpse-uml-sequence-diagrams" class="anchor" href="#a-glimpse-uml-sequence-diagrams" aria-hidden="true"><span class="octicon octicon-link"></span></a>A glimpse: UML Sequence Diagrams</h2>
+<a id="a-glimpse-of-the-internals-uml-sequence-diagrams" class="anchor" href="#a-glimpse-of-the-internals-uml-sequence-diagrams" aria-hidden="true"><span class="octicon octicon-link"></span></a>A glimpse of the internals: UML Sequence Diagrams</h2>
 
 <p><img src="uml_diagrams/openBrowser.jpg" alt="Open browser SD"></p>
 
@@ -159,7 +162,7 @@ INFO  CompositeWebTask - END subtask Then
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
 
 <ul>
-<li>Java 8 (see e.g. <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/ui/LoadablePage.java">LoadablePage</a>, which makes use of <a href="http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html">static methods in interfaces</a>)</li>
+<li>Java 8 (see e.g. <a href="src/main/java/me/alb_i986/selenium/tinafw/ui/LoadablePage.java">LoadablePage</a>, which makes use of <a href="http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html">static methods in interfaces</a>)</li>
 <li>Maven</li>
 <li>Graphviz</li>
 </ul>
@@ -177,13 +180,15 @@ INFO  CompositeWebTask - END subtask Then
 <li>log4j</li>
 </ul>
 
-<p>Please see the <a href="https://github.com/alb-i986/selenium-tinafw/blob/master/pom.xml">POM file</a> for more details.</p>
+<p>Please see the <a href="pom.xml">POM file</a> for more details.</p>
 
 <h2>
 <a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h2>
 
 <ul>
-<li>add <code>PageComponent</code> hierarchy (soon to be available)</li>
+<li>redesign Config</li>
+<li>cleanup by leveraging Guice</li>
+<li>add <code>PageComponent</code> hierarchy</li>
 <li>make it a data-driven framework</li>
 </ul>
       </section>
