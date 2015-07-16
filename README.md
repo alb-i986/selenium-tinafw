@@ -3,28 +3,32 @@ selenium-tinafw
 
 A minimal and effective Selenium framework, not a wrapper.
 
-For a quick insight, please see the sample provided in the [package _sample_](https://github.com/alb-i986/selenium-tinafw/tree/master/src/main/java/me/alb_i986/selenium/tinafw/sample/), which implements a small test suite showing all of the concepts introduced in this work.
-Start from [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java), down to the WebTasks (i.e. [OnMyAboutMePage](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/OnMyAboutMePage.java), [Search](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/Search.java), [CanCompliment](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/CanCompliment.java)), down to page objects ([SearchResultsPage](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResultsPage.java), [SearchResult](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResult.java), etc.)
+The goal is two-fold:
+- helping manage the mess inherent in a large test suite, by providing a well-defined structure for test code (see [WebTask](http://alb-i986.github.io/selenium-tinafw/javadoc/me/alb_i986/selenium/tinafw/tasks/WebTask.html))
+- helping bootstrap a test suite by providing some basic services such as:
+  - a factory of WebDriver instances, representing either a local browser or one on a Grid, based on settings in a property file
+  - an automatic mechanism to close browsers as soon as a test terminates
+  - a mechanism to retry flaky tests
+  - test reports with screenshots attached
 
-## Overview
+## Usage
+Please see the [Tutorial](https://github.com/alb-i986/selenium-tinafw/wiki/Try-it-out) on the wiki.
 
-`selenium-tinafw` aspires to serve as a basis for _any_ test suite/framework using [Selenium WebDriver](http://seleniumhq.org) (Java bindings only).
+In order to get an idea of how tests look like by using this framework, please see the [sample provided](src/main/java/me/alb_i986/selenium/tinafw/sample/).
+Start from [SampleWebTest](src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java), down to the WebTasks ([OnMyAboutMePage](src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/OnMyAboutMePage.java), [Search](src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/Search.java), [CanCompliment](src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/CanCompliment.java)), down to page objects ([SearchResultsPage](src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResultsPage.java), [SearchResult](src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResult.java), etc.)
 
-It sits on top of Selenium WebDriver and provides a number of abstractions that encourage you to write better, more focused, more maintainable, more readable code, in a structured, organized way.
-
-Wraps without wrapping.
-Selenium WebDriver's API is not hidden in any way.
-You could virtually access a WebDriver instance from a test class (although you are encouraged not to do so, unless you want to break cohesion).
-_We believe that WebDriver is such a beautiful API that it's a shame to hide it_.
 
 
 ## Features
 
-Some of the services/features we proudly provide/offer:
+- Wraps without wrapping.
+  Selenium WebDriver's API is not hidden in any way.
+  You could virtually access a WebDriver instance from a test class (although you are encouraged not to do so, unless you want to break cohesion).
+  The idea is that _Selenium WebDriver has such a beautiful API that it's a shame to hide it_.
 
 - `WebTask` hierarchy, the orchestrators of page objects:
   - helps keeping your code organized: each concrete WebTask is supposed to be a [Given/When/Then step](http://martinfowler.com/bliki/GivenWhenThen.html))
-  - and highly readable ([fluent interface](http://www.martinfowler.com/bliki/FluentInterface.html)): see e.g. [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
+  - and highly readable ([fluent interface](http://www.martinfowler.com/bliki/FluentInterface.html)): see e.g. [SampleWebTest](src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
   - solves the following problem in an elegant way:
 
     > Given two tasks that run sequentially, the first does something and ends at a certain page.
@@ -37,23 +41,21 @@ Some of the services/features we proudly provide/offer:
 
 - BDD-style tests are not only supported but also strongly encouraged.
   You can write BDD tests by wrapping your own WebTask's in a `given` `when` or `then` task (each of which is a `CompositeWebTask`).
-  See also [WebTasks.BDD](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tasks/WebTasks.java)
-  Please see [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
+  See also [WebTasks.BDD](src/main/java/me/alb_i986/selenium/tinafw/tasks/WebTasks.java)
+  Please see [SampleWebTest](src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
   for an example of usage.
   For an introduction to BDD, please see the article [Introducing BDD, by Dan North](http://dannorth.net/introducing-bdd/).
 
 - HTML reports with embedded screenshots for each failing test, thanks to
-  [HtmlReporter](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/HtmlReporter.java)
+  [HtmlReporter](src/main/java/me/alb_i986/selenium/tinafw/tests/rules/HtmlReporter.java)
   
 - the ability to run each test on many different browsers (or just one)
-  by simply setting the property `tinafw.browsers = chrome, firefox`
+  by simply setting a property in a file: `tinafw.browsers = chrome, firefox`
   
-- the ability to retry a failed test for a given number of times (configurable).
-  See [TestRetrier](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/TestRetrier.java)
+- the ability to retry a failed test for a given number of times: see [TestRetrier](src/main/java/me/alb_i986/selenium/tinafw/tests/rules/TestRetrier.java)
   
 - an automatic mechanism for closing browsers as soon as a test finishes,
-  as well as the option to disable such a mechanism by setting a property.
-  See [BrowserManager](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/BrowserManager.java)
+  as well as the option to disable such a mechanism by setting a property: see [BrowserManager](src/main/java/me/alb_i986/selenium/tinafw/tests/rules/BrowserManager.java)
 
 - a clean directory structure, aka multilayered architecture, with:
   - the _tests_ layer, for keeping your test cases along with their data
@@ -84,12 +86,7 @@ Some of the services/features we proudly provide/offer:
 		INFO  CompositeWebTask - END subtask CanCompliment
 		INFO  CompositeWebTask - END subtask Then
 
-
-## Usage
-
-Please see the [Getting started page](https://github.com/alb-i986/selenium-tinafw/wiki/Getting-started) on the wiki.
-
-## A glimpse: UML Sequence Diagrams
+## A glimpse of the internals: UML Sequence Diagrams
 
 ![Open browser SD](doc/uml/openBrowser.jpg)
 
@@ -107,7 +104,7 @@ Please see the [Getting started page](https://github.com/alb-i986/selenium-tinaf
 
 ## Requirements
 
-- Java 8 (see e.g. [LoadablePage](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/ui/LoadablePage.java), which makes use of [static methods in interfaces](http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html))
+- Java 8 (see e.g. [LoadablePage](src/main/java/me/alb_i986/selenium/tinafw/ui/LoadablePage.java), which makes use of [static methods in interfaces](http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html))
 - Maven
 - Graphviz
 
@@ -121,10 +118,12 @@ The main dependencies are:
 - junit
 - log4j
 
-Please see the [POM file](https://github.com/alb-i986/selenium-tinafw/blob/master/pom.xml) for more details.
+Please see the [POM file](pom.xml) for more details.
 
 
 ## TODO
 
-- add `PageComponent` hierarchy (soon to be available)
+- redesign Config
+- cleanup by leveraging Guice
+- add `PageComponent` hierarchy
 - make it a data-driven framework
