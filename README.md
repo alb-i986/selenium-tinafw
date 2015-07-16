@@ -90,6 +90,12 @@ Some of the services/features we proudly provide/offer:
 
 Please see the [Getting started page](https://github.com/alb-i986/selenium-tinafw/wiki/Getting-started) on the wiki.
 
+## A glimpse: UML Sequence Diagrams
+
+![Open browser SD](doc/uml/openBrowser.jpg)
+
+![Login SD](doc/uml/doLoginTask.jpg)
+
  
 ## Design goals
 
