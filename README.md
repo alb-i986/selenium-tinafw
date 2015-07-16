@@ -34,7 +34,6 @@ Some of the services/features we proudly provide/offer:
 
 - `WebDriverFactory` hierarchy: elegant solution solving the problem of
   creating instances of WebDriver, modeled using the decorator design pattern.
-  E.g. see [how it allows us to solve the problem of handling the certificate error on IE](http://git.io/YQUJfw)
 
 - BDD-style tests are not only supported but also strongly encouraged.
   You can write BDD tests by wrapping your own WebTask's in a `given` `when` or `then` task (each of which is a `CompositeWebTask`).
