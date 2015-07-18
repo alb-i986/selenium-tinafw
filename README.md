@@ -11,8 +11,8 @@ The goal is two-fold:
   - a mechanism to retry flaky tests
   - test reports with screenshots attached
 
-In order to get an idea of how tests look like by using this framework, please see the [sample provided](src/main/java/me/alb_i986/selenium/tinafw/sample/).
-Start from [SampleWebTest](src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java), down to the WebTasks ([OnMyAboutMePage](src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/OnMyAboutMePage.java), [Search](src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/Search.java), [CanCompliment](src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/CanCompliment.java)), down to page objects ([SearchResultsPage](src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResultsPage.java), [SearchResult](src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResult.java), etc.)
+In order to get an idea of how tests look like by using this framework, please see the [sample provided](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/).
+Start from [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java), down to the WebTasks ([OnMyAboutMePage](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/OnMyAboutMePage.java), [Search](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/Search.java), [CanCompliment](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tasks/CanCompliment.java)), down to page objects ([SearchResultsPage](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResultsPage.java), [SearchResult](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/ui/SearchResult.java), etc.)
 
 
 ## Usage
@@ -28,7 +28,7 @@ Please see the [Tutorial](https://github.com/alb-i986/selenium-tinafw/wiki/Try-i
 
 - `WebTask` hierarchy, the orchestrators of page objects:
   - helps keeping your code organized: each concrete WebTask is supposed to be a [Given/When/Then step](http://martinfowler.com/bliki/GivenWhenThen.html))
-  - and highly readable ([fluent interface](http://www.martinfowler.com/bliki/FluentInterface.html)): see e.g. [SampleWebTest](src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
+  - and highly readable ([fluent interface](http://www.martinfowler.com/bliki/FluentInterface.html)): see e.g. [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
   - solves the following problem in an elegant way:
 
     > Given two tasks that run sequentially, the first does something and ends at a certain page.
@@ -41,21 +41,21 @@ Please see the [Tutorial](https://github.com/alb-i986/selenium-tinafw/wiki/Try-i
 
 - BDD-style tests are not only supported but also strongly encouraged.
   You can write BDD tests by wrapping your own WebTask's in a `given` `when` or `then` task (each of which is a `CompositeWebTask`).
-  See also [WebTasks.BDD](src/main/java/me/alb_i986/selenium/tinafw/tasks/WebTasks.java)
-  Please see [SampleWebTest](src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
+  See also [WebTasks.BDD](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tasks/WebTasks.java)
+  Please see [SampleWebTest](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/sample/tests/SampleWebTest.java)
   for an example of usage.
   For an introduction to BDD, please see the article [Introducing BDD, by Dan North](http://dannorth.net/introducing-bdd/).
 
 - HTML reports with embedded screenshots for each failing test, thanks to
-  [HtmlReporter](src/main/java/me/alb_i986/selenium/tinafw/tests/rules/HtmlReporter.java)
+  [HtmlReporter](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/HtmlReporter.java)
   
 - the ability to run each test on many different browsers (or just one)
   by simply setting a property in a file: `tinafw.browsers = chrome, firefox`
   
-- the ability to retry a failed test for a given number of times: see [TestRetrier](src/main/java/me/alb_i986/selenium/tinafw/tests/rules/TestRetrier.java)
+- the ability to retry a failed test for a given number of times: see [TestRetrier](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/TestRetrier.java)
   
 - an automatic mechanism for closing browsers as soon as a test finishes,
-  as well as the option to disable such a mechanism by setting a property: see [BrowserManager](src/main/java/me/alb_i986/selenium/tinafw/tests/rules/BrowserManager.java)
+  as well as the option to disable such a mechanism by setting a property: see [BrowserManager](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/tests/rules/BrowserManager.java)
 
 - a clean directory structure, aka multilayered architecture, with:
   - the _tests_ layer, for keeping your test cases along with their data
@@ -104,7 +104,7 @@ Please see the [Tutorial](https://github.com/alb-i986/selenium-tinafw/wiki/Try-i
 
 ## Requirements
 
-- Java 8 (see e.g. [LoadablePage](src/main/java/me/alb_i986/selenium/tinafw/ui/LoadablePage.java), which makes use of [static methods in interfaces](http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html))
+- Java 8 (see e.g. [LoadablePage](https://github.com/alb-i986/selenium-tinafw/blob/master/src/main/java/me/alb_i986/selenium/tinafw/ui/LoadablePage.java), which makes use of [static methods in interfaces](http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html))
 - Maven
 - Graphviz
 
