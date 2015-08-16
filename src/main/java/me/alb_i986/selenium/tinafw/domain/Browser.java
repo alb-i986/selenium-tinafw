@@ -19,7 +19,7 @@ import org.openqa.selenium.WebDriver;
  * of browsers (one for each pair of calls to {@link #open(SupportedBrowser)}
  * and {@link #close()}).
  */
-public class Browser {
+public class Browser implements AutoCloseable {
 
 	private static final Logger logger = Logger.getLogger(Browser.class);
 
@@ -58,6 +58,7 @@ public class Browser {
 	 * 
 	 * @see WebDriver#quit()
 	 */
+    @Override
 	public void close() {
 		state.close();
 	}
