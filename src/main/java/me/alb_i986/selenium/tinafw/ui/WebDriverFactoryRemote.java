@@ -27,24 +27,24 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class WebDriverFactoryRemote implements WebDriverFactory {
 
 	private URL gridHubURL;
-	private DesiredCapabilities desiredCapabilities;
+	private DesiredCapabilities extraCapabilities;
 
 	/**
 	 * A factory creating {@link WebDriver}s matching the given set of extra,
 	 * desired capabilities
-	 * (see also {@link RemoteWebDriver#RemoteWebDriver(URL, Capabilities, Capabilities)}).
+	 * (see also {@link RemoteWebDriver#RemoteWebDriver(URL, Capabilities)}).
 	 * 
 	 * @param hubURL
-	 * @param desiredCapabilities
+	 * @param extraCapabilities
 	 * 
 	 * @throws IllegalArgumentException if the desired capabilities specify
 	 *         a {@link CapabilityType#BROWSER_NAME}
 	 */
-	public WebDriverFactoryRemote(URL hubURL, DesiredCapabilities desiredCapabilities) {
+	public WebDriverFactoryRemote(URL hubURL, DesiredCapabilities extraCapabilities) {
 		this(hubURL);
-		if(browserNameIsSpecifiedIn(desiredCapabilities))
+		if(extraCapabilities.is(CapabilityType.BROWSER_NAME))
 			throw new IllegalArgumentException("Desired capabilities cannot specify a browser name");
-		this.desiredCapabilities = desiredCapabilities;
+		this.extraCapabilities = extraCapabilities;
 	}
 
 	/**
@@ -58,14 +58,11 @@ public class WebDriverFactoryRemote implements WebDriverFactory {
 
 	@Override
 	public WebDriver getWebDriver(SupportedBrowser browserType) {
-		RemoteWebDriver remoteDriver = new RemoteWebDriver(gridHubURL,
-				desiredCapabilities, browserType.toCapabilities());
+		DesiredCapabilities capabilities = browserType.toCapabilities();
+		capabilities.merge(extraCapabilities);
+		RemoteWebDriver remoteDriver = new RemoteWebDriver(gridHubURL, capabilities);
 		remoteDriver.setFileDetector(new LocalFileDetector());
 		return remoteDriver;
-	}
-	
-	private boolean browserNameIsSpecifiedIn(Capabilities capabilities) {
-		return capabilities.getCapability(CapabilityType.BROWSER_NAME) != null;
 	}
 
 }
