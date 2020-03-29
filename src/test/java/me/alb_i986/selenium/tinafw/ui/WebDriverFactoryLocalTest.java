@@ -41,41 +41,22 @@ public class WebDriverFactoryLocalTest {
 
 	@Test
 	public void getWebDriver() {
-		assumeThat(supportedBrowser.toClass(), hasZeroArgConstructor());
-
-		// when
 		try {
+			// when
 			driver = sut.getWebDriver(supportedBrowser);
-		} catch (Throwable t) {
-			if (supportedBrowser == SupportedBrowser.HTML_UNIT) {
-				throw t;
-			}
+
+			// then
+			assertNotNull(driver);
+			assertThat(driver, is(instanceOf(supportedBrowser.toClass())));
+
+		} catch (Exception e) {
 			// let's consider any exception (but html unit) as an environment issue
 			// E.g.: get IEDriver fails because we are not on Windows
-			assumeNoException(t);
+			if (supportedBrowser == SupportedBrowser.HTML_UNIT) {
+				throw e;
+			} else {
+				assumeNoException(e);
+			}
 		}
-
-		// then
-		assertNotNull(driver);
-		assertThat(driver, is(instanceOf(supportedBrowser.toClass())));
-	}
-
-	private static Matcher<Class<?>> hasZeroArgConstructor() {
-		return new TypeSafeMatcher<Class<?>>() {
-			@Override
-			protected boolean matchesSafely(Class<?> aClass) {
-				try {
-					aClass.getConstructor();
-					return true;
-				} catch (NoSuchMethodException e) {
-					return false;
-				}
-			}
-
-			@Override
-			public void describeTo(Description description) {
-				description.appendText("has a 0-arg constructor");
-			}
-		};
 	}
 }
