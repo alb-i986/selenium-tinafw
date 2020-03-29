@@ -1,10 +1,11 @@
 package me.alb_i986.selenium.tinafw.tasks;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+
 import me.alb_i986.selenium.tinafw.domain.Browser;
 import me.alb_i986.selenium.tinafw.domain.WebUser;
-
-import org.apache.log4j.Logger;
-import org.openqa.selenium.WebDriver;
 
 /**
  * Abstract WebTask responsible for knowing the 'who',
@@ -12,7 +13,7 @@ import org.openqa.selenium.WebDriver;
  */
 public abstract class BaseWebTask implements WebTask {
 	
-	protected static final Logger logger = Logger.getLogger(WebTask.class);
+	protected static final Logger logger = LogManager.getLogger(WebTask.class);
 	
 	protected WebUser user;
 	

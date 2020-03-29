@@ -1,11 +1,19 @@
 package me.alb_i986.selenium.tinafw.ui;
 
-import me.alb_i986.selenium.tinafw.config.Config;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import org.apache.log4j.Logger;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.*;
-import org.openqa.selenium.support.ui.*;
+import me.alb_i986.selenium.tinafw.config.Config;
 
 
 /**
@@ -17,7 +25,7 @@ import org.openqa.selenium.support.ui.*;
  */
 public class PageHelper {
 
-	private static final Logger logger = Logger.getLogger(PageHelper.class);
+	private static final Logger logger = LogManager.getLogger(PageHelper.class);
 
 	/**
 	 * The default timeout in seconds used by

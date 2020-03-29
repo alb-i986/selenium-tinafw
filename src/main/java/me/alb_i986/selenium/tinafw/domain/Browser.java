@@ -1,10 +1,14 @@
 package me.alb_i986.selenium.tinafw.domain;
 
 import com.google.inject.Inject;
-import me.alb_i986.selenium.tinafw.ui.*;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+
+import me.alb_i986.selenium.tinafw.ui.LoadablePage;
+import me.alb_i986.selenium.tinafw.ui.PageHelper;
+import me.alb_i986.selenium.tinafw.ui.WebDriverFactory;
 
 /**
  * A Browser can be opened and closed, and can be used to browse to some page.
@@ -21,7 +25,7 @@ import org.openqa.selenium.WebDriver;
  */
 public class Browser implements AutoCloseable {
 
-	private static final Logger logger = Logger.getLogger(Browser.class);
+	private static final Logger logger = LogManager.getLogger(Browser.class);
 
 	private WebDriverFactory driverFactory;
 	private BrowserState state;

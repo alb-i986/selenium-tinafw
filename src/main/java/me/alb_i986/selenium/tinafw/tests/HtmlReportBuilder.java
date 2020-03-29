@@ -1,10 +1,11 @@
 package me.alb_i986.selenium.tinafw.tests;
 
-import java.io.PrintWriter;
-
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.TakesScreenshot;
+
+import java.io.PrintWriter;
 
 /**
  * Encapsulates the logic for generating the HTML of a report.
@@ -24,7 +25,7 @@ import org.openqa.selenium.TakesScreenshot;
  */
 public class HtmlReportBuilder {
 
-	protected static final Logger logger = Logger.getLogger(HtmlReportBuilder.class);
+	protected static final Logger logger = LogManager.getLogger(HtmlReportBuilder.class);
 	
 	private PrintWriter writer;
 	

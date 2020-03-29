@@ -1,6 +1,7 @@
 package me.alb_i986.selenium.tinafw.config;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +12,7 @@ import java.util.Properties;
  */
 public class PropertyLoaderFromResource extends PropertyLoader {
 
-	private static final Logger logger = Logger.getLogger(PropertyLoaderFromResource.class);
+	private static final Logger logger = LogManager.getLogger(PropertyLoaderFromResource.class);
 
 	private Properties propsFromResource;
 

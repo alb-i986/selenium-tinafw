@@ -1,6 +1,7 @@
 package me.alb_i986.selenium.tinafw.tests.rules;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
@@ -13,7 +14,7 @@ import org.junit.runners.model.Statement;
  */
 public class TestRetrier implements TestRule {
 
-	protected static final Logger logger = Logger.getLogger(TestRetrier.class);
+	protected static final Logger logger = LogManager.getLogger(TestRetrier.class);
 	
 	private int maxExecutions;
 

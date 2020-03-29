@@ -1,7 +1,9 @@
 package me.alb_i986.selenium.tinafw.domain;
 
 import com.google.inject.Inject;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import me.alb_i986.selenium.tinafw.tasks.CompositeWebTask;
 import me.alb_i986.selenium.tinafw.tasks.WebTask;
@@ -41,7 +43,7 @@ import me.alb_i986.selenium.tinafw.ui.WebPage;
  */
 public class WebUser<T extends WebUser<?>> {
 
-	protected static final Logger logger = Logger.getLogger(WebUser.class);
+	protected static final Logger logger = LogManager.getLogger(WebUser.class);
 	
 	private SupportedBrowser browserType;
 	

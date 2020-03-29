@@ -1,11 +1,14 @@
 package me.alb_i986.selenium.tinafw.ui;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.openqa.selenium.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
 
 /**
  * Abstract class representing a generic page.
@@ -20,7 +23,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  */
 public abstract class BaseWebPage implements WebPage {
 
-	protected static final Logger logger = Logger.getLogger(WebPage.class);
+	protected static final Logger logger = LogManager.getLogger(WebPage.class);
 
 	protected WebDriver driver;
 	protected WebPage previousPage;

@@ -1,11 +1,14 @@
 package me.alb_i986.selenium.tinafw.tests.rules;
 
-import java.util.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.rules.ExternalResource;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import me.alb_i986.selenium.tinafw.domain.Browser;
-
-import org.apache.log4j.Logger;
-import org.junit.rules.ExternalResource;
 
 /**
  * JUnit Rule responsible for closing all registered browsers
@@ -36,7 +39,7 @@ import org.junit.rules.ExternalResource;
  */
 public class BrowserManager extends ExternalResource {
 
-	protected static final Logger logger = Logger.getLogger(BrowserManager.class);
+	protected static final Logger logger = LogManager.getLogger(BrowserManager.class);
 	
 	protected Set<Browser> registeredBrowsers = new HashSet<>();
 	private Mode mode;

@@ -1,5 +1,12 @@
 package me.alb_i986.selenium.tinafw.tests.rules;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
@@ -12,12 +19,6 @@ import me.alb_i986.selenium.tinafw.config.Config;
 import me.alb_i986.selenium.tinafw.domain.Browser;
 import me.alb_i986.selenium.tinafw.tests.HtmlReportBuilder;
 import me.alb_i986.selenium.tinafw.tests.TestHelper;
-
-import org.apache.log4j.Logger;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 
 /**
  * TestRule for generating an HTML report with embedded screenshots
@@ -33,7 +34,7 @@ public class HtmlReporter extends TestWatcher {
 	 */
 	private static final String REPORTS_DIR = Config.getReportsDir();
 
-	protected static final Logger logger = Logger.getLogger(HtmlReporter.class);
+	protected static final Logger logger = LogManager.getLogger(HtmlReporter.class);
 	
 	private Browser browser;
 	private PrintWriter writer;

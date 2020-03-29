@@ -1,11 +1,12 @@
 package me.alb_i986.selenium.tinafw.tests.rules;
 
-import me.alb_i986.selenium.tinafw.tests.WebTest;
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import me.alb_i986.selenium.tinafw.tests.WebTest;
 
 /**
  * Reports the status of the running test (starting/passed/failed/skipped) to a {@link Logger}.
@@ -13,7 +14,7 @@ import org.junit.runner.Description;
  */
 public class TestLogger extends TestWatcher {
 	
-	protected static final Logger logger = Logger.getLogger(WebTest.class);
+	protected static final Logger logger = LogManager.getLogger(WebTest.class);
 	
 	@Override
 	protected void skipped(AssumptionViolatedException e, Description description) {

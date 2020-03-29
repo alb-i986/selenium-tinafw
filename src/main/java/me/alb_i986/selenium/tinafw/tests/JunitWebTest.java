@@ -1,22 +1,11 @@
 package me.alb_i986.selenium.tinafw.tests;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
-import me.alb_i986.selenium.tinafw.config.Config;
-import me.alb_i986.selenium.tinafw.config.TinafwGuiceModule;
-import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
-import me.alb_i986.selenium.tinafw.domain.WebUser;
-import me.alb_i986.selenium.tinafw.tests.rules.BrowserManager;
-import me.alb_i986.selenium.tinafw.tests.rules.HtmlReporter;
-import me.alb_i986.selenium.tinafw.tests.rules.TestLogger;
-import me.alb_i986.selenium.tinafw.tests.rules.TestRetrier;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -28,7 +17,14 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
-import static me.alb_i986.selenium.tinafw.tests.rules.BrowserManager.*;
+import me.alb_i986.selenium.tinafw.config.Config;
+import me.alb_i986.selenium.tinafw.config.TinafwGuiceModule;
+import me.alb_i986.selenium.tinafw.domain.SupportedBrowser;
+import me.alb_i986.selenium.tinafw.domain.WebUser;
+import me.alb_i986.selenium.tinafw.tests.rules.BrowserManager;
+import me.alb_i986.selenium.tinafw.tests.rules.HtmlReporter;
+import me.alb_i986.selenium.tinafw.tests.rules.TestLogger;
+import me.alb_i986.selenium.tinafw.tests.rules.TestRetrier;
 
 /**
  * JunitWebTest is supposed to be the base class for client's test classes.
@@ -80,7 +76,7 @@ public abstract class JunitWebTest implements WebTest {
 	 */
 	public static final int MAX_EXECUTIONS = Config.getMaxExecutions();
 	
-	protected static final Logger logger = Logger.getLogger(JunitWebTest.class);
+	protected static final Logger logger = LogManager.getLogger(JunitWebTest.class);
 	private static final Injector INJECTOR = Guice.createInjector(Stage.PRODUCTION,
 			new TinafwGuiceModule());
     
