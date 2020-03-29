@@ -18,7 +18,7 @@ public class TestLogger extends TestWatcher {
 	
 	@Override
 	protected void skipped(AssumptionViolatedException e, Description description) {
-		logger.info("END test: SKIPPED > " + description.getDisplayName() + " -- cause: " + e.getMessage());
+		logger.info("END test: " + TestStatus.SKIPPED + " > " + description.getDisplayName() + " -- cause: " + e.getMessage());
 	}
 
 	@Override
